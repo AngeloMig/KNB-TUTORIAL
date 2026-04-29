@@ -20,5 +20,9 @@ Examples:
 - assets/shopify/devtroubleshooting-versions.png
 - assets/shopify/githubsetup-ask-first.png
 - assets/shopify/githubworkflow-commit.png
+- assets/shopify/bembasics-block.png
+- assets/shopify/bemmedium-map.png
+- assets/shopify/scssbasics-element.png
+- assets/shopify/scsspro-structure.png
 
 If a screenshot is missing, the module keeps showing the designed placeholder.

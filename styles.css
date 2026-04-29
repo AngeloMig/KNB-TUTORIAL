@@ -4303,22 +4303,33 @@ body.trainer-mode .step-trainer-note {
   color: #ffffff;
 }
 
+.tool-tag.code {
+  background: #7c3aed;
+  color: #ffffff;
+}
+
 .filter-chip[data-filter="dev"].is-active {
   background: #1f2937;
   color: #ffffff;
   border-color: #1f2937;
 }
 
+.filter-chip[data-filter="code"].is-active {
+  background: #5b21b6;
+  color: #ffffff;
+  border-color: #5b21b6;
+}
+
 .completion-dashboard .learning-path {
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: repeat(7, minmax(0, 1fr));
 }
 
 .path-list {
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
 }
 
 .template-grid {
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
 }
 
 .store-access-card strong {

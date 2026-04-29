@@ -53,6 +53,7 @@
             <button class="filter-chip" type="button" data-filter="theme">Customizer</button>
             <button class="filter-chip" type="button" data-filter="products">Products</button>
             <button class="filter-chip" type="button" data-filter="dev">VS Code / CLI</button>
+            <button class="filter-chip" type="button" data-filter="code">Coding</button>
           </div>
 
           <div class="progress-panel">
@@ -83,8 +84,8 @@
                 Start with admin navigation, then move into VS Code, npm, Git, and Shopify CLI theme work.
               </p>
               <div class="hero-metrics" aria-label="Training highlights">
-                <span><strong>14</strong> guided popups</span>
-                <span><strong>15</strong> modules</span>
+                <span><strong>18</strong> guided popups</span>
+                <span><strong>19</strong> modules</span>
                 <span><strong>Saved</strong> progress</span>
               </div>
               <div class="hero-actions">
@@ -99,7 +100,7 @@
               </div>
             </div>
             <img
-              src="https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?auto=format&fit=crop&w=900&q=80"
+              src="https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?auto=format&amp;fit=crop&amp;w=900&amp;q=80"
               alt="Ecommerce team reviewing an online store dashboard"
             />
           </div>
@@ -108,7 +109,7 @@
             <div class="completion-summary">
               <div>
                 <p class="section-kicker">Training progress</p>
-                <h2 id="completionDashboardTitle">0 of 14 guided modules complete</h2>
+                <h2 id="completionDashboardTitle">0 of 18 guided modules complete</h2>
                 <p id="nextRecommendedModule">Next recommended: Dashboard Tour.</p>
               </div>
               <button class="continue-button" type="button" id="continueModuleButton">
@@ -119,7 +120,7 @@
             <div class="completion-stats">
               <span><strong id="completedModulesCount">0</strong> complete</span>
               <span><strong id="inProgressModulesCount">0</strong> in progress</span>
-              <span><strong id="notStartedModulesCount">14</strong> not started</span>
+              <span><strong id="notStartedModulesCount">18</strong> not started</span>
             </div>
             <div class="learning-path" aria-label="Beginner path progress">
               <div data-tour-keys="dashboard">
@@ -152,13 +153,18 @@
                 <strong>GitHub workflow</strong>
                 <small>Sync, commit, push, review</small>
               </div>
+              <div data-tour-keys="bemBasics,bemMedium,scssBasics,scssPro">
+                <span class="path-step">07</span>
+                <strong>BEM and SCSS</strong>
+                <small>Write maintainable CSS</small>
+              </div>
             </div>
           </section>
 
           <div class="toolbar">
             <div>
               <p class="section-kicker">Training modules</p>
-              <h2 id="resultCount">15 modules</h2>
+              <h2 id="resultCount">19 modules</h2>
             </div>
             <div class="view-tabs" role="tablist" aria-label="View mode">
               <button class="is-active" type="button" aria-selected="true" data-view="beginner">Beginner</button>
@@ -173,7 +179,7 @@
           <div class="detail-image">
             <img
               id="detailImage"
-              src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80"
+              src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&amp;fit=crop&amp;w=800&amp;q=80"
               alt="Online shopping dashboard"
             />
           </div>
@@ -250,6 +256,11 @@
             <h3>5. GitHub Desktop</h3>
             <p>Confirm supervisor access, clone the assigned repo, pull first, commit clearly, push, and ask for review.</p>
           </article>
+          <article>
+            <i data-lucide="code-2"></i>
+            <h3>6. BEM and SCSS</h3>
+            <p>Learn naming conventions, SCSS nesting, ampersand modifiers, architecture, and CSS review standards.</p>
+          </article>
         </div>
       </section>
 
@@ -270,6 +281,9 @@
           <label><input type="checkbox" /> Ask the supervisor for GitHub account, password, 2FA, repo, and branch access</label>
           <label><input type="checkbox" /> Clone the assigned repository with GitHub Desktop</label>
           <label><input type="checkbox" /> Pull, commit, push, and request review safely</label>
+          <label><input type="checkbox" /> Name CSS with BEM blocks, elements, and modifiers</label>
+          <label><input type="checkbox" /> Use SCSS &amp;__element, &amp;--modifier, and &amp;:hover correctly</label>
+          <label><input type="checkbox" /> Review SCSS nesting, tokens, mixins, and compiled CSS output</label>
         </div>
       </section>
 
@@ -295,6 +309,12 @@
           <article><strong>Clone</strong><span>A local copy of a GitHub repository on the trainee computer.</span></article>
           <article><strong>Commit</strong><span>A saved local checkpoint with a message explaining the code change.</span></article>
           <article><strong>Push</strong><span>Uploading local commits to GitHub for review or collaboration.</span></article>
+          <article><strong>BEM</strong><span>A CSS naming convention using block, element, and modifier names.</span></article>
+          <article><strong>Block</strong><span>A standalone UI component, such as product-card or site-header.</span></article>
+          <article><strong>Element</strong><span>A dependent part of a block, written like block__element.</span></article>
+          <article><strong>Modifier</strong><span>A variation of a block or element, written like block--modifier.</span></article>
+          <article><strong>SCSS</strong><span>Sass syntax that looks like CSS and compiles into normal CSS.</span></article>
+          <article><strong>&amp;</strong><span>The SCSS parent selector used for BEM patterns like &amp;__title and &amp;--active.</span></article>
         </div>
       </section>
 
@@ -329,6 +349,11 @@
             <p>Confirm access, clone the repo, pull first, commit clear changes, push, and request review.</p>
             <button type="button" data-template="GitHub Desktop SOP: ask supervisor for account, password or 2FA help, repository, and branch; sign in to GitHub Desktop; clone the assigned repo; pull before editing; commit only assigned changes; push; send the branch or PR link for review.">Copy checklist</button>
           </article>
+          <article>
+            <h3>BEM and SCSS review</h3>
+            <p>Check naming, nesting, modifiers, tokens, responsive states, and compiled CSS output.</p>
+            <button type="button" data-template="BEM and SCSS SOP: identify the block, name elements with block__element, name modifiers with block--modifier or block__element--modifier, keep SCSS nesting shallow, use &amp;__element and &amp;--modifier carefully, check hover/focus states, use tokens where appropriate, and review compiled CSS before approval.">Copy checklist</button>
+          </article>
         </div>
       </section>
 
@@ -344,6 +369,7 @@
           <article><strong>Launch QA</strong><span>Setup, Navigation, Launch Checklist</span></article>
           <article><strong>Theme Developer</strong><span>VS Code, CLI Install, Theme Workflow, Troubleshooting</span></article>
           <article><strong>GitHub Trainee</strong><span>Access Approval, Clone, Branch, Commit, Push, Review</span></article>
+          <article><strong>Frontend Coder</strong><span>BEM Basics, Components, SCSS Ampersand, Pro Review</span></article>
         </div>
       </section>
 
