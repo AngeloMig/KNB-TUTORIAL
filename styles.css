@@ -259,7 +259,7 @@ button {
 
 .progress-track span {
   display: block;
-  width: 38%;
+  width: 0%;
   height: 100%;
   background: var(--amber);
   transition: width 180ms ease;
@@ -277,7 +277,7 @@ button {
   border-radius: 8px;
   background: #fff8ea;
   color: #664912;
-  font-weight: 850;
+  font-weight: 800;
 }
 
 .reset-progress-button svg {
@@ -332,23 +332,69 @@ button {
   object-fit: cover;
 }
 
-.learning-path {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1px;
+.path-carousel {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
   margin: 0 0 20px;
-  overflow: hidden;
+}
+
+.path-carousel-btn {
+  flex-shrink: 0;
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--panel);
+  color: var(--ink);
+  align-self: center;
+  transition: background 120ms ease, box-shadow 120ms ease;
+}
+
+.path-carousel-btn:hover {
+  background: #e9eeeb;
+  box-shadow: 0 2px 8px rgba(21, 33, 31, 0.1);
+}
+
+.path-carousel-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.path-carousel-btn svg {
+  width: 15px;
+  height: 15px;
+  stroke-width: 2.5;
+}
+
+.learning-path {
+  display: flex;
+  flex: 1;
+  gap: 1px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
   background: var(--line);
   border: 1px solid var(--line);
   border-radius: 10px;
 }
 
+.learning-path::-webkit-scrollbar {
+  display: none;
+}
+
 .learning-path > div {
   display: grid;
   gap: 5px;
+  flex: 0 0 calc(25% - 1px);
+  min-width: 160px;
   min-height: 102px;
   padding: 15px;
   background: var(--panel);
+  scroll-snap-align: start;
 }
 
 .learning-path strong,
@@ -406,7 +452,7 @@ button {
 .completion-dashboard p:last-child {
   margin: 8px 0 0;
   color: var(--muted);
-  font-weight: 750;
+  font-weight: 700;
   line-height: 1.4;
 }
 
@@ -427,7 +473,7 @@ button {
   border-radius: 8px;
   color: var(--muted);
   font-size: 0.78rem;
-  font-weight: 850;
+  font-weight: 800;
   text-transform: uppercase;
 }
 
@@ -501,7 +547,7 @@ button {
   margin-top: 5px;
   color: #ffffff;
   font-size: 1rem;
-  font-weight: 850;
+  font-weight: 800;
 }
 
 .store-access-card a {
@@ -512,12 +558,49 @@ button {
   text-decoration: underline;
 }
 
+.password-reveal-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#simpleTourPassword.password-masked {
+  filter: blur(4px);
+  user-select: none;
+  cursor: default;
+  transition: filter 120ms ease;
+}
+
+.reveal-password-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.78rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.reveal-password-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.reveal-password-btn svg {
+  width: 13px;
+  height: 13px;
+  stroke-width: 2;
+}
+
 .store-access-card p {
   grid-column: 1 / -1;
   margin: 0;
   color: rgba(255, 255, 255, 0.68);
   font-size: 0.9rem;
-  font-weight: 750;
+  font-weight: 700;
   line-height: 1.4;
 }
 
@@ -697,7 +780,7 @@ button {
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.08);
   color: #d8fff5;
-  font-weight: 850;
+  font-weight: 800;
 }
 
 .screenshot-controls {
@@ -716,7 +799,7 @@ button {
   border-radius: 999px;
   background: rgba(15, 23, 21, 0.82);
   color: #ffffff;
-  font-weight: 850;
+  font-weight: 800;
   backdrop-filter: blur(10px);
 }
 
@@ -819,7 +902,7 @@ button {
   border: 1px solid rgba(200, 221, 212, 0.8);
   border-radius: 10px;
   color: var(--ink);
-  font-weight: 750;
+  font-weight: 700;
   line-height: 1.35;
 }
 
@@ -847,7 +930,7 @@ button {
   border: 1px solid #c2ddd1;
   border-left: 4px solid var(--teal);
   color: var(--teal-dark);
-  font-weight: 750;
+  font-weight: 700;
   line-height: 1.4;
 }
 
@@ -856,7 +939,7 @@ button {
   border: 1px solid #e4cf9e;
   border-left: 4px solid var(--amber);
   color: #664912;
-  font-weight: 750;
+  font-weight: 700;
   line-height: 1.4;
 }
 
@@ -892,7 +975,7 @@ button {
   min-height: 18px;
   margin: 10px 0 0;
   color: var(--muted);
-  font-weight: 750;
+  font-weight: 700;
 }
 
 .mini-feedback.is-correct {
@@ -939,13 +1022,13 @@ button {
   border-radius: 8px;
   color: var(--muted);
   font-size: 0.88rem;
-  font-weight: 750;
+  font-weight: 700;
 }
 
 .docs-reference a {
   width: fit-content;
   color: var(--teal-dark);
-  font-weight: 850;
+  font-weight: 800;
   text-decoration: none;
 }
 
@@ -981,7 +1064,7 @@ button {
   padding: 10px 12px;
   color: var(--muted);
   font-size: 0.82rem;
-  font-weight: 750;
+  font-weight: 700;
 }
 
 .modal-practice-card,
@@ -1083,7 +1166,7 @@ button {
   margin-bottom: 4px;
   color: var(--ink);
   font-size: 1.35rem;
-  font-weight: 850;
+  font-weight: 800;
 }
 
 .status-label {
@@ -1168,7 +1251,7 @@ button {
 }
 
 .store-name {
-  font-weight: 850;
+  font-weight: 800;
 }
 
 .admin-search {
@@ -1311,7 +1394,7 @@ button {
   border-radius: 999px;
   color: var(--muted);
   font-size: 0.78rem;
-  font-weight: 850;
+  font-weight: 800;
 }
 
 .found-badge.is-found {
@@ -1393,7 +1476,7 @@ button {
   padding: 0 15px;
   border-bottom: 1px solid #f0f1ed;
   color: var(--ink);
-  font-weight: 750;
+  font-weight: 700;
 }
 
 .mock-row:last-child {
@@ -1425,7 +1508,7 @@ button {
   background: #f7f8f5;
   border-radius: 8px;
   color: var(--ink);
-  font-weight: 750;
+  font-weight: 700;
   line-height: 1.35;
 }
 
@@ -1437,7 +1520,7 @@ button {
   border-radius: 8px;
   color: #5d4415;
   font-size: 0.9rem;
-  font-weight: 750;
+  font-weight: 700;
   line-height: 1.4;
 }
 
@@ -1491,7 +1574,7 @@ button {
   min-height: 20px;
   margin: 0;
   color: var(--muted);
-  font-weight: 750;
+  font-weight: 700;
 }
 
 .quiz-feedback.is-correct {
@@ -1623,7 +1706,8 @@ button {
 
 .tutorial-card {
   display: grid;
-  min-height: 166px;
+  grid-template-rows: auto 1fr auto;
+  min-height: 160px;
   padding: 16px;
   background: var(--panel);
   border: 1px solid var(--line);
@@ -1807,7 +1891,7 @@ button {
   margin: 0;
   color: #5d4415;
   font-size: 0.92rem;
-  font-weight: 750;
+  font-weight: 700;
   line-height: 1.45;
 }
 
@@ -1834,7 +1918,7 @@ button {
   border-radius: 8px;
   background: var(--panel);
   color: var(--teal-dark);
-  font-weight: 850;
+  font-weight: 800;
   text-decoration: none;
 }
 
@@ -2047,7 +2131,6 @@ button {
   }
 
   .hero-strip,
-  .learning-path,
   .completion-dashboard,
   .playbook-section {
     grid-template-columns: 1fr;
@@ -3456,7 +3539,7 @@ body {
   min-height: 44px;
   padding: 0 15px;
   border-radius: 12px;
-  font-weight: 850;
+  font-weight: 800;
   text-decoration: none;
   transition:
     transform 160ms ease,
@@ -3995,7 +4078,7 @@ body {
   margin-top: 12px;
   color: var(--muted);
   font-size: 0.88rem;
-  font-weight: 850;
+  font-weight: 800;
 }
 
 .trainer-mode-toggle input {
@@ -4105,7 +4188,7 @@ body.trainer-mode .trainer-note-card {
   border-radius: 10px;
   background: var(--ink);
   color: #ffffff;
-  font-weight: 850;
+  font-weight: 800;
 }
 
 .certificate-section {
@@ -4213,7 +4296,7 @@ body.trainer-mode .trainer-note-card {
   border-radius: 10px;
   background: var(--ink);
   color: #ffffff;
-  font-weight: 850;
+  font-weight: 800;
 }
 
 .step-trainer-note {

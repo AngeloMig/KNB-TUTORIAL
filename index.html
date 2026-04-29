@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0f766e" />
     <title>KNB Web Solution Training Hub</title>
     <link rel="preconnect" href="https://images.unsplash.com" />
     <link rel="stylesheet" href="styles.css" />
@@ -122,42 +123,50 @@
               <span><strong id="inProgressModulesCount">0</strong> in progress</span>
               <span><strong id="notStartedModulesCount">19</strong> not started</span>
             </div>
-            <div class="learning-path" aria-label="Beginner path progress">
-              <div data-tour-keys="dashboard">
-                <span class="path-step is-current">01</span>
-                <strong>Dashboard tour</strong>
-                <small>Know where everything lives</small>
+            <div class="path-carousel">
+              <button class="path-carousel-btn" type="button" id="pathCarouselPrev" aria-label="Previous steps">
+                <i data-lucide="arrow-left"></i>
+              </button>
+              <div class="learning-path" id="learningPathTrack" aria-label="Beginner path progress">
+                <div data-tour-keys="dashboard">
+                  <span class="path-step is-current">01</span>
+                  <strong>Dashboard tour</strong>
+                  <small>Know where everything lives</small>
+                </div>
+                <div data-tour-keys="setup">
+                  <span class="path-step">02</span>
+                  <strong>Store setup</strong>
+                  <small>Check the foundation</small>
+                </div>
+                <div data-tour-keys="pages,themeCustomizer,products,navigation">
+                  <span class="path-step">03</span>
+                  <strong>Pages and theme</strong>
+                  <small>Build safe practice edits</small>
+                </div>
+                <div data-tour-keys="launch">
+                  <span class="path-step">04</span>
+                  <strong>Launch check</strong>
+                  <small>Review before changes go live</small>
+                </div>
+                <div data-tour-keys="devSetup,cliInstall,cliWorkflow,projectFiles,buildTools,devTroubleshooting">
+                  <span class="path-step">05</span>
+                  <strong>VS Code and CLI</strong>
+                  <small>Prepare local theme workflow</small>
+                </div>
+                <div data-tour-keys="githubSetup,githubWorkflow">
+                  <span class="path-step">06</span>
+                  <strong>GitHub workflow</strong>
+                  <small>Sync, commit, push, review</small>
+                </div>
+                <div data-tour-keys="bemBasics,bemMedium,scssBasics,scssPro">
+                  <span class="path-step">07</span>
+                  <strong>BEM and SCSS</strong>
+                  <small>Write maintainable CSS</small>
+                </div>
               </div>
-              <div data-tour-keys="setup">
-                <span class="path-step">02</span>
-                <strong>Store setup</strong>
-                <small>Check the foundation</small>
-              </div>
-              <div data-tour-keys="pages,themeCustomizer,products,navigation">
-                <span class="path-step">03</span>
-                <strong>Pages and theme</strong>
-                <small>Build safe practice edits</small>
-              </div>
-              <div data-tour-keys="launch">
-                <span class="path-step">04</span>
-                <strong>Launch check</strong>
-                <small>Review before changes go live</small>
-              </div>
-              <div data-tour-keys="devSetup,cliInstall,cliWorkflow,projectFiles,buildTools,devTroubleshooting">
-                <span class="path-step">05</span>
-                <strong>VS Code and CLI</strong>
-                <small>Prepare local theme workflow</small>
-              </div>
-              <div data-tour-keys="githubSetup,githubWorkflow">
-                <span class="path-step">06</span>
-                <strong>GitHub workflow</strong>
-                <small>Sync, commit, push, review</small>
-              </div>
-              <div data-tour-keys="bemBasics,bemMedium,scssBasics,scssPro">
-                <span class="path-step">07</span>
-                <strong>BEM and SCSS</strong>
-                <small>Write maintainable CSS</small>
-              </div>
+              <button class="path-carousel-btn" type="button" id="pathCarouselNext" aria-label="Next steps">
+                <i data-lucide="arrow-right"></i>
+              </button>
             </div>
           </section>
 
@@ -298,7 +307,7 @@
           <article><strong>Storefront</strong><span>The customer-facing website shoppers see.</span></article>
           <article><strong>Theme</strong><span>The design system controlling storefront layout and style.</span></article>
           <article><strong>Section</strong><span>A configurable content area inside the theme editor.</span></article>
-          <article><strong>Block</strong><span>A smaller editable item inside a section.</span></article>
+          <article><strong>Shopify Block</strong><span>A smaller editable item inside a section in the theme editor.</span></article>
           <article><strong>Product</strong><span>An item for sale, including price, media, inventory, and status.</span></article>
           <article><strong>Collection</strong><span>A group of products used for browsing and merchandising.</span></article>
           <article><strong>Sales channel</strong><span>A place where products are sold, like Online Store.</span></article>
@@ -312,7 +321,7 @@
           <article><strong>Commit</strong><span>A saved local checkpoint with a message explaining the code change.</span></article>
           <article><strong>Push</strong><span>Uploading local commits to GitHub for review or collaboration.</span></article>
           <article><strong>BEM</strong><span>A CSS naming convention using block, element, and modifier names.</span></article>
-          <article><strong>Block</strong><span>A standalone UI component, such as product-card or site-header.</span></article>
+          <article><strong>BEM Block</strong><span>A standalone UI component used in CSS naming, such as product-card or site-header.</span></article>
           <article><strong>Element</strong><span>A dependent part of a block, written like block__element.</span></article>
           <article><strong>Modifier</strong><span>A variation of a block or element, written like block--modifier.</span></article>
           <article><strong>SCSS</strong><span>Sass syntax that looks like CSS and compiles into normal CSS.</span></article>
@@ -412,7 +421,13 @@
           </div>
           <div>
             <span class="status-label" id="simpleTourPasswordLabel">Password</span>
-            <strong id="simpleTourPassword">charol</strong>
+            <span class="password-reveal-field">
+              <strong id="simpleTourPassword" class="password-masked">charol</strong>
+              <button class="reveal-password-btn" type="button" id="revealPasswordButton" aria-label="Show store password">
+                <i data-lucide="eye"></i>
+                Show
+              </button>
+            </span>
           </div>
           <p id="simpleTourAccessNote">
             Storefront uses this password. Dashboard links open Shopify admin and require a staff account.
