@@ -3571,7 +3571,7 @@ body {
 }
 
 .learning-path {
-  overflow: visible;
+  overflow-x: auto;
   gap: 12px;
   background: transparent;
   border: 0;
