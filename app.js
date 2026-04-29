@@ -2789,6 +2789,141 @@ const detail = {
   steps: document.querySelector("#detailSteps"),
 };
 
+const gamesGrid = document.querySelector("#gamesGrid");
+const videosGrid = document.querySelector("#videosGrid");
+const gamesProgressLabel = document.querySelector("#gamesProgressLabel");
+const videosProgressLabel = document.querySelector("#videosProgressLabel");
+const gamesPlayedDashboard = document.querySelector("#gamesPlayedDashboard");
+const gamesTotalDashboard = document.querySelector("#gamesTotalDashboard");
+const videosWatchedDashboard = document.querySelector("#videosWatchedDashboard");
+const videosTotalDashboard = document.querySelector("#videosTotalDashboard");
+
+const games = [
+  {
+    slug: "cssbattle",
+    title: "CSSBattle",
+    url: "https://cssbattle.dev",
+    description: "Replicate the target image using the shortest CSS you can. Great for sharpening selectors, positioning, and gradient skills.",
+    tags: ["css", "puzzles"],
+    icon: "swords",
+  },
+  {
+    slug: "flexbox-froggy",
+    title: "Flexbox Froggy",
+    url: "https://flexboxfroggy.com",
+    description: "Help Froggy and friends to their lily pads by writing flexbox properties. The friendliest intro to justify-content and align-items.",
+    tags: ["css", "flexbox", "beginner"],
+    icon: "leaf",
+  },
+  {
+    slug: "grid-garden",
+    title: "Grid Garden",
+    url: "https://cssgridgarden.com",
+    description: "Water your carrot patch with CSS Grid. Walks through grid-column, grid-row, and grid-area one level at a time.",
+    tags: ["css", "grid", "beginner"],
+    icon: "sprout",
+  },
+  {
+    slug: "flexbox-zombies",
+    title: "Flexbox Zombies",
+    url: "https://flexboxzombies.com",
+    description: "Survive the zombie apocalypse using flexbox. Story-driven mastery game with chapters that build up real layout intuition.",
+    tags: ["css", "flexbox"],
+    icon: "ghost",
+  },
+  {
+    slug: "coding-fantasy",
+    title: "Coding Fantasy",
+    url: "https://codingfantasy.com",
+    description: "RPG-style coding adventures covering CSS, HTML, and JavaScript. Good change of pace from documentation reading.",
+    tags: ["css", "html", "javascript"],
+    icon: "gamepad-2",
+  },
+  {
+    slug: "css-diner",
+    title: "CSS Diner",
+    url: "https://flukeout.github.io",
+    description: "32 levels of pure selector practice. Teaches type, class, attribute, and combinator selectors in increasing difficulty.",
+    tags: ["css", "selectors", "beginner"],
+    icon: "utensils",
+  },
+  {
+    slug: "service-workies",
+    title: "Service Workies",
+    url: "https://serviceworkies.com",
+    description: "Free chapter game for learning Service Workers and offline-first thinking. Useful when you start touching PWA features.",
+    tags: ["javascript", "advanced"],
+    icon: "wifi-off",
+  },
+];
+
+const videos = [
+  {
+    slug: "shopify-theme-dev-2024",
+    title: "Shopify Theme Development for Beginners",
+    youtubeId: "MM5pYUFt2-Q",
+    channel: "Coding With Jan",
+    topic: "shopify",
+    durationLabel: "20m",
+  },
+  {
+    slug: "shopify-liquid-crash",
+    title: "Shopify Liquid Crash Course",
+    youtubeId: "M4OWO5XwjcA",
+    channel: "Shopify Partners",
+    topic: "shopify",
+    durationLabel: "45m",
+  },
+  {
+    slug: "shopify-cli-themes",
+    title: "Build a Shopify Theme with the CLI",
+    youtubeId: "_uYY7QjZpcw",
+    channel: "Shopify Partners",
+    topic: "shopify",
+    durationLabel: "32m",
+  },
+  {
+    slug: "scss-in-15-minutes",
+    title: "Sass / SCSS in 15 Minutes",
+    youtubeId: "akDIJa0AP5c",
+    channel: "Kevin Powell",
+    topic: "scss",
+    durationLabel: "15m",
+  },
+  {
+    slug: "bem-explained",
+    title: "BEM Explained: Naming CSS Classes the Right Way",
+    youtubeId: "gO7qWoQVHUI",
+    channel: "Kevin Powell",
+    topic: "css",
+    durationLabel: "13m",
+  },
+  {
+    slug: "html-crash-course",
+    title: "HTML Crash Course for Absolute Beginners",
+    youtubeId: "UB1O30fR-EE",
+    channel: "Traversy Media",
+    topic: "html",
+    durationLabel: "1h",
+  },
+  {
+    slug: "css-flexbox-20",
+    title: "Learn Flexbox in 20 Minutes",
+    youtubeId: "fYq5PXgSsbE",
+    channel: "Web Dev Simplified",
+    topic: "css",
+    durationLabel: "20m",
+  },
+  {
+    slug: "css-grid-20",
+    title: "Learn CSS Grid in 20 Minutes",
+    youtubeId: "9zBsdzdE4sM",
+    channel: "Web Dev Simplified",
+    topic: "css",
+    durationLabel: "20m",
+  },
+];
+
 let activeFilter = "all";
 let activeView = "beginner";
 let selectedTitle = tutorials[0].title;
@@ -2864,6 +2999,42 @@ function updateStoredSet(tourKey, property, index) {
 function setStoredTasks(tourKey, stepIndex, checkedTasks) {
   const state = getTourState(tourKey);
   state.checkedTasks[String(stepIndex)] = checkedTasks;
+  saveProgress();
+}
+
+function getGamesPlayedSet() {
+  if (!Array.isArray(savedProgress.gamesPlayed)) {
+    savedProgress.gamesPlayed = [];
+  }
+  return new Set(savedProgress.gamesPlayed);
+}
+
+function getVideosWatchedSet() {
+  if (!Array.isArray(savedProgress.videosWatched)) {
+    savedProgress.videosWatched = [];
+  }
+  return new Set(savedProgress.videosWatched);
+}
+
+function toggleGamePlayed(slug) {
+  const set = getGamesPlayedSet();
+  if (set.has(slug)) {
+    set.delete(slug);
+  } else {
+    set.add(slug);
+  }
+  savedProgress.gamesPlayed = Array.from(set);
+  saveProgress();
+}
+
+function toggleVideoWatched(slug) {
+  const set = getVideosWatchedSet();
+  if (set.has(slug)) {
+    set.delete(slug);
+  } else {
+    set.add(slug);
+  }
+  savedProgress.videosWatched = Array.from(set);
   saveProgress();
 }
 
@@ -3053,7 +3224,199 @@ function renderCompletionDashboard() {
   inProgressModulesCount.textContent = counts.inProgress;
   notStartedModulesCount.textContent = counts.notStarted;
   certificateSection.hidden = counts.completed !== guidedTutorials.length;
+
+  if (gamesPlayedDashboard && gamesTotalDashboard) {
+    gamesPlayedDashboard.textContent = getGamesPlayedSet().size;
+    gamesTotalDashboard.textContent = games.length;
+  }
+  if (videosWatchedDashboard && videosTotalDashboard) {
+    videosWatchedDashboard.textContent = getVideosWatchedSet().size;
+    videosTotalDashboard.textContent = videos.length;
+  }
+
   renderPathStates();
+}
+
+function buildGameCard(game, played) {
+  const card = document.createElement("article");
+  card.className = `game-card${played ? " is-played" : ""}`;
+
+  const header = document.createElement("div");
+  header.className = "game-card-header";
+
+  const iconWrap = document.createElement("span");
+  iconWrap.className = "game-card-icon";
+  const icon = document.createElement("i");
+  icon.dataset.lucide = game.icon || "gamepad-2";
+  iconWrap.appendChild(icon);
+
+  const title = document.createElement("h3");
+  title.textContent = game.title;
+
+  header.append(iconWrap, title);
+
+  const description = document.createElement("p");
+  description.className = "game-card-description";
+  description.textContent = game.description;
+
+  const tagRow = document.createElement("div");
+  tagRow.className = "game-card-tags";
+  game.tags.forEach((tag) => {
+    const chip = document.createElement("span");
+    chip.className = "tag-chip";
+    chip.textContent = tag;
+    tagRow.appendChild(chip);
+  });
+
+  const footer = document.createElement("div");
+  footer.className = "game-card-footer";
+
+  const open = document.createElement("a");
+  open.className = "game-card-open";
+  open.href = game.url;
+  open.target = "_blank";
+  open.rel = "noopener noreferrer";
+  const openIcon = document.createElement("i");
+  openIcon.dataset.lucide = "external-link";
+  open.append(openIcon, document.createTextNode(" Open game"));
+
+  const toggle = document.createElement("button");
+  toggle.type = "button";
+  toggle.className = `game-card-toggle${played ? " is-active" : ""}`;
+  const toggleIcon = document.createElement("i");
+  toggleIcon.dataset.lucide = played ? "check-circle-2" : "circle";
+  const toggleLabel = document.createTextNode(played ? " Played" : " Mark as played");
+  toggle.append(toggleIcon, toggleLabel);
+  toggle.addEventListener("click", () => {
+    toggleGamePlayed(game.slug);
+    renderGames();
+    renderCompletionDashboard();
+  });
+
+  footer.append(open, toggle);
+  card.append(header, description, tagRow, footer);
+  return card;
+}
+
+function renderGames() {
+  if (!gamesGrid) {
+    return;
+  }
+  const played = getGamesPlayedSet();
+  gamesGrid.innerHTML = "";
+  games.forEach((game) => {
+    gamesGrid.appendChild(buildGameCard(game, played.has(game.slug)));
+  });
+
+  if (gamesProgressLabel) {
+    gamesProgressLabel.textContent = `${played.size} of ${games.length} games played`;
+  }
+
+  if (window.lucide) {
+    lucide.createIcons();
+  }
+}
+
+function buildVideoCard(video, watched) {
+  const card = document.createElement("article");
+  card.className = `video-card${watched ? " is-watched" : ""}`;
+
+  const thumbButton = document.createElement("button");
+  thumbButton.type = "button";
+  thumbButton.className = "video-thumb";
+  thumbButton.setAttribute("aria-label", `Play video: ${video.title}`);
+
+  const thumbImg = document.createElement("img");
+  thumbImg.loading = "lazy";
+  thumbImg.alt = "";
+  thumbImg.src = `https://i.ytimg.com/vi/${video.youtubeId}/hqdefault.jpg`;
+
+  const playOverlay = document.createElement("span");
+  playOverlay.className = "video-play-overlay";
+  const playIcon = document.createElement("i");
+  playIcon.dataset.lucide = "play";
+  playOverlay.appendChild(playIcon);
+
+  const duration = document.createElement("span");
+  duration.className = "video-duration";
+  duration.textContent = video.durationLabel;
+
+  thumbButton.append(thumbImg, playOverlay, duration);
+
+  thumbButton.addEventListener("click", () => {
+    const iframe = document.createElement("iframe");
+    iframe.src = `https://www.youtube-nocookie.com/embed/${video.youtubeId}?autoplay=1&rel=0`;
+    iframe.title = video.title;
+    iframe.loading = "lazy";
+    iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+    iframe.allowFullscreen = true;
+    iframe.referrerPolicy = "strict-origin-when-cross-origin";
+    iframe.className = "video-iframe";
+    thumbButton.replaceWith(iframe);
+  });
+
+  const body = document.createElement("div");
+  body.className = "video-card-body";
+
+  const meta = document.createElement("div");
+  meta.className = "video-card-meta";
+  const topic = document.createElement("span");
+  topic.className = `tool-tag ${video.topic}`;
+  topic.textContent = video.topic.toUpperCase();
+  const channel = document.createElement("span");
+  channel.className = "video-card-channel";
+  channel.textContent = video.channel;
+  meta.append(topic, channel);
+
+  const title = document.createElement("h3");
+  title.textContent = video.title;
+
+  const footer = document.createElement("div");
+  footer.className = "video-card-footer";
+  const externalLink = document.createElement("a");
+  externalLink.href = `https://www.youtube.com/watch?v=${video.youtubeId}`;
+  externalLink.target = "_blank";
+  externalLink.rel = "noopener noreferrer";
+  externalLink.className = "video-card-open";
+  const extIcon = document.createElement("i");
+  extIcon.dataset.lucide = "external-link";
+  externalLink.append(extIcon, document.createTextNode(" YouTube"));
+
+  const toggle = document.createElement("button");
+  toggle.type = "button";
+  toggle.className = `video-card-toggle${watched ? " is-active" : ""}`;
+  const toggleIcon = document.createElement("i");
+  toggleIcon.dataset.lucide = watched ? "check-circle-2" : "circle";
+  toggle.append(toggleIcon, document.createTextNode(watched ? " Watched" : " Mark as watched"));
+  toggle.addEventListener("click", () => {
+    toggleVideoWatched(video.slug);
+    renderVideos();
+    renderCompletionDashboard();
+  });
+
+  footer.append(externalLink, toggle);
+  body.append(meta, title, footer);
+  card.append(thumbButton, body);
+  return card;
+}
+
+function renderVideos() {
+  if (!videosGrid) {
+    return;
+  }
+  const watched = getVideosWatchedSet();
+  videosGrid.innerHTML = "";
+  videos.forEach((video) => {
+    videosGrid.appendChild(buildVideoCard(video, watched.has(video.slug)));
+  });
+
+  if (videosProgressLabel) {
+    videosProgressLabel.textContent = `${watched.size} of ${videos.length} videos watched`;
+  }
+
+  if (window.lucide) {
+    lucide.createIcons();
+  }
 }
 
 function renderTutorials() {
@@ -3518,6 +3881,8 @@ window.addEventListener("DOMContentLoaded", () => {
   updateDetail(tutorials[0]);
   renderSimpleTour();
   renderTutorials();
+  renderGames();
+  renderVideos();
 
   if (window.gsap) {
     gsap.fromTo(
