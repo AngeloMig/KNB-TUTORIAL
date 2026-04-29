@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KNB Web Solution Training Hub</title>
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="app-header">
+      <a class="brand" href="#" aria-label="KNB Web Solution Training Hub home">
+        <span class="brand-mark">KNB</span>
+        <span>
+          <strong>KNB Web Solution</strong>
+          <small>Shopify admin, theme, and developer workflows</small>
+        </span>
+      </a>
+
+      <nav class="top-nav" aria-label="Primary navigation">
+        <a href="#library">Modules</a>
+        <a href="#paths">Roadmap</a>
+        <a href="#playbooks">Checklist</a>
+      </nav>
+
+      <button class="icon-button" type="button" aria-label="Open notifications" title="Notifications">
+        <i data-lucide="bell"></i>
+      </button>
+    </header>
+
+    <main>
+      <section class="workspace" id="library">
+        <aside class="sidebar" aria-label="Training module filters">
+          <div class="sidebar-section">
+            <p class="section-kicker">Shopify to code</p>
+            <h1>Training hub.</h1>
+            <p class="sidebar-copy">Guided Shopify and developer lessons for KNB team training.</p>
+          </div>
+
+          <label class="search-field">
+            <i data-lucide="search"></i>
+            <input id="searchInput" type="search" placeholder="Search training modules" autocomplete="off" />
+          </label>
+
+          <div class="filter-group" role="group" aria-label="Filter by training topic">
+            <button class="filter-chip is-active" type="button" data-filter="all">All</button>
+            <button class="filter-chip" type="button" data-filter="admin">Dashboard</button>
+            <button class="filter-chip" type="button" data-filter="setup">Setup</button>
+            <button class="filter-chip" type="button" data-filter="pages">Pages</button>
+            <button class="filter-chip" type="button" data-filter="theme">Customizer</button>
+            <button class="filter-chip" type="button" data-filter="products">Products</button>
+            <button class="filter-chip" type="button" data-filter="dev">VS Code / CLI</button>
+          </div>
+
+          <div class="progress-panel">
+            <div>
+              <span class="metric" id="overallProgressMetric">0%</span>
+              <span class="metric-label">overall module progress</span>
+            </div>
+            <div class="progress-track" aria-hidden="true">
+              <span id="overallProgressBar"></span>
+            </div>
+            <button class="reset-progress-button" type="button" id="resetProgressButton">
+              <i data-lucide="rotate-ccw"></i>
+              Reset trainee progress
+            </button>
+            <label class="trainer-mode-toggle">
+              <input id="trainerModeToggle" type="checkbox" />
+              <span>Trainer mode</span>
+            </label>
+          </div>
+        </aside>
+
+        <section class="content-panel">
+          <div class="hero-strip">
+            <div>
+              <p class="section-kicker">Current track</p>
+              <h2>Shopify basics, then developer workflow.</h2>
+              <p>
+                Start with admin navigation, then move into VS Code, npm, Git, and Shopify CLI theme work.
+              </p>
+              <div class="hero-metrics" aria-label="Training highlights">
+                <span><strong>14</strong> guided popups</span>
+                <span><strong>15</strong> modules</span>
+                <span><strong>Saved</strong> progress</span>
+              </div>
+              <div class="hero-actions">
+                <a class="hero-primary-link" href="#tutorialGrid">
+                  <i data-lucide="layers"></i>
+                  View modules
+                </a>
+                <a class="hero-secondary-link" href="https://knb-tutorial.myshopify.com" target="_blank" rel="noreferrer">
+                  <i data-lucide="external-link"></i>
+                  Tutorial store
+                </a>
+              </div>
+            </div>
+            <img
+              src="https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?auto=format&fit=crop&w=900&q=80"
+              alt="Ecommerce team reviewing an online store dashboard"
+            />
+          </div>
+
+          <section class="completion-dashboard" aria-label="Training completion dashboard">
+            <div class="completion-summary">
+              <div>
+                <p class="section-kicker">Training progress</p>
+                <h2 id="completionDashboardTitle">0 of 14 guided modules complete</h2>
+                <p id="nextRecommendedModule">Next recommended: Dashboard Tour.</p>
+              </div>
+              <button class="continue-button" type="button" id="continueModuleButton">
+                <i data-lucide="play"></i>
+                Continue
+              </button>
+            </div>
+            <div class="completion-stats">
+              <span><strong id="completedModulesCount">0</strong> complete</span>
+              <span><strong id="inProgressModulesCount">0</strong> in progress</span>
+              <span><strong id="notStartedModulesCount">14</strong> not started</span>
+            </div>
+            <div class="learning-path" aria-label="Beginner path progress">
+              <div data-tour-keys="dashboard">
+                <span class="path-step is-current">01</span>
+                <strong>Dashboard tour</strong>
+                <small>Know where everything lives</small>
+              </div>
+              <div data-tour-keys="setup">
+                <span class="path-step">02</span>
+                <strong>Store setup</strong>
+                <small>Check the foundation</small>
+              </div>
+              <div data-tour-keys="pages,themeCustomizer,products,navigation">
+                <span class="path-step">03</span>
+                <strong>Pages and theme</strong>
+                <small>Build safe practice edits</small>
+              </div>
+              <div data-tour-keys="launch">
+                <span class="path-step">04</span>
+                <strong>Launch check</strong>
+                <small>Review before changes go live</small>
+              </div>
+              <div data-tour-keys="devSetup,cliInstall,cliWorkflow,projectFiles,devTroubleshooting">
+                <span class="path-step">05</span>
+                <strong>VS Code and CLI</strong>
+                <small>Prepare local theme workflow</small>
+              </div>
+              <div data-tour-keys="githubSetup,githubWorkflow">
+                <span class="path-step">06</span>
+                <strong>GitHub workflow</strong>
+                <small>Sync, commit, push, review</small>
+              </div>
+            </div>
+          </section>
+
+          <div class="toolbar">
+            <div>
+              <p class="section-kicker">Training modules</p>
+              <h2 id="resultCount">15 modules</h2>
+            </div>
+            <div class="view-tabs" role="tablist" aria-label="View mode">
+              <button class="is-active" type="button" aria-selected="true" data-view="beginner">Beginner</button>
+              <button type="button" aria-selected="false" data-view="sop">Team SOP</button>
+            </div>
+          </div>
+
+          <div class="tutorial-grid" id="tutorialGrid" aria-live="polite"></div>
+        </section>
+
+        <aside class="detail-panel" aria-label="Selected training module details">
+          <div class="detail-image">
+            <img
+              id="detailImage"
+              src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80"
+              alt="Online shopping dashboard"
+            />
+          </div>
+          <p class="tool-tag admin" id="detailTool">Admin</p>
+          <h2 id="detailTitle">Dashboard Tour: What Each Menu Does</h2>
+          <p id="detailDescription">
+            Learn the admin areas for Home, Orders, Products, Customers, Content, Analytics,
+            Marketing, Discounts, and Settings.
+          </p>
+          <button class="primary-button detail-start-button" type="button" id="startModuleButton">
+            <i data-lucide="play"></i>
+            Start module
+          </button>
+          <section class="practice-card compact-practice-card" aria-labelledby="practiceTitle">
+            <p class="section-kicker">Before you start</p>
+            <h3 id="practiceTitle">Tutorial store access</h3>
+            <p id="practiceDescription">Open the KNB tutorial store and use the password inside the popup.</p>
+            <a class="secondary-link-button" id="trainingStoreLink" href="https://knb-tutorial.myshopify.com" target="_blank" rel="noreferrer">
+              <i data-lucide="external-link"></i>
+              Open tutorial store
+            </a>
+          </section>
+          <section class="trainer-note-card" aria-label="Trainer note">
+            <p class="section-kicker">Trainer note</p>
+            <p id="trainerNote">Identify the dashboard areas first. Do not change settings during the tour.</p>
+          </section>
+          <ol class="step-list is-hidden" id="detailSteps"></ol>
+          <ul class="is-hidden" id="practiceTasks"></ul>
+          <dl class="lesson-meta">
+            <div>
+              <dt>Lessons</dt>
+              <dd id="detailLessons">8</dd>
+            </div>
+            <div>
+              <dt>Time</dt>
+              <dd id="detailTime">55m</dd>
+            </div>
+            <div>
+              <dt>Level</dt>
+              <dd id="detailLevel">Beginner</dd>
+            </div>
+          </dl>
+        </aside>
+      </section>
+
+      <section class="paths-section" id="paths">
+        <div class="section-heading">
+          <p class="section-kicker">Roadmap</p>
+          <h2>The first path should start with Shopify orientation, then move into local theme workflow.</h2>
+        </div>
+        <div class="path-list">
+          <article>
+            <i data-lucide="store"></i>
+            <h3>1. Dashboard Tour</h3>
+            <p>Learn where orders, products, customers, content, analytics, discounts, and settings live.</p>
+          </article>
+          <article>
+            <i data-lucide="layout-dashboard"></i>
+            <h3>2. Store Setup</h3>
+            <p>Create the account, confirm business settings, add staff access, and understand billing basics.</p>
+          </article>
+          <article>
+            <i data-lucide="panel-top"></i>
+            <h3>3. Online Store</h3>
+            <p>Add pages, menus, products, collections, and customize the theme before launch QA.</p>
+          </article>
+          <article>
+            <i data-lucide="terminal"></i>
+            <h3>4. VS Code and CLI</h3>
+            <p>Install VS Code, Node, npm, Git, Shopify CLI, then preview and check theme work locally.</p>
+          </article>
+          <article>
+            <i data-lucide="git-branch"></i>
+            <h3>5. GitHub Desktop</h3>
+            <p>Confirm supervisor access, clone the assigned repo, pull first, commit clearly, push, and ask for review.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="playbook-section" id="playbooks">
+        <div>
+          <p class="section-kicker">Checklist</p>
+          <h2>What every beginner should be able to do.</h2>
+        </div>
+        <div class="checklist">
+          <label><input type="checkbox" checked /> Create or access a Shopify store</label>
+          <label><input type="checkbox" checked /> Find key areas in the admin dashboard</label>
+          <label><input type="checkbox" /> Add a page from Online Store > Pages</label>
+          <label><input type="checkbox" /> Open Online Store > Themes > Edit theme</label>
+          <label><input type="checkbox" /> Add products, collections, and menu links</label>
+          <label><input type="checkbox" /> Open the project folder in VS Code</label>
+          <label><input type="checkbox" /> Check Node, npm, Git, and Shopify CLI versions</label>
+          <label><input type="checkbox" /> Run shopify theme dev from the correct theme folder</label>
+          <label><input type="checkbox" /> Ask the supervisor for GitHub account, password, 2FA, repo, and branch access</label>
+          <label><input type="checkbox" /> Clone the assigned repository with GitHub Desktop</label>
+          <label><input type="checkbox" /> Pull, commit, push, and request review safely</label>
+        </div>
+      </section>
+
+      <section class="glossary-section" aria-label="Shopify glossary">
+        <div class="section-heading">
+          <p class="section-kicker">Glossary</p>
+          <h2>Terms beginners should know before changing the store.</h2>
+        </div>
+        <div class="glossary-grid">
+          <article><strong>Admin</strong><span>The private Shopify workspace for managing the store.</span></article>
+          <article><strong>Storefront</strong><span>The customer-facing website shoppers see.</span></article>
+          <article><strong>Theme</strong><span>The design system controlling storefront layout and style.</span></article>
+          <article><strong>Section</strong><span>A configurable content area inside the theme editor.</span></article>
+          <article><strong>Block</strong><span>A smaller editable item inside a section.</span></article>
+          <article><strong>Product</strong><span>An item for sale, including price, media, inventory, and status.</span></article>
+          <article><strong>Collection</strong><span>A group of products used for browsing and merchandising.</span></article>
+          <article><strong>Sales channel</strong><span>A place where products are sold, like Online Store.</span></article>
+          <article><strong>VS Code</strong><span>The code editor used to open project folders and run terminal commands.</span></article>
+          <article><strong>npm</strong><span>The package manager used to install project dependencies and Shopify CLI.</span></article>
+          <article><strong>Shopify CLI</strong><span>The command-line tool used to preview, pull, check, and push Shopify themes.</span></article>
+          <article><strong>Theme dev</strong><span>A Shopify CLI preview command for testing local theme changes.</span></article>
+          <article><strong>Repository</strong><span>A GitHub project that stores code, history, branches, and collaboration work.</span></article>
+          <article><strong>Clone</strong><span>A local copy of a GitHub repository on the trainee computer.</span></article>
+          <article><strong>Commit</strong><span>A saved local checkpoint with a message explaining the code change.</span></article>
+          <article><strong>Push</strong><span>Uploading local commits to GitHub for review or collaboration.</span></article>
+        </div>
+      </section>
+
+      <section class="template-section" aria-label="SOP checklist templates">
+        <div class="section-heading">
+          <p class="section-kicker">SOP templates</p>
+          <h2>Copyable checklists for supervised practice.</h2>
+        </div>
+        <div class="template-grid">
+          <article>
+            <h3>Products practice</h3>
+            <p>Create a draft product, check price, media, inventory, variants, and collections.</p>
+            <button type="button" data-template="Products SOP: create a draft product, add title, add price, check media, confirm inventory, review variants, keep status as Draft.">Copy checklist</button>
+          </article>
+          <article>
+            <h3>Theme practice</h3>
+            <p>Open the editor, identify templates, sections, blocks, preview controls, and Save.</p>
+            <button type="button" data-template="Theme SOP: open theme editor, identify template selector, inspect sections, inspect blocks, check desktop preview, check mobile preview, ask before saving.">Copy checklist</button>
+          </article>
+          <article>
+            <h3>Launch review</h3>
+            <p>Inspect payments, shipping, tax, checkout, domains, password, and notifications.</p>
+            <button type="button" data-template="Launch SOP: review payments, shipping, taxes, checkout, domains, password protection, notifications, and do not change high-risk settings without approval.">Copy checklist</button>
+          </article>
+          <article>
+            <h3>Developer setup</h3>
+            <p>Check VS Code, terminal, Node, npm, Git, Shopify CLI, and store access.</p>
+            <button type="button" data-template="Developer Setup SOP: open the project folder in VS Code, open terminal, run node -v, npm -v, git --version, shopify version, confirm Shopify store access, then run shopify theme dev from the theme folder.">Copy checklist</button>
+          </article>
+          <article>
+            <h3>GitHub Desktop</h3>
+            <p>Confirm access, clone the repo, pull first, commit clear changes, push, and request review.</p>
+            <button type="button" data-template="GitHub Desktop SOP: ask supervisor for account, password or 2FA help, repository, and branch; sign in to GitHub Desktop; clone the assigned repo; pull before editing; commit only assigned changes; push; send the branch or PR link for review.">Copy checklist</button>
+          </article>
+        </div>
+      </section>
+
+      <section class="role-track-section" aria-label="Role-based tracks">
+        <div class="section-heading">
+          <p class="section-kicker">Role tracks</p>
+          <h2>Suggested paths by trainee responsibility.</h2>
+        </div>
+        <div class="role-track-grid">
+          <article><strong>Store Admin</strong><span>Dashboard, Setup, Launch Checklist</span></article>
+          <article><strong>Theme Editor</strong><span>Dashboard, Theme Customizer, Navigation</span></article>
+          <article><strong>Product Manager</strong><span>Dashboard, Products, Collections</span></article>
+          <article><strong>Launch QA</strong><span>Setup, Navigation, Launch Checklist</span></article>
+          <article><strong>Theme Developer</strong><span>VS Code, CLI Install, Theme Workflow, Troubleshooting</span></article>
+          <article><strong>GitHub Trainee</strong><span>Access Approval, Clone, Branch, Commit, Push, Review</span></article>
+        </div>
+      </section>
+
+      <section class="certificate-section" id="certificateSection" hidden>
+        <div>
+          <p class="section-kicker">Track complete</p>
+          <h2>Beginner Training Track Complete</h2>
+          <p>The trainee completed the guided modules and is ready for supervised Shopify admin and theme workflow practice.</p>
+        </div>
+        <span>KNB Web Solution</span>
+      </section>
+    </main>
+
+    <dialog class="tour-modal simple-tour-modal" id="dashboardTour" aria-labelledby="dashboardTourTitle">
+      <div class="tour-modal-shell simple-tour-shell">
+        <div class="tour-modal-header">
+          <div>
+            <p class="section-kicker" id="tourKicker">Dashboard tour</p>
+            <h2 id="dashboardTourTitle">Start with the tutorial store.</h2>
+            <p id="tourIntro">Follow one step at a time. Read the short note, then try it in the KNB tutorial store.</p>
+          </div>
+          <button class="icon-button close-modal" type="button" id="closeDashboardTour" aria-label="Close dashboard tour">
+            <i data-lucide="x"></i>
+          </button>
+        </div>
+
+        <section class="store-access-card" aria-label="Tutorial store access">
+          <div>
+            <span class="status-label" id="simpleTourAccessLabel">Tutorial store</span>
+            <a id="simpleTourStoreLink" href="https://knb-tutorial.myshopify.com" target="_blank" rel="noreferrer">
+              knb-tutorial.myshopify.com
+            </a>
+          </div>
+          <div>
+            <span class="status-label" id="simpleTourPasswordLabel">Password</span>
+            <strong id="simpleTourPassword">charol</strong>
+          </div>
+          <p id="simpleTourAccessNote">
+            Storefront uses this password. Dashboard links open Shopify admin and require a staff account.
+          </p>
+        </section>
+
+        <div class="tour-progress" aria-live="polite">
+          <span id="simpleTourProgress">1 / 12</span>
+          <div class="tour-progress-track" aria-hidden="true">
+            <span id="simpleTourBar"></span>
+          </div>
+        </div>
+
+        <section class="simple-tour-layout">
+          <nav class="simple-tour-nav" id="simpleTourNav" aria-label="Dashboard tour steps"></nav>
+
+          <article class="simple-tour-main" aria-live="polite">
+            <div class="image-placeholder">
+              <img id="simpleTourImage" src="" alt="" hidden />
+              <i data-lucide="image"></i>
+              <h3 id="simpleTourImageTitle">Store password screen</h3>
+              <p id="simpleTourImageHint">Placeholder: add a screenshot of the password page here later.</p>
+              <div class="placeholder-hotspots" aria-hidden="true">
+                <span style="left: 22%; top: 26%;">1</span>
+                <span style="left: 58%; top: 44%;">2</span>
+                <span style="left: 78%; top: 68%;">3</span>
+              </div>
+              <button class="upload-placeholder" type="button" id="screenshotSlot">
+                Screenshot slot
+              </button>
+              <div class="screenshot-controls" id="screenshotControls" hidden>
+                <button type="button" id="replaceScreenshotButton">Replace screenshot</button>
+                <button type="button" id="removeScreenshotButton">Remove</button>
+              </div>
+              <input id="screenshotUpload" type="file" accept="image/*" hidden />
+            </div>
+
+            <aside class="simple-tour-copy">
+              <p class="section-kicker" id="simpleTourStepLabel">Step 1 of 12</p>
+              <h3 id="simpleTourTitle">First, open the tutorial store</h3>
+              <p id="simpleTourDescription">
+                Go to the KNB tutorial store and enter the password. This is the practice site.
+              </p>
+              <a class="secondary-link-button" id="simpleTourAction" href="https://knb-tutorial.myshopify.com" target="_blank" rel="noreferrer">
+                Open tutorial store
+              </a>
+              <div class="try-card">
+                <h4 id="tryCardTitle">Try this now</h4>
+                <ul id="tryChecklist"></ul>
+              </div>
+              <div class="example-note" id="exampleNote"></div>
+              <div class="mistake-note" id="mistakeNote"></div>
+              <div class="step-trainer-note" id="stepTrainerNote"></div>
+              <div class="mini-check">
+                <h4 id="miniQuestion">Quick check</h4>
+                <div id="miniAnswers"></div>
+                <p id="miniFeedback" aria-live="polite"></p>
+              </div>
+            </aside>
+          </article>
+        </section>
+
+        <div class="tour-actions">
+          <button class="secondary-button" type="button" id="previousTourItem">
+            <i data-lucide="arrow-left"></i>
+            Previous
+          </button>
+          <button class="primary-button compact" type="button" id="nextTourItem">
+            Next step
+            <i data-lucide="arrow-right"></i>
+          </button>
+          <button class="primary-button compact done-next-button" type="button" id="doneNextItem">
+            Done, next
+            <i data-lucide="check"></i>
+          </button>
+        </div>
+
+        <section class="tour-completion" id="tourCompletion" hidden>
+          <div>
+            <p class="section-kicker">Tour complete</p>
+            <h3 id="completionTitle">Dashboard navigation is done.</h3>
+            <p id="completionText">
+              The trainee has seen the main Shopify admin areas. Next, move into store setup or let them repeat any step.
+            </p>
+          </div>
+          <div class="completion-actions">
+            <button class="secondary-button" type="button" id="repeatTour">
+              <i data-lucide="rotate-ccw"></i>
+              Repeat tour
+            </button>
+            <button class="primary-button compact" type="button" id="closeCompletion">
+              Close
+              <i data-lucide="check"></i>
+            </button>
+          </div>
+        </section>
+      </div>
+    </dialog>
+  </body>
+</html>
