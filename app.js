@@ -3381,6 +3381,11 @@ const simpleTourDescription = document.querySelector("#simpleTourDescription");
 const simpleTourImage = document.querySelector("#simpleTourImage");
 const simpleTourImageTitle = document.querySelector("#simpleTourImageTitle");
 const simpleTourImageHint = document.querySelector("#simpleTourImageHint");
+const imagePlaceholder = document.querySelector(".image-placeholder");
+const codeSamplePanel = document.querySelector("#codeSamplePanel");
+const codeSampleLanguage = document.querySelector("#codeSampleLanguage");
+const codeSampleTitle = document.querySelector("#codeSampleTitle");
+const codeSampleCode = document.querySelector("#codeSampleCode");
 const simpleTourNav = document.querySelector("#simpleTourNav");
 const simpleTourProgress = document.querySelector("#simpleTourProgress");
 const simpleTourBar = document.querySelector("#simpleTourBar");
@@ -3684,6 +3689,521 @@ function slugify(value) {
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "");
+}
+
+function getStepCodeSample(tour, step) {
+  const key = tour.key || "";
+  const title = `${step.title} ${step.label || ""}`.toLowerCase();
+
+  if (key.startsWith("bem")) {
+    if (title.includes("element")) {
+      return {
+        language: "HTML",
+        title: "BEM element naming",
+        code: `<article class="product-card">
+  <img class="product-card__image" src="shoe.jpg" alt="Running shoe">
+  <h3 class="product-card__title">Road Runner</h3>
+  <p class="product-card__price">$89.00</p>
+</article>`,
+        caption: "Elements belong to the block and use block__element names.",
+        why: "This keeps every class tied to one component, so the next developer knows where it belongs.",
+      };
+    }
+    if (title.includes("modifier") || title.includes("state")) {
+      return {
+        language: "HTML",
+        title: "BEM modifier pattern",
+        code: `<article class="product-card product-card--featured">
+  <h3 class="product-card__title">Featured item</h3>
+  <span class="product-card__badge product-card__badge--sale">Sale</span>
+</article>`,
+        caption: "Modifiers describe a variation without creating a new unrelated component name.",
+        why: "This keeps the base component reusable while making the variation obvious.",
+      };
+    }
+    if (title.includes("selector") || title.includes("mistake") || title.includes("review")) {
+      return {
+        language: "CSS",
+        title: "Selector cleanup",
+        code: `/* Avoid deep fragile selectors */
+.page .grid article .content h3 { ... }
+
+/* Prefer direct component classes */
+.product-card__title { ... }`,
+        caption: "Clean BEM classes are easier to override and review.",
+        why: "Short direct selectors reduce specificity problems and make code review faster.",
+      };
+    }
+    return {
+      language: "HTML",
+      title: "BEM block sample",
+      code: `<article class="product-card">
+  <h3 class="product-card__title">Everyday Hoodie</h3>
+  <p class="product-card__price">$64.00</p>
+  <button class="product-card__button">Add to cart</button>
+</article>`,
+      caption: "Start with a clear block, then add elements and modifiers only when needed.",
+      why: "A clear block gives the component a stable naming home before details are added.",
+    };
+  }
+
+  if (key.startsWith("scss")) {
+    if (title.includes("variable") || title.includes("token")) {
+      return {
+        language: "SCSS",
+        title: "Tokens and variables",
+        code: `$color-brand: #0f766e;
+$space-3: 12px;
+$radius-card: 8px;
+
+.product-card {
+  padding: $space-3;
+  border-radius: $radius-card;
+  border-color: rgba($color-brand, 0.25);
+}`,
+        caption: "Use project tokens so values stay consistent across components.",
+        why: "Tokens prevent one-off colors and spacing from spreading across the theme.",
+      };
+    }
+    if (title.includes("ampersand") || title.includes("element") || title.includes("modifier")) {
+      return {
+        language: "SCSS",
+        title: "Ampersand with BEM",
+        code: `.product-card {
+  &__title { font-weight: 800; }
+  &--featured { border-color: $color-brand; }
+}`,
+        caption: "The ampersand keeps BEM selectors short while compiling to normal CSS.",
+        why: "It connects related selectors without repeating the full class name every time.",
+      };
+    }
+    if (title.includes("hover") || title.includes("state")) {
+      return {
+        language: "SCSS",
+        title: "State selectors",
+        code: `.product-card__button {
+  &:hover,
+  &:focus-visible {
+    background: $color-brand;
+    color: #fff;
+  }
+}`,
+        caption: "Keep interaction states close to the class they affect.",
+        why: "Hover and focus rules are easier to find when they live beside the base class.",
+      };
+    }
+    if (title.includes("mixin") || title.includes("responsive")) {
+      return {
+        language: "SCSS",
+        title: "Responsive helper",
+        code: `@mixin tablet-up {
+  @media (min-width: 768px) { @content; }
+}
+
+.product-grid {
+  display: grid;
+  gap: 16px;
+  @include tablet-up {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}`,
+        caption: "Use helpers only when they match the existing project pattern.",
+        why: "Consistent helpers reduce duplicate media queries without hiding simple CSS.",
+      };
+    }
+    if (title.includes("compiled") || title.includes("specificity") || title.includes("nesting")) {
+      return {
+        language: "SCSS",
+        title: "Shallow nesting",
+        code: `/* Avoid */
+.collection { .grid { .card { h3 { ... } } } }
+
+/* Prefer */
+.collection-card__title { ... }`,
+        caption: "Review the CSS that SCSS will produce, not only the SCSS source.",
+        why: "Nested SCSS can compile into selectors that are harder to override than expected.",
+      };
+    }
+    return {
+      language: "SCSS",
+      title: "SCSS component sample",
+      code: `.product-card {
+  padding: 16px;
+  border: 1px solid $color-border;
+  &__title { margin: 0; }
+}`,
+      caption: "Keep SCSS readable and close to the component it styles.",
+      why: "Readable component SCSS is easier to maintain than clever nested shortcuts.",
+    };
+  }
+
+  if (key === "dynamicSection") {
+    if (title.includes("plan")) {
+      return {
+        language: "Liquid",
+        title: "Section planning map",
+        code: `{% comment %}
+Section: KNB practice feature
+File: sections/knb-practice-feature.liquid
+
+Editable: heading, text, button, image, background
+Repeatable blocks: feature.title, feature.text
+Preset: default heading + 2 feature blocks
+{% endcomment %}`,
+        caption: "Plan the editable parts before writing schema.",
+        why: "A plan prevents random settings, unclear block types, and schema that does not match the markup.",
+      };
+    }
+    if (title.includes("file")) {
+      return {
+        language: "Liquid",
+        title: "Create a section file",
+        code: `<section class="knb-practice-feature">
+  <div class="page-width">
+    <h2>Practice feature heading</h2>
+    <p>Practice feature copy.</p>
+  </div>
+</section>`,
+        caption: "A dynamic section starts as one Liquid file inside sections/.",
+        why: "Shopify reads files in sections/ as sections that templates or the theme editor can render.",
+      };
+    }
+    if (title.includes("markup")) {
+      return {
+        language: "Liquid",
+        title: "Static markup first",
+        code: `<section class="knb-practice-feature">
+  <div class="knb-practice-feature__inner page-width">
+    <h2 class="knb-practice-feature__heading">Build sections safely</h2>
+    <p>Start static, then make each part editable.</p>
+    <a class="knb-practice-feature__button" href="/collections/all">Shop now</a>
+  </div>
+</section>`,
+        caption: "Static markup lets you confirm the layout before adding schema controls.",
+        why: "Beginners can debug markup and classes first instead of mixing layout bugs with schema bugs.",
+      };
+    }
+    if (title.includes("settings")) {
+      return {
+        language: "Liquid",
+        title: "Section settings schema",
+        code: `<h2>{{ section.settings.heading }}</h2>
+<div>{{ section.settings.text }}</div>
+
+{% schema %}
+{
+  "name": "KNB practice feature",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Build sections safely" },
+    { "type": "richtext", "id": "text", "label": "Text" }
+  ]
+}
+{% endschema %}`,
+        caption: "Settings create editable fields in the customizer and are read with section.settings.",
+        why: "This is how non-developers change content without editing Liquid code.",
+      };
+    }
+    if (title.includes("image") || title.includes("color") || title.includes("control")) {
+      return {
+        language: "Liquid",
+        title: "Image and style controls",
+        code: `{% if section.settings.image != blank %}
+  {{ section.settings.image | image_url: width: 1200 | image_tag: alt: section.settings.image_alt }}
+{% endif %}
+
+{% schema %}
+{
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "image_alt", "label": "Image alt text" },
+    { "type": "color", "id": "background", "label": "Background", "default": "#f7f8f5" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 120, "step": 4, "default": 48 }
+  ]
+}
+{% endschema %}`,
+        caption: "Image, color, and range settings expose safe customizer controls.",
+        why: "Clients can edit content and spacing without touching Liquid or CSS.",
+      };
+    }
+    if (title.includes("blocks") && !title.includes("loop") && !title.includes("attribute")) {
+      return {
+        language: "JSON",
+        title: "Blocks inside schema",
+        code: `"blocks": [
+  {
+    "type": "feature",
+    "name": "Feature",
+    "settings": [
+      { "type": "text", "id": "title", "label": "Title", "default": "Fast setup" },
+      { "type": "textarea", "id": "text", "label": "Text" }
+    ]
+  }
+],
+"max_blocks": 4`,
+        caption: "Blocks create repeatable content that merchants can add, remove, and reorder.",
+        why: "Use blocks when the number of items should be flexible instead of hardcoded.",
+      };
+    }
+    if (title.includes("loop")) {
+      return {
+        language: "Liquid",
+        title: "Render section blocks",
+        code: `{% for block in section.blocks %}
+  {% case block.type %}
+    {% when 'feature' %}
+      <article class="knb-practice-feature__item">
+        <h3>{{ block.settings.title }}</h3>
+        <p>{{ block.settings.text }}</p>
+      </article>
+  {% endcase %}
+{% endfor %}`,
+        caption: "Loop through section.blocks and render each block using block.settings.",
+        why: "The loop keeps the section flexible as blocks are added, removed, or reordered.",
+      };
+    }
+    if (title.includes("attribute")) {
+      return {
+        language: "Liquid",
+        title: "Theme editor block attributes",
+        code: `{% for block in section.blocks %}
+  <article class="knb-practice-feature__item" {{ block.shopify_attributes }}>
+    <h3>{{ block.settings.title }}</h3>
+    <p>{{ block.settings.text }}</p>
+  </article>
+{% endfor %}`,
+        caption: "block.shopify_attributes helps the theme editor identify and focus each block.",
+        why: "Without it, selecting blocks in the customizer can be harder or less reliable.",
+      };
+    }
+    if (title.includes("fallback")) {
+      return {
+        language: "Liquid",
+        title: "Empty-state fallbacks",
+        code: `<h2>{{ section.settings.heading | default: 'Add a heading' }}</h2>
+
+{% if section.blocks.size > 0 %}
+  {% for block in section.blocks %}
+    <article {{ block.shopify_attributes }}>
+      <h3>{{ block.settings.title | default: 'Feature title' }}</h3>
+    </article>
+  {% endfor %}
+{% else %}
+  <p>Add feature blocks in the theme editor.</p>
+{% endif %}`,
+        caption: "Fallbacks keep the section understandable when content is missing.",
+        why: "Theme editor users need helpful empty states instead of broken or blank UI.",
+      };
+    }
+    if (title.includes("preset")) {
+      return {
+        language: "JSON",
+        title: "Preset for Add section",
+        code: `"presets": [
+  {
+    "name": "KNB practice feature",
+    "category": "Custom",
+    "settings": { "heading": "Build sections safely" },
+    "blocks": [
+      { "type": "feature", "settings": { "title": "Fast setup" } },
+      { "type": "feature", "settings": { "title": "Easy review" } }
+    ]
+  }
+]`,
+        caption: "Presets make the section available in the theme editor Add section picker.",
+        why: "Without a preset, a section might exist in code but not appear where beginners expect to add it.",
+      };
+    }
+    if (title.includes("css")) {
+      return {
+        language: "CSS",
+        title: "Section-scoped CSS",
+        code: `.knb-practice-feature {
+  background: var(--section-bg);
+  padding: var(--padding-top) 0 var(--padding-bottom);
+}
+
+.knb-practice-feature__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+@media (max-width: 749px) {
+  .knb-practice-feature__grid { grid-template-columns: 1fr; }
+}`,
+        caption: "Scope CSS to the section class so styles do not leak into other sections.",
+        why: "Shopify themes reuse many sections on one page, so global selectors can create regressions.",
+      };
+    }
+    return {
+      language: "Terminal",
+      title: "QA and send for review",
+      code: `# Preview locally
+shopify theme dev --store knb-tutorial
+
+# Check code
+shopify theme check
+
+# Send to GitHub review
+git status
+git add sections/knb-practice-feature.liquid
+git commit -m "Add practice feature section"
+git push`,
+      caption: "Preview and check locally, then push to GitHub for review.",
+      why: "GitHub keeps review history; Shopify preview confirms the section works before approval.",
+    };
+  }
+
+  if (["cliInstall", "cliWorkflow", "projectFiles", "buildTools", "devTroubleshooting", "githubThemeConnection"].includes(key)) {
+    if (title.includes("gulp") || title.includes("two terminal") || title.includes("watch")) {
+      return {
+        language: "Terminal",
+        title: "Two-terminal workflow",
+        code: `# Terminal 1
+npm install
+gulp watch
+
+# Terminal 2
+shopify theme dev --store knb-tutorial`,
+        caption: "Run the asset watcher and Shopify preview in separate terminals when the project needs both.",
+        why: "One process compiles assets while the other previews the Shopify theme.",
+      };
+    }
+    if (title.includes("version") || title.includes("install")) {
+      return {
+        language: "Terminal",
+        title: "Setup checks",
+        code: `node -v
+npm -v
+git --version
+shopify version`,
+        caption: "Version checks catch setup issues before project work starts.",
+        why: "They confirm the machine can run the required tools before touching project files.",
+      };
+    }
+    if (title.includes("github") || title.includes("commit") || title.includes("push") || title.includes("pull")) {
+      return {
+        language: "Git",
+        title: "GitHub-first theme workflow",
+        code: `# Source of truth: GitHub
+git pull
+
+# Preview local theme work
+shopify theme dev --store knb-tutorial
+shopify theme check
+
+# Send work for review
+git add .
+git commit -m "Update product card styles"
+git push`,
+        caption: "Use GitHub for pull and push. Shopify CLI is for preview and checks.",
+        why: "GitHub keeps review history and team source control in one place.",
+      };
+    }
+    if (title.includes("preview") || title.includes("dev") || title.includes("workflow")) {
+      return {
+        language: "Terminal",
+        title: "Theme preview command",
+        code: `cd path/to/theme-repo
+npm install
+shopify theme dev --store knb-tutorial`,
+        caption: "Run commands from the actual theme repository folder.",
+        why: "Project commands depend on package.json and theme folders being in the current path.",
+      };
+    }
+    if (title.includes("check") || title.includes("theme check")) {
+      return {
+        language: "Terminal",
+        title: "Theme check before commit",
+        code: `shopify theme check
+# fix any errors, then:
+git add .
+git commit -m "Fix theme check warnings"`,
+        caption: "Theme check catches Liquid and schema issues before review.",
+        why: "Catching issues locally is faster than fixing them after a GitHub review round-trip.",
+      };
+    }
+    return null;
+  }
+
+  return null;
+}
+
+function getCodeSampleGuidance(sample) {
+  if (sample.language === "Terminal" || sample.language === "Git") {
+    return {
+      doText: "Run commands from the correct project folder and read the output before moving to the next step.",
+      dontText: "Do not paste commands into a random folder or push unfinished work without review.",
+      doExample: "Example: cd theme-repo, then run shopify theme dev.",
+      dontExample: "Avoid: running commands from Downloads or Desktop by mistake.",
+    };
+  }
+  if (sample.language === "HTML") {
+    return {
+      doText: "Use clear BEM class names that describe the component, element, or variation.",
+      dontText: "Do not use vague names, deep wrapper selectors, or classes copied from an unrelated component.",
+      doExample: 'Example: class="product-card__title".',
+      dontExample: 'Avoid: class="title big-text section-heading".',
+    };
+  }
+  if (sample.language === "CSS") {
+    return {
+      doText: "Prefer direct component classes that are easy to find, override, and review.",
+      dontText: "Do not rely on long descendant selectors, IDs, or !important unless there is a documented reason.",
+      doExample: "Example: .product-card__title { ... }",
+      dontExample: "Avoid: .page .grid article .content h3 { ... }",
+    };
+  }
+  if (sample.language === "SCSS") {
+    return {
+      doText: "Keep nesting shallow, use existing tokens, and check what CSS the SCSS will compile into.",
+      dontText: "Do not add clever nesting, new abstractions, or random variables when plain readable SCSS is enough.",
+      doExample: "Example: &__title inside .product-card.",
+      dontExample: "Avoid: nesting four wrappers deep before styling h3.",
+    };
+  }
+  if (sample.language === "Liquid" || sample.language === "JSON") {
+    return {
+      doText: "Match every section.settings or block.settings reference to a setting id in the schema.",
+      dontText: "Do not leave trailing commas, duplicate ids, or comments inside the schema JSON.",
+      doExample: "Example: section.settings.heading matches { id: 'heading' } in schema.",
+      dontExample: "Avoid: referencing section.settings.title when the id is heading.",
+    };
+  }
+  return {
+    doText: "Follow the company pattern and keep the example small enough to review.",
+    dontText: "Do not turn a practice sample into a broad refactor.",
+    doExample: "Example: make one assigned change and review it.",
+    dontExample: "Avoid: rewriting unrelated components.",
+  };
+}
+
+function getCommentPrefix(language) {
+  return language === "HTML" ? "<!--" : language === "Terminal" || language === "Git" ? "#" : "/*";
+}
+
+function getCommentSuffix(language) {
+  return language === "HTML" ? " -->" : language === "Terminal" || language === "Git" ? "" : " */";
+}
+
+function formatCodeComment(language, label, text) {
+  return `${getCommentPrefix(language)} ${label}: ${text}${getCommentSuffix(language)}`;
+}
+
+function buildCodeSampleText(sample) {
+  const guidance = getCodeSampleGuidance(sample);
+  return [
+    sample.code,
+    "",
+    formatCodeComment(sample.language, "Explanation", sample.caption),
+    formatCodeComment(sample.language, "Why", sample.why || "It keeps the workflow easier to review and maintain."),
+    "",
+    formatCodeComment(sample.language, "Do", guidance.doText),
+    formatCodeComment(sample.language, "Example", guidance.doExample),
+    "",
+    formatCodeComment(sample.language, "Don't", guidance.dontText),
+    formatCodeComment(sample.language, "Avoid", guidance.dontExample),
+  ].join("\n");
 }
 
 function getStepImagePath(tour, step) {
@@ -4132,14 +4652,6 @@ function renderTutorials() {
     grid.appendChild(card);
   });
 
-  if (window.gsap) {
-    gsap.fromTo(
-      ".tutorial-card",
-      { y: 12, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.28, stagger: 0.03, ease: "power2.out" },
-    );
-  }
-
   renderCompletionDashboard();
 
   if (window.lucide) {
@@ -4192,14 +4704,28 @@ function renderSimpleTour() {
   simpleTourDescription.textContent = step.description;
   simpleTourImageTitle.textContent = step.imageTitle;
   simpleTourImageHint.textContent = step.imageHint;
+  const codeSample = getStepCodeSample(tour, step);
+  if (imagePlaceholder) {
+    imagePlaceholder.classList.toggle("has-code-sample", Boolean(codeSample));
+  }
+  if (codeSamplePanel) {
+    codeSamplePanel.hidden = !codeSample;
+    if (codeSample) {
+      codeSampleLanguage.textContent = codeSample.language;
+      codeSampleTitle.textContent = codeSample.title;
+      codeSampleCode.textContent = buildCodeSampleText(codeSample);
+    }
+  }
   const stepImagePath = getStepImagePath(tour, step);
-  simpleTourImage.hidden = false;
-  simpleTourImage.src = stepImagePath;
-  simpleTourImage.alt = `${step.title} training screenshot`;
-  simpleTourImage.onerror = () => {
-    simpleTourImage.hidden = true;
-    simpleTourImage.removeAttribute("src");
-  };
+  simpleTourImage.hidden = Boolean(codeSample);
+  if (!codeSample) {
+    simpleTourImage.src = stepImagePath;
+    simpleTourImage.alt = `${step.title} training screenshot`;
+    simpleTourImage.onerror = () => {
+      simpleTourImage.hidden = true;
+      simpleTourImage.removeAttribute("src");
+    };
+  }
   simpleTourProgress.textContent = `${completedSteps.size} / ${tour.steps.length} completed`;
   simpleTourBar.style.width = `${progress}%`;
   if (isDeveloperTour(tour)) {
@@ -4233,8 +4759,8 @@ function renderSimpleTour() {
   simpleTourAction.href = step.url;
   simpleTourAction.textContent = step.action;
   screenshotSlot.textContent = `${step.title} screenshot slot`;
-  screenshotSlot.hidden = hasStoredScreenshot(tour, activeTourStep);
-  screenshotControls.hidden = !hasStoredScreenshot(tour, activeTourStep);
+  screenshotSlot.hidden = Boolean(codeSample) || hasStoredScreenshot(tour, activeTourStep);
+  screenshotControls.hidden = Boolean(codeSample) || !hasStoredScreenshot(tour, activeTourStep);
   tryCardTitle.textContent = `Try this now (${checkedTaskCount}/${step.tryTasks.length})`;
   tryChecklist.innerHTML = step.tryTasks
     .map(
@@ -4319,13 +4845,6 @@ function renderSimpleTour() {
     lucide.createIcons();
   }
 
-  if (window.gsap) {
-    gsap.fromTo(
-      ".simple-tour-main",
-      { y: 10, opacity: 0.8 },
-      { y: 0, opacity: 1, duration: 0.22, ease: "power2.out" },
-    );
-  }
 }
 
 function showTourCompletion() {
@@ -4537,14 +5056,6 @@ window.addEventListener("DOMContentLoaded", () => {
   renderTutorials();
   renderGames();
   renderVideos();
-
-  if (window.gsap) {
-    gsap.fromTo(
-      [".sidebar", ".hero-strip", ".detail-panel"],
-      { y: 16, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.5, stagger: 0.08, ease: "power2.out" },
-    );
-  }
 
   const pathTrack = document.querySelector("#learningPathTrack");
   const pathPrev = document.querySelector("#pathCarouselPrev");
