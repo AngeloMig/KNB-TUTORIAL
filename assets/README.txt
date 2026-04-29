@@ -17,6 +17,7 @@ Examples:
 - assets/shopify/cliinstall-install-cli.png
 - assets/shopify/cliworkflow-preview.png
 - assets/shopify/projectfiles-install.png
+- assets/shopify/buildtools-gulp-watch.png
 - assets/shopify/devtroubleshooting-versions.png
 - assets/shopify/githubsetup-ask-first.png
 - assets/shopify/githubworkflow-commit.png

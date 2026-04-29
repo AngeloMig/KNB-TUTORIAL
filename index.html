@@ -84,8 +84,8 @@
                 Start with admin navigation, then move into VS Code, npm, Git, and Shopify CLI theme work.
               </p>
               <div class="hero-metrics" aria-label="Training highlights">
-                <span><strong>18</strong> guided popups</span>
-                <span><strong>19</strong> modules</span>
+                <span><strong>19</strong> guided popups</span>
+                <span><strong>20</strong> modules</span>
                 <span><strong>Saved</strong> progress</span>
               </div>
               <div class="hero-actions">
@@ -109,7 +109,7 @@
             <div class="completion-summary">
               <div>
                 <p class="section-kicker">Training progress</p>
-                <h2 id="completionDashboardTitle">0 of 18 guided modules complete</h2>
+                <h2 id="completionDashboardTitle">0 of 19 guided modules complete</h2>
                 <p id="nextRecommendedModule">Next recommended: Dashboard Tour.</p>
               </div>
               <button class="continue-button" type="button" id="continueModuleButton">
@@ -120,7 +120,7 @@
             <div class="completion-stats">
               <span><strong id="completedModulesCount">0</strong> complete</span>
               <span><strong id="inProgressModulesCount">0</strong> in progress</span>
-              <span><strong id="notStartedModulesCount">18</strong> not started</span>
+              <span><strong id="notStartedModulesCount">19</strong> not started</span>
             </div>
             <div class="learning-path" aria-label="Beginner path progress">
               <div data-tour-keys="dashboard">
@@ -143,7 +143,7 @@
                 <strong>Launch check</strong>
                 <small>Review before changes go live</small>
               </div>
-              <div data-tour-keys="devSetup,cliInstall,cliWorkflow,projectFiles,devTroubleshooting">
+              <div data-tour-keys="devSetup,cliInstall,cliWorkflow,projectFiles,buildTools,devTroubleshooting">
                 <span class="path-step">05</span>
                 <strong>VS Code and CLI</strong>
                 <small>Prepare local theme workflow</small>
@@ -164,7 +164,7 @@
           <div class="toolbar">
             <div>
               <p class="section-kicker">Training modules</p>
-              <h2 id="resultCount">19 modules</h2>
+              <h2 id="resultCount">20 modules</h2>
             </div>
             <div class="view-tabs" role="tablist" aria-label="View mode">
               <button class="is-active" type="button" aria-selected="true" data-view="beginner">Beginner</button>
@@ -278,6 +278,7 @@
           <label><input type="checkbox" /> Open the project folder in VS Code</label>
           <label><input type="checkbox" /> Check Node, npm, Git, and Shopify CLI versions</label>
           <label><input type="checkbox" /> Run shopify theme dev from the correct theme folder</label>
+          <label><input type="checkbox" /> Run gulp watch and Shopify theme dev in separate terminals when the project uses Gulp</label>
           <label><input type="checkbox" /> Ask the supervisor for GitHub account, password, 2FA, repo, and branch access</label>
           <label><input type="checkbox" /> Clone the assigned repository with GitHub Desktop</label>
           <label><input type="checkbox" /> Pull, commit, push, and request review safely</label>
@@ -305,6 +306,7 @@
           <article><strong>npm</strong><span>The package manager used to install project dependencies and Shopify CLI.</span></article>
           <article><strong>Shopify CLI</strong><span>The command-line tool used to preview, pull, check, and push Shopify themes.</span></article>
           <article><strong>Theme dev</strong><span>A Shopify CLI preview command for testing local theme changes.</span></article>
+          <article><strong>Gulp watch</strong><span>A project build command that watches source files and compiles assets when configured.</span></article>
           <article><strong>Repository</strong><span>A GitHub project that stores code, history, branches, and collaboration work.</span></article>
           <article><strong>Clone</strong><span>A local copy of a GitHub repository on the trainee computer.</span></article>
           <article><strong>Commit</strong><span>A saved local checkpoint with a message explaining the code change.</span></article>
@@ -345,6 +347,11 @@
             <button type="button" data-template="Developer Setup SOP: open the project folder in VS Code, open terminal, run node -v, npm -v, git --version, shopify version, confirm Shopify store access, then run shopify theme dev from the theme folder.">Copy checklist</button>
           </article>
           <article>
+            <h3>Gulp and theme preview</h3>
+            <p>Install packages, run the asset watcher, then run Shopify preview in a second terminal.</p>
+            <button type="button" data-template="Gulp and Shopify Preview SOP: open the theme folder, run npm install if needed, run gulp watch in terminal one, open a second terminal, run shopify theme dev --store sample-store.myshopify.com, keep both terminals running while editing, and stop with Ctrl + C when finished.">Copy checklist</button>
+          </article>
+          <article>
             <h3>GitHub Desktop</h3>
             <p>Confirm access, clone the repo, pull first, commit clear changes, push, and request review.</p>
             <button type="button" data-template="GitHub Desktop SOP: ask supervisor for account, password or 2FA help, repository, and branch; sign in to GitHub Desktop; clone the assigned repo; pull before editing; commit only assigned changes; push; send the branch or PR link for review.">Copy checklist</button>
@@ -367,7 +374,7 @@
           <article><strong>Theme Editor</strong><span>Dashboard, Theme Customizer, Navigation</span></article>
           <article><strong>Product Manager</strong><span>Dashboard, Products, Collections</span></article>
           <article><strong>Launch QA</strong><span>Setup, Navigation, Launch Checklist</span></article>
-          <article><strong>Theme Developer</strong><span>VS Code, CLI Install, Theme Workflow, Troubleshooting</span></article>
+          <article><strong>Theme Developer</strong><span>VS Code, CLI Install, Gulp Watch, Theme Workflow, Troubleshooting</span></article>
           <article><strong>GitHub Trainee</strong><span>Access Approval, Clone, Branch, Commit, Push, Review</span></article>
           <article><strong>Frontend Coder</strong><span>BEM Basics, Components, SCSS Ampersand, Pro Review</span></article>
         </div>
