@@ -3,6 +3,7 @@ const TRAINING_STORE_ADMIN_URL = "https://admin.shopify.com/store/knb-tutorial";
 const TRAINING_STORE_PASSWORD = "charol";
 const SHOPIFY_CLI_DOCS_URL = "https://shopify.dev/docs/api/shopify-cli";
 const SHOPIFY_THEME_CLI_DOCS_URL = "https://shopify.dev/docs/storefronts/themes/tools/cli";
+const SHOPIFY_GITHUB_INTEGRATION_DOCS_URL = "https://shopify.dev/storefronts/themes/tools/github";
 const GITHUB_DESKTOP_URL = "https://desktop.github.com/";
 const GITHUB_DESKTOP_AUTH_DOCS_URL =
   "https://docs.github.com/en/desktop/installing-and-authenticating-to-github-desktop/authenticating-to-github-in-github-desktop";
@@ -240,6 +241,47 @@ const tutorials = [
   },
   {
     tool: "dev",
+    title: "GitHub Theme Preview Workflow",
+    description:
+      "Use GitHub as the Shopify theme source of truth, then use Shopify CLI only to preview and check local work.",
+    lessons: 5,
+    time: "1h 10m",
+    level: "Intermediate",
+    image:
+      "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80",
+    trainerNote:
+      "The team does not use Shopify CLI as the theme file sync workflow. GitHub is the repo source; Shopify CLI is for preview and checks.",
+    steps: [
+      "Fetch and pull the latest code from GitHub before editing.",
+      "Work inside the cloned GitHub repository folder.",
+      "Use shopify theme dev to preview local work.",
+      "Run shopify theme check before committing.",
+      "Commit and push changes to GitHub for review.",
+    ],
+  },
+  {
+    tool: "dev",
+    title: "Connect Shopify Theme to GitHub",
+    description:
+      "Connect an assigned GitHub branch to a Shopify theme so the store follows the company theme repository.",
+    lessons: 6,
+    time: "55m",
+    level: "Intermediate",
+    image:
+      "https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?auto=format&fit=crop&w=800&q=80",
+    trainerNote:
+      "Only a supervisor should connect or publish themes. Trainees should learn the path, permissions, branch choice, and safety checks before doing it on a real store.",
+    steps: [
+      "Confirm the correct GitHub organization, repository, and branch.",
+      "Confirm the repository has the standard Shopify theme folder structure.",
+      "Go to Shopify admin > Online Store > Themes.",
+      "Use Add theme > Connect from GitHub when approved.",
+      "Select the approved repository branch and connect it as an unpublished theme.",
+      "Test the connection, preview the theme, and publish only after review.",
+    ],
+  },
+  {
+    tool: "dev",
     title: "Theme Project Files and npm Install",
     description:
       "Understand the Shopify theme folder structure — assets, config, layout, locales, sections, snippets, and templates — and know when and why to run npm install versus shopify theme dev. Confusing these two commands is one of the most common beginner mistakes and can lead to editing files in the wrong place or previewing stale code.",
@@ -402,6 +444,33 @@ const tutorials = [
   },
   {
     tool: "code",
+    title: "Dynamic Shopify Section From Scratch",
+    description:
+      "Build a customizable Shopify section from a blank Liquid file, then make it editable in the theme customizer with schema settings, blocks, and presets.",
+    lessons: 14,
+    time: "2h 35m",
+    level: "Medium",
+    image:
+      "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80",
+    trainerNote:
+      "This is the bridge from code to Shopify customizer. Make trainees explain which parts are Liquid output and which parts are schema controls.",
+    steps: [
+      "Plan what is static, editable, and repeatable.",
+      "Create a new file in sections.",
+      "Write the static HTML and Liquid first.",
+      "Add section.settings values.",
+      "Add image picker, alt text, color, and spacing controls.",
+      "Add blocks and loop through section.blocks.",
+      "Add block.shopify_attributes.",
+      "Add empty-state fallback content.",
+      "Add presets so the section appears in Add section.",
+      "Add section-scoped CSS.",
+      "Assemble the complete section file.",
+      "QA the customizer, mobile layout, accessibility, and GitHub review flow.",
+    ],
+  },
+  {
+    tool: "code",
     title: "Pro SCSS: Architecture and Review Rules",
     description:
       "Apply professional SCSS structure using partials, design tokens, mixins, responsive helpers, and a code review checklist that catches naming, specificity, and compiled output problems. Senior developers review the compiled CSS output — not just the source SCSS — before approving work, because clean-looking SCSS can still produce bloated or fragile CSS.",
@@ -524,6 +593,24 @@ const modulePractices = {
       "Use the preview link for testing before pushing anything.",
     ],
   },
+  "GitHub Theme Preview Workflow": {
+    title: "Preview GitHub theme work safely",
+    description: "Pull the latest theme code from GitHub, preview locally with Shopify CLI, then push commits back to GitHub.",
+    tasks: [
+      "Fetch and pull the latest GitHub changes before editing.",
+      "Run shopify theme dev --store knb-tutorial from the theme folder.",
+      "Run theme checks, commit, and push to GitHub for review.",
+    ],
+  },
+  "Connect Shopify Theme to GitHub": {
+    title: "Connect the theme repo to Shopify",
+    description: "Learn the approved connection path from Shopify Themes to the company GitHub repository branch.",
+    tasks: [
+      "Confirm the repository, branch, and Shopify permissions with the supervisor.",
+      "Open Online Store > Themes and find Add theme > Connect from GitHub.",
+      "Connect only the approved branch as an unpublished theme, then preview before publishing.",
+    ],
+  },
   "Theme Project Files and npm Install": {
     title: "Inspect the project structure",
     description: "Understand theme folders and install package dependencies only when package.json exists.",
@@ -594,6 +681,15 @@ const modulePractices = {
       "Write a block with &__element.",
       "Add &--modifier and &__element--modifier.",
       "Explain the compiled CSS selectors.",
+    ],
+  },
+  "Dynamic Shopify Section From Scratch": {
+    title: "Build one dynamic section",
+    description: "Create a practice section file with Liquid output, schema settings, blocks, and a preset.",
+    tasks: [
+      "Create sections/knb-practice-feature.liquid in the assigned theme repo.",
+      "Add editable heading, text, button, and feature blocks.",
+      "Preview the section in the theme customizer before committing.",
     ],
   },
   "Pro SCSS: Architecture and Review Rules": {
@@ -2064,6 +2160,135 @@ const githubSetupSteps = [
   },
 ];
 
+const githubThemeConnectionSteps = [
+  {
+    title: "Confirm approval first",
+    label: "Approval",
+    description:
+      "Connecting a GitHub branch to Shopify can affect a real storefront, so confirm the store, repository, branch, and permission level before starting.",
+    imageTitle: "Connection approval",
+    imageHint: "Placeholder: add a screenshot of the internal approval note for store, repo, and branch.",
+    nav: "Approval",
+    action: "Open Shopify GitHub docs",
+    url: SHOPIFY_GITHUB_INTEGRATION_DOCS_URL,
+    tryTasks: [
+      "Ask which Shopify store to connect.",
+      "Ask which GitHub organization, repository, and branch to use.",
+      "Ask whether the connected theme must stay unpublished first.",
+    ],
+    example: "Example: connect the staging branch to an unpublished theme before any live publish decision.",
+    mistake: "Do not connect a random branch or personal repository to a client store.",
+    question: "Before connecting Shopify to GitHub, confirm...",
+    answers: ["Store, repo, branch, and approval", "Only product prices", "Only the homepage banner"],
+    correct: "Store, repo, branch, and approval",
+  },
+  {
+    title: "Check repository structure",
+    label: "Repo structure",
+    description:
+      "Shopify can connect branches that match the standard Shopify theme folder structure.",
+    imageTitle: "Theme folders",
+    imageHint: "Placeholder: add a screenshot of assets, config, layout, locales, sections, snippets, and templates.",
+    nav: "Structure",
+    action: "Open Shopify GitHub docs",
+    url: SHOPIFY_GITHUB_INTEGRATION_DOCS_URL,
+    tryTasks: [
+      "Open the assigned repo in GitHub or VS Code.",
+      "Confirm theme folders such as layout, sections, snippets, templates, config, assets, and locales.",
+      "Ask before connecting if the repo root is not the theme root.",
+    ],
+    example: "Example: the branch root should look like a Shopify theme, not a parent folder containing many unrelated projects.",
+    mistake: "Do not connect a branch that does not contain the Shopify theme at the expected level.",
+    question: "The connected branch should contain...",
+    answers: ["Shopify theme folders", "Only screenshots", "Only a README file"],
+    correct: "Shopify theme folders",
+  },
+  {
+    title: "Open Connect from GitHub",
+    label: "Connect",
+    description:
+      "In Shopify admin, the connection starts from the Themes page when adding a theme from GitHub.",
+    imageTitle: "Connect from GitHub",
+    imageHint: "Placeholder: add a screenshot of Online Store > Themes > Add theme > Connect from GitHub.",
+    nav: "Shopify admin",
+    action: "Open Shopify admin",
+    url: TRAINING_STORE_ADMIN_URL,
+    tryTasks: [
+      "Go to Online Store > Themes.",
+      "Open Add theme.",
+      "Choose Connect from GitHub only when the supervisor approves.",
+    ],
+    example: "Example: connect from GitHub creates a theme entry in the Shopify theme library.",
+    mistake: "Do not upload a ZIP or use Shopify CLI sync when the task is a GitHub connection.",
+    question: "The GitHub connection starts from...",
+    answers: ["Online Store > Themes", "Products > Inventory", "Settings > Taxes"],
+    correct: "Online Store > Themes",
+  },
+  {
+    title: "Select the correct branch",
+    label: "Branch",
+    description:
+      "Choose the approved organization, repository, and branch. The branch is what Shopify tracks for that connected theme.",
+    imageTitle: "Branch selection",
+    imageHint: "Placeholder: add a screenshot of repository and branch selection.",
+    nav: "Branch",
+    action: "Open Shopify GitHub docs",
+    url: SHOPIFY_GITHUB_INTEGRATION_DOCS_URL,
+    tryTasks: [
+      "Select the approved GitHub organization.",
+      "Select the assigned repository.",
+      "Select the approved branch, usually staging or another review branch.",
+    ],
+    example: "Example: connect staging to an unpublished theme for client review.",
+    mistake: "Do not connect main or a live branch unless the supervisor explicitly approves.",
+    question: "The connected branch should be...",
+    answers: ["The approved branch", "Any branch that appears first", "A random personal branch"],
+    correct: "The approved branch",
+  },
+  {
+    title: "Keep it unpublished first",
+    label: "Preview",
+    description:
+      "A connected GitHub theme should usually be tested as an unpublished theme before anyone publishes it.",
+    imageTitle: "Unpublished connected theme",
+    imageHint: "Placeholder: add a screenshot of the connected theme in the Theme library.",
+    nav: "Preview",
+    action: "Open Shopify theme docs",
+    url: "https://help.shopify.com/en/manual/online-store/themes/adding-themes",
+    tryTasks: [
+      "Confirm the connected theme appears in the Theme library.",
+      "Preview the theme.",
+      "Check homepage, product page, cart, and mobile layout before publishing.",
+    ],
+    example: "Example: use preview links for review while the live theme stays unchanged.",
+    mistake: "Do not publish immediately after connecting unless review is complete.",
+    question: "A newly connected theme should usually be...",
+    answers: ["Previewed unpublished first", "Published immediately", "Deleted after connecting"],
+    correct: "Previewed unpublished first",
+  },
+  {
+    title: "Understand sync responsibility",
+    label: "Sync rules",
+    description:
+      "GitHub remains the team source. Changes should be reviewed in GitHub before they are treated as approved theme work.",
+    imageTitle: "GitHub sync rules",
+    imageHint: "Placeholder: add a screenshot of a pull request or connected branch history.",
+    nav: "Rules",
+    action: "Open Shopify GitHub docs",
+    url: SHOPIFY_GITHUB_INTEGRATION_DOCS_URL,
+    tryTasks: [
+      "Explain that commits update the connected branch.",
+      "Explain that theme editor changes can affect the connected theme workflow.",
+      "Ask the supervisor before editing a connected theme in Shopify admin.",
+    ],
+    example: "Example: code changes go through GitHub review before the connected branch is used for publishing.",
+    mistake: "Do not make unreviewed theme editor changes on a connected production theme.",
+    question: "The team source of truth is...",
+    answers: ["The approved GitHub repository", "A random local folder", "A screenshot folder"],
+    correct: "The approved GitHub repository",
+  },
+];
+
 const githubWorkflowSteps = [
   {
     title: "Fetch and pull first",
@@ -2492,6 +2717,283 @@ const scssBasicSteps = [
   },
 ];
 
+const dynamicSectionSteps = [
+  {
+    title: "Plan the section before coding",
+    label: "Plan",
+    description:
+      "Before creating files, decide what the section should show, which content is editable, and which content repeats as blocks.",
+    imageTitle: "Section planning map",
+    imageHint: "Code sample: map static markup, section settings, blocks, and preset defaults.",
+    nav: "Plan",
+    action: "Open section architecture docs",
+    url: "https://shopify.dev/docs/storefronts/themes/architecture/sections",
+    tryTasks: [
+      "Write the section purpose in one sentence.",
+      "List static parts, editable section settings, and repeatable blocks.",
+      "Name the section file and CSS block before coding.",
+    ],
+    example:
+      "Example: A feature section has one heading, one intro text, one button, and repeatable feature cards.",
+    mistake: "Do not start coding without knowing which content belongs in settings and which belongs in blocks.",
+    question: "Repeatable feature cards should usually be...",
+    answers: ["Blocks", "One hardcoded paragraph", "Store settings"],
+    correct: "Blocks",
+  },
+  {
+    title: "Create the section file",
+    label: "File",
+    description:
+      "A Shopify section starts as a Liquid file inside the sections folder. This file contains the storefront markup and the schema editor controls.",
+    imageTitle: "New section file",
+    imageHint: "Code sample: create a new Liquid section file in the sections folder.",
+    nav: "File",
+    action: "Open Shopify sections docs",
+    url: "https://shopify.dev/docs/storefronts/themes/architecture/sections",
+    tryTasks: [
+      "Open the assigned theme repository in VS Code.",
+      "Create sections/knb-practice-feature.liquid.",
+      "Add a simple wrapper with a unique class name.",
+    ],
+    example: "Example file path: sections/knb-practice-feature.liquid",
+    mistake: "Do not create the file outside the sections folder or inside a random snippets folder.",
+    question: "A custom section file belongs in...",
+    answers: ["sections/", "assets/", "config/settings_schema.json"],
+    correct: "sections/",
+  },
+  {
+    title: "Write static markup first",
+    label: "Markup",
+    description:
+      "Before making the section dynamic, write the simple HTML/Liquid structure so you know what the section will render.",
+    imageTitle: "Static section markup",
+    imageHint: "Code sample: static section wrapper, heading, text, and button.",
+    nav: "Markup",
+    action: "Open Liquid docs",
+    url: "https://shopify.dev/docs/api/liquid",
+    tryTasks: [
+      "Add a section wrapper.",
+      "Add heading, text, and button markup.",
+      "Preview the file only after it has a schema preset.",
+    ],
+    example: "Example: start with fixed text, then replace it with section.settings values.",
+    mistake: "Do not start with a huge complex layout before the basic section works.",
+    question: "Why write static markup first?",
+    answers: ["To prove the structure works", "To skip schema forever", "To edit products"],
+    correct: "To prove the structure works",
+  },
+  {
+    title: "Add schema settings",
+    label: "Settings",
+    description:
+      "The schema settings array creates fields in the theme editor. The Liquid markup reads those values from section.settings.",
+    imageTitle: "Section settings schema",
+    imageHint: "Code sample: text, richtext, url, and text settings inside schema.",
+    nav: "Settings",
+    action: "Open section schema docs",
+    url: "https://shopify.dev/docs/storefronts/themes/architecture/sections/section-schema",
+    tryTasks: [
+      "Add a {% schema %} tag at the bottom of the file.",
+      "Add heading, text, button_label, and button_link settings.",
+      "Use section.settings.heading and section.settings.text in the markup.",
+    ],
+    example: "Example: {{ section.settings.heading }} prints the heading chosen in the customizer.",
+    mistake: "Do not duplicate setting IDs. Every setting id in the same section must be unique.",
+    question: "Section setting values are read with...",
+    answers: ["section.settings", "product.settings", "theme.password"],
+    correct: "section.settings",
+  },
+  {
+    title: "Add image, color, and spacing controls",
+    label: "Controls",
+    description:
+      "Useful dynamic sections often need images, color controls, and spacing controls. Add only settings that a merchant should safely edit.",
+    imageTitle: "Image and style controls",
+    imageHint: "Code sample: image_picker, text alt, color, and range settings.",
+    nav: "Controls",
+    action: "Open input settings docs",
+    url: "https://shopify.dev/docs/storefronts/themes/architecture/settings/input-settings",
+    tryTasks: [
+      "Add an image_picker setting.",
+      "Add an image_alt text setting.",
+      "Add background color and padding range settings.",
+    ],
+    example: "Example: image_picker controls the image, image_alt controls accessible text.",
+    mistake: "Do not add a setting for every CSS property. Only expose safe client controls.",
+    question: "Alt text helps with...",
+    answers: ["Accessibility", "Billing", "Git commits"],
+    correct: "Accessibility",
+  },
+  {
+    title: "Add blocks for repeatable content",
+    label: "Blocks",
+    description:
+      "Blocks let merchants add, remove, and reorder repeated content inside the section.",
+    imageTitle: "Section blocks schema",
+    imageHint: "Code sample: feature blocks with title and text settings.",
+    nav: "Blocks",
+    action: "Open section blocks docs",
+    url: "https://shopify.dev/docs/storefronts/themes/architecture/sections/section-schema#blocks",
+    tryTasks: [
+      "Add a feature block type.",
+      "Give the block title and text settings.",
+      "Add max_blocks so beginners cannot add unlimited items.",
+    ],
+    example: "Example: one Feature block can become a benefit, service, or selling point.",
+    mistake: "Do not use the same block type twice with different meanings in one section.",
+    question: "Blocks are useful for...",
+    answers: ["Repeatable content", "Store billing", "GitHub passwords"],
+    correct: "Repeatable content",
+  },
+  {
+    title: "Loop through section.blocks",
+    label: "Loop",
+    description:
+      "After blocks exist in schema, loop through section.blocks in Liquid and render each block based on its type.",
+    imageTitle: "Render section blocks",
+    imageHint: "Code sample: for loop, case block.type, and block settings.",
+    nav: "Loop",
+    action: "Open section schema docs",
+    url: "https://shopify.dev/docs/storefronts/themes/architecture/sections/section-schema#render-blocks",
+    tryTasks: [
+      "Add a for block in section.blocks loop.",
+      "Use case block.type.",
+      "Print block.settings.title and block.settings.text.",
+    ],
+    example: "Example: {{ block.settings.title }} prints the title for one block.",
+    mistake: "Do not rely on a literal block ID. Use block.type and block.settings.",
+    question: "Block setting values are read with...",
+    answers: ["block.settings", "section.password", "cart.blocks"],
+    correct: "block.settings",
+  },
+  {
+    title: "Add block.shopify_attributes",
+    label: "Editor support",
+    description:
+      "Add block.shopify_attributes to the block wrapper so Shopify's theme editor can identify and focus the block.",
+    imageTitle: "Theme editor attributes",
+    imageHint: "Code sample: block wrapper with block.shopify_attributes.",
+    nav: "Attributes",
+    action: "Open render blocks docs",
+    url: "https://shopify.dev/docs/storefronts/themes/architecture/sections/section-schema#render-blocks",
+    tryTasks: [
+      "Find the HTML element wrapping one block.",
+      "Add {{ block.shopify_attributes }} to that wrapper.",
+      "Explain why the theme editor needs it.",
+    ],
+    example: '<div class="feature-list__item" {{ block.shopify_attributes }}>',
+    mistake: "Do not leave block wrappers without editor attributes when blocks are editable.",
+    question: "block.shopify_attributes helps...",
+    answers: ["The theme editor identify blocks", "Change payment provider", "Create Git branches"],
+    correct: "The theme editor identify blocks",
+  },
+  {
+    title: "Add empty-state fallbacks",
+    label: "Fallbacks",
+    description:
+      "A section should still look understandable when a setting is blank or no blocks have been added yet.",
+    imageTitle: "Empty-state fallbacks",
+    imageHint: "Code sample: fallback text when settings or blocks are blank.",
+    nav: "Fallbacks",
+    action: "Open Liquid docs",
+    url: "https://shopify.dev/docs/api/liquid",
+    tryTasks: [
+      "Add fallback text for a blank heading.",
+      "Add a message when no feature blocks exist.",
+      "Hide the button if the label or link is blank.",
+    ],
+    example: "Example: show Add feature blocks in the editor instead of a broken empty grid.",
+    mistake: "Do not render empty buttons, empty headings, or broken image tags.",
+    question: "Fallbacks prevent...",
+    answers: ["Broken empty sections", "Shopify billing", "GitHub login"],
+    correct: "Broken empty sections",
+  },
+  {
+    title: "Add presets for Add section",
+    label: "Presets",
+    description:
+      "A preset makes the section available from the theme editor Add section picker and can include default settings and blocks.",
+    imageTitle: "Section presets",
+    imageHint: "Code sample: presets with default heading and two feature blocks.",
+    nav: "Presets",
+    action: "Open presets docs",
+    url: "https://shopify.dev/docs/storefronts/themes/architecture/sections/section-schema#presets",
+    tryTasks: [
+      "Add a presets array to the schema.",
+      "Give the preset a clear name.",
+      "Add default settings and two default feature blocks.",
+    ],
+    example: "Example preset name: KNB practice feature.",
+    mistake: "Do not forget presets if you expect the section to appear in Add section.",
+    question: "A section needs presets so it can...",
+    answers: ["Appear in Add section", "Create orders", "Install npm"],
+    correct: "Appear in Add section",
+  },
+  {
+    title: "Add section-scoped CSS",
+    label: "CSS",
+    description:
+      "Write CSS that targets this section's block class so styles do not leak into other Shopify sections.",
+    imageTitle: "Section CSS",
+    imageHint: "Code sample: section-scoped CSS using the section class.",
+    nav: "CSS",
+    action: "Open CSS docs",
+    url: "https://developer.mozilla.org/en-US/docs/Web/CSS",
+    tryTasks: [
+      "Add styles using the knb-practice-feature class.",
+      "Add responsive styles for mobile.",
+      "Avoid styling global h2, p, or a tags directly.",
+    ],
+    example: "Example: .knb-practice-feature__heading is safer than h2.",
+    mistake: "Do not write global selectors that accidentally change other theme sections.",
+    question: "Section CSS should target...",
+    answers: ["The section class", "Every h2 globally", "Checkout settings"],
+    correct: "The section class",
+  },
+  {
+    title: "Assemble the complete file",
+    label: "Full file",
+    description:
+      "After learning each part, combine the markup, settings, blocks, editor attributes, and preset into one valid section file.",
+    imageTitle: "Complete dynamic section",
+    imageHint: "Code sample: full Liquid section file with schema.",
+    nav: "Full file",
+    action: "Open section schema docs",
+    url: "https://shopify.dev/docs/storefronts/themes/architecture/sections/section-schema",
+    tryTasks: [
+      "Combine the markup and schema into one section file.",
+      "Check that every setting id used in Liquid exists in schema.",
+      "Check that the JSON inside schema is valid before testing.",
+    ],
+    example: "Example: if Liquid uses section.settings.heading, schema must include an id named heading.",
+    mistake: "Do not leave trailing commas or comments inside the schema JSON.",
+    question: "If Liquid uses section.settings.heading, schema needs...",
+    answers: ["A setting with id heading", "A product named heading", "A Git branch named heading"],
+    correct: "A setting with id heading",
+  },
+  {
+    title: "QA, check, and commit",
+    label: "QA",
+    description:
+      "After the section works in the customizer, test all controls, mobile layout, accessibility, theme check, and GitHub review.",
+    imageTitle: "Dynamic section QA",
+    imageHint: "Code sample: QA checklist and GitHub-first review commands.",
+    nav: "QA",
+    action: "Open theme check docs",
+    url: "https://shopify.dev/docs/api/shopify-cli/theme/theme-check",
+    tryTasks: [
+      "Add the section in the theme editor preview.",
+      "Test every setting, block add/remove/reorder, image alt text, and mobile layout.",
+      "Run theme check, commit only assigned files, and push to GitHub for review.",
+    ],
+    example: "Example: test heading, button link, block add/remove, mobile layout, then push to GitHub.",
+    mistake: "Do not publish or merge a new section before review.",
+    question: "After building the section, send work for review by...",
+    answers: ["Committing and pushing to GitHub", "Changing billing", "Deleting the theme"],
+    correct: "Committing and pushing to GitHub",
+  },
+];
+
 const scssProSteps = [
   {
     title: "Use a clear SCSS architecture",
@@ -2724,6 +3226,27 @@ const moduleTours = {
       "The trainee understands the daily CLI commands and which ones read, preview, or write theme files.",
     steps: cliWorkflowSteps,
   },
+  "GitHub Theme Preview Workflow": {
+    key: "cliWorkflow",
+    kicker: "GitHub theme workflow",
+    title: "Pull from GitHub, preview locally, push to GitHub.",
+    intro: "Use GitHub as the Shopify theme repository. Shopify CLI is for previewing and checking local theme work.",
+    completionTitle: "GitHub theme preview workflow is complete.",
+    completionText:
+      "The trainee understands that GitHub is the source of truth, while Shopify CLI is used for preview and checks.",
+    steps: cliWorkflowSteps,
+  },
+  "Connect Shopify Theme to GitHub": {
+    key: "githubThemeConnection",
+    kicker: "Shopify GitHub integration",
+    title: "Connect the approved theme branch.",
+    intro:
+      "Learn how a Shopify theme is connected to a GitHub repository branch, what permissions are needed, and why connected themes should be previewed before publishing.",
+    completionTitle: "Shopify GitHub connection module is complete.",
+    completionText:
+      "The trainee understands approval, repository structure, branch selection, unpublished preview, and GitHub sync rules.",
+    steps: githubThemeConnectionSteps,
+  },
   "Theme Project Files and npm Install": {
     key: "projectFiles",
     kicker: "Theme project files",
@@ -2803,6 +3326,17 @@ const moduleTours = {
     completionText:
       "The trainee understands how SCSS compiles, especially &__element, &--modifier, and &:hover selectors.",
     steps: scssBasicSteps,
+  },
+  "Dynamic Shopify Section From Scratch": {
+    key: "dynamicSection",
+    kicker: "Dynamic section",
+    title: "Build a Shopify section from scratch.",
+    intro:
+      "Create one practice section, add schema settings and blocks, then test it in the theme editor before committing to GitHub.",
+    completionTitle: "Dynamic section practice is complete.",
+    completionText:
+      "The trainee can create a section file, add schema, render settings and blocks, use presets, and test the section safely.",
+    steps: dynamicSectionSteps,
   },
   "Pro SCSS: Architecture and Review Rules": {
     key: "scssPro",
