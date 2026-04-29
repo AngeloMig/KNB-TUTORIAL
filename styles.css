@@ -372,6 +372,7 @@ button {
 .learning-path {
   display: flex;
   flex: 1;
+  min-width: 0;
   gap: 1px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
