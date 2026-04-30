@@ -4035,30 +4035,6 @@ body {
   margin-bottom: 10px;
 }
 
-.detail-header {
-  display: grid;
-  place-items: center;
-  height: 112px;
-  margin-bottom: 12px;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #0f766e 0%, #134e48 100%);
-  color: #ffffff;
-}
-
-.detail-header[data-tool="setup"] { background: linear-gradient(135deg, #b45309 0%, #78350f 100%); }
-.detail-header[data-tool="pages"] { background: linear-gradient(135deg, #1d4ed8 0%, #1e3a8a 100%); }
-.detail-header[data-tool="theme"] { background: linear-gradient(135deg, #7c3aed 0%, #4c1d95 100%); }
-.detail-header[data-tool="products"] { background: linear-gradient(135deg, #c2410c 0%, #7c2d12 100%); }
-.detail-header[data-tool="dev"] { background: linear-gradient(135deg, #0f172a 0%, #020617 100%); }
-.detail-header[data-tool="code"] { background: linear-gradient(135deg, #5b21b6 0%, #2e1065 100%); }
-
-.detail-header svg {
-  width: 42px;
-  height: 42px;
-  stroke-width: 1.6;
-  opacity: 0.92;
-}
-
 .detail-panel h2 {
   margin: 10px 0 6px;
   font-size: 1.32rem;
