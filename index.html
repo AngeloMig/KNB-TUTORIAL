@@ -6,8 +6,10 @@
     <meta name="theme-color" content="#0f766e" />
     <title>KNB Web Solution Training Hub</title>
     <link rel="preconnect" href="https://images.unsplash.com" />
-    <link rel="stylesheet" href="styles.css?v=11" />
+    <link rel="stylesheet" href="styles.css?v=12" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.min.css" />
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js" defer></script>
     <script src="app.js" defer></script>
   </head>
   <body>
@@ -95,8 +97,8 @@
                 Start with admin navigation, then move into VS Code, npm, Git, and Shopify CLI theme work.
               </p>
               <div class="hero-metrics" aria-label="Training highlights">
-                <span><strong>20</strong> guided popups</span>
-                <span><strong>21</strong> modules</span>
+                <span><strong id="heroPopupCount">0</strong> guided popups</span>
+                <span><strong id="heroModuleCount">0</strong> modules</span>
                 <span><strong>Saved</strong> progress</span>
               </div>
               <div class="hero-actions">
@@ -120,7 +122,7 @@
             <div class="completion-summary">
               <div>
                 <p class="section-kicker">Training progress</p>
-                <h2 id="completionDashboardTitle">0 of 19 guided modules complete</h2>
+                <h2 id="completionDashboardTitle">0 of 0 guided modules complete</h2>
                 <p id="nextRecommendedModule">Next recommended: Dashboard Tour.</p>
               </div>
               <button class="continue-button" type="button" id="continueModuleButton">
@@ -188,7 +190,7 @@
           <div class="toolbar">
             <div>
               <p class="section-kicker">Training modules</p>
-              <h2 id="resultCount">20 modules</h2>
+              <h2 id="resultCount">0 modules</h2>
             </div>
             <div class="view-tabs" role="tablist" aria-label="View mode">
               <button class="is-active" type="button" aria-selected="true" data-view="beginner">Beginner</button>
@@ -200,12 +202,8 @@
         </section>
 
         <aside class="detail-panel" aria-label="Selected training module details">
-          <div class="detail-image">
-            <img
-              id="detailImage"
-              src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&amp;fit=crop&amp;w=800&amp;q=80"
-              alt="Online shopping dashboard"
-            />
+          <div class="detail-header" id="detailHeader" data-tool="admin">
+            <i data-lucide="layout-dashboard" id="detailHeaderIcon"></i>
           </div>
           <p class="tool-tag admin" id="detailTool">Admin</p>
           <h2 id="detailTitle">Dashboard Tour: What Each Menu Does</h2>

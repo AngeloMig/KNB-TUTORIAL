@@ -3605,7 +3605,8 @@ const templateButtons = document.querySelectorAll("[data-template]");
 const trackQuizGrid = document.querySelector("#trackQuizGrid");
 
 const detail = {
-  image: document.querySelector("#detailImage"),
+  header: document.querySelector("#detailHeader"),
+  headerIcon: document.querySelector("#detailHeaderIcon"),
   tool: document.querySelector("#detailTool"),
   title: document.querySelector("#detailTitle"),
   description: document.querySelector("#detailDescription"),
@@ -4956,8 +4957,24 @@ function renderTutorials() {
 function updateDetail(tutorial) {
   const practice = modulePractices[tutorial.title];
 
-  detail.image.src = tutorial.image;
-  detail.image.alt = `${tutorial.title} tutorial preview`;
+  if (detail.header) {
+    detail.header.dataset.tool = tutorial.tool;
+  }
+  if (detail.headerIcon) {
+    const icon = {
+      admin: "layout-dashboard",
+      setup: "settings",
+      pages: "file-text",
+      theme: "palette",
+      products: "package",
+      dev: "terminal",
+      code: "code-2",
+    }[tutorial.tool] || "book-open";
+    detail.headerIcon.setAttribute("data-lucide", icon);
+    if (window.lucide) {
+      lucide.createIcons({ nodes: [detail.headerIcon] });
+    }
+  }
   detail.tool.textContent = formatTool(tutorial.tool);
   detail.tool.className = `tool-tag ${tutorial.tool}`;
   detail.title.textContent = tutorial.title;
@@ -5011,6 +5028,20 @@ function renderSimpleTour() {
       codeSampleLanguage.textContent = codeSample.language;
       codeSampleTitle.textContent = codeSample.title;
       codeSampleCode.textContent = buildCodeSampleText(codeSample);
+      const hljsLang = {
+        HTML: "xml",
+        CSS: "css",
+        SCSS: "scss",
+        Liquid: "django",
+        JSON: "json",
+        Terminal: "bash",
+        Git: "bash",
+      }[codeSample.language] || "plaintext";
+      codeSampleCode.className = `language-${hljsLang} hljs`;
+      delete codeSampleCode.dataset.highlighted;
+      if (window.hljs) {
+        window.hljs.highlightElement(codeSampleCode);
+      }
     }
   }
   const stepImagePath = getStepImagePath(tour, step);
@@ -5371,6 +5402,26 @@ dashboardTour.addEventListener("click", (event) => {
 window.addEventListener("DOMContentLoaded", () => {
   if (window.lucide) {
     lucide.createIcons();
+  }
+
+  tutorials.forEach((t) => {
+    if (!modulePractices[t.title]) {
+      console.warn(`[data drift] modulePractices missing entry for "${t.title}"`);
+    }
+    if (!moduleTours[t.title]) {
+      console.warn(`[data drift] moduleTours missing entry for "${t.title}"`);
+    }
+  });
+
+  const heroModuleCount = document.querySelector("#heroModuleCount");
+  const heroPopupCount = document.querySelector("#heroPopupCount");
+  if (heroModuleCount) heroModuleCount.textContent = tutorials.length;
+  if (heroPopupCount) {
+    const popupTotal = Object.values(moduleTours).reduce(
+      (sum, tour) => sum + (tour.steps ? tour.steps.length : 0),
+      0,
+    );
+    heroPopupCount.textContent = popupTotal;
   }
 
   traineeSelect.value = activeTrainee;
