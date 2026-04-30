@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#0f766e" />
     <title>KNB Web Solution Training Hub</title>
     <link rel="preconnect" href="https://images.unsplash.com" />
-    <link rel="stylesheet" href="styles.css?v=10" />
+    <link rel="stylesheet" href="styles.css?v=11" />
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
     <script src="app.js" defer></script>
   </head>
@@ -491,37 +491,7 @@
           <nav class="simple-tour-nav" id="simpleTourNav" aria-label="Dashboard tour steps"></nav>
 
           <article class="simple-tour-main" aria-live="polite">
-            <div class="image-placeholder">
-              <img id="simpleTourImage" src="" alt="" hidden />
-              <i data-lucide="image"></i>
-              <h3 id="simpleTourImageTitle">Store password screen</h3>
-              <p id="simpleTourImageHint">Placeholder: add a screenshot of the password page here later.</p>
-              <div class="code-sample-panel" id="codeSamplePanel" hidden>
-                <div class="code-sample-header">
-                  <span id="codeSampleLanguage">SCSS</span>
-                  <strong id="codeSampleTitle">Code sample</strong>
-                </div>
-                <pre><code id="codeSampleCode"></code></pre>
-              </div>
-              <div class="placeholder-hotspots" aria-hidden="true">
-                <span style="left: 22%; top: 26%;">1</span>
-                <span style="left: 58%; top: 44%;">2</span>
-                <span style="left: 78%; top: 68%;">3</span>
-              </div>
-              <button class="upload-placeholder" type="button" id="screenshotSlot">
-                Screenshot slot
-              </button>
-              <div class="screenshot-controls" id="screenshotControls" hidden>
-                <button type="button" id="replaceScreenshotButton">Replace screenshot</button>
-                <button type="button" id="removeScreenshotButton">Remove</button>
-              </div>
-              <input id="screenshotUpload" type="file" accept="image/*" hidden />
-            </div>
-            <p class="tour-tip" id="tourTip">
-              Tip: Use the lesson preview to confirm what the trainee should look for before moving on.
-            </p>
-
-            <aside class="simple-tour-copy">
+            <section class="lesson-workspace" aria-label="Current lesson">
               <p class="section-kicker" id="simpleTourStepLabel">Step 1 of 12</p>
               <h3 id="simpleTourTitle">First, open the tutorial store</h3>
               <p id="simpleTourDescription">
@@ -530,6 +500,38 @@
               <a class="secondary-link-button" id="simpleTourAction" href="https://knb-tutorial.myshopify.com" target="_blank" rel="noreferrer">
                 Open tutorial store
               </a>
+              <div class="image-placeholder">
+                <img id="simpleTourImage" src="" alt="" hidden />
+                <i data-lucide="image"></i>
+                <h3 id="simpleTourImageTitle">Store password screen</h3>
+                <p id="simpleTourImageHint">Placeholder: add a screenshot of the password page here later.</p>
+                <div class="code-sample-panel" id="codeSamplePanel" hidden>
+                  <div class="code-sample-header">
+                    <span id="codeSampleLanguage">SCSS</span>
+                    <strong id="codeSampleTitle">Code sample</strong>
+                  </div>
+                  <pre><code id="codeSampleCode"></code></pre>
+                </div>
+                <div class="placeholder-hotspots" aria-hidden="true">
+                  <span style="left: 22%; top: 26%;">1</span>
+                  <span style="left: 58%; top: 44%;">2</span>
+                  <span style="left: 78%; top: 68%;">3</span>
+                </div>
+                <button class="upload-placeholder" type="button" id="screenshotSlot">
+                  Screenshot slot
+                </button>
+                <div class="screenshot-controls" id="screenshotControls" hidden>
+                  <button type="button" id="replaceScreenshotButton">Replace screenshot</button>
+                  <button type="button" id="removeScreenshotButton">Remove</button>
+                </div>
+                <input id="screenshotUpload" type="file" accept="image/*" hidden />
+              </div>
+              <p class="tour-tip" id="tourTip">
+                Tip: Use the lesson preview to confirm what the trainee should look for before moving on.
+              </p>
+            </section>
+
+            <aside class="simple-tour-copy">
               <div class="try-card">
                 <h4 id="tryCardTitle">Try this now</h4>
                 <ul id="tryChecklist"></ul>

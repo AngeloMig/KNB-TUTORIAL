@@ -6904,3 +6904,170 @@ body.trainer-mode .step-trainer-note {
   color: #704c10;
   font-size: 0.84rem;
 }
+
+/* Split workspace structural fix */
+.split-workspace-tour .simple-tour-main {
+  grid-template-columns: minmax(440px, 1fr) minmax(330px, 430px);
+  grid-template-rows: auto;
+  gap: 16px;
+  min-height: 642px;
+  padding: 0 0 18px 16px;
+  align-items: stretch;
+}
+
+.split-workspace-tour .simple-tour-main::before {
+  display: none;
+}
+
+.split-workspace-tour .lesson-workspace {
+  grid-column: 1;
+  display: grid;
+  grid-template-rows: auto auto auto auto minmax(300px, 1fr) auto;
+  gap: 14px;
+  min-height: 100%;
+  padding: 28px;
+  background: #ffffff;
+  border: 1px solid #dfe7e2;
+  border-radius: 8px;
+}
+
+.split-workspace-tour .simple-tour-copy {
+  grid-column: 2;
+  display: grid;
+  gap: 14px;
+  align-content: start;
+  min-height: 100%;
+  padding: 0;
+  overflow: visible;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.split-workspace-tour .lesson-workspace > .section-kicker,
+.split-workspace-tour .lesson-workspace > h3,
+.split-workspace-tour .lesson-workspace > p,
+.split-workspace-tour .lesson-workspace > .secondary-link-button,
+.split-workspace-tour .lesson-workspace > .image-placeholder,
+.split-workspace-tour .lesson-workspace > .tour-tip,
+.split-workspace-tour .simple-tour-copy > .try-card,
+.split-workspace-tour .simple-tour-copy > .example-note,
+.split-workspace-tour .simple-tour-copy > .mistake-note,
+.split-workspace-tour .simple-tour-copy > .step-trainer-note,
+.split-workspace-tour .simple-tour-copy > .mini-check {
+  grid-column: auto;
+  grid-row: auto;
+  width: 100%;
+  margin: 0;
+}
+
+.split-workspace-tour .lesson-workspace > .section-kicker {
+  justify-self: start;
+  width: fit-content;
+  min-height: 24px;
+  padding: 5px 8px;
+  background: #e8f7f1;
+  border: 1px solid #c7e4d7;
+  border-radius: 999px;
+  color: var(--teal-dark);
+  font-size: 0.62rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.split-workspace-tour .lesson-workspace > h3 {
+  color: #10231f;
+  font-size: clamp(2rem, 3vw, 3.1rem);
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.split-workspace-tour .lesson-workspace > p:not(.section-kicker):not(.tour-tip) {
+  max-width: 72ch;
+  color: #4e5b55;
+  font-size: 0.94rem;
+  line-height: 1.55;
+}
+
+.split-workspace-tour .lesson-workspace > .secondary-link-button {
+  justify-self: start;
+  width: auto;
+  min-width: 210px;
+  min-height: 40px;
+  padding-inline: 14px;
+  background: #10231f;
+  border-color: #10231f;
+  border-radius: 7px;
+  color: #ffffff;
+  font-size: 0.82rem;
+}
+
+.split-workspace-tour .lesson-workspace > .secondary-link-button svg {
+  width: 15px;
+  height: 15px;
+}
+
+.split-workspace-tour .lesson-workspace > .image-placeholder {
+  align-self: stretch;
+  width: 100%;
+  min-height: 330px;
+  max-height: none;
+  padding: 16px;
+  background: #f4f7f5;
+  border: 1px solid #d3ddd7;
+  border-radius: 8px;
+  color: #101b18;
+  box-shadow: none;
+}
+
+.split-workspace-tour .lesson-workspace > .image-placeholder.has-code-sample {
+  min-height: 430px;
+  background: #10231f;
+}
+
+.split-workspace-tour .image-placeholder > h3,
+.split-workspace-tour .image-placeholder > p {
+  display: none;
+}
+
+.split-workspace-tour .lesson-workspace > .tour-tip {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  min-height: 30px;
+  color: #34423d;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.split-workspace-tour .simple-tour-copy > .try-card {
+  margin-top: 28px;
+}
+
+.split-workspace-tour .simple-tour-copy > .try-card,
+.split-workspace-tour .simple-tour-copy > .example-note,
+.split-workspace-tour .simple-tour-copy > .mistake-note,
+.split-workspace-tour .simple-tour-copy > .step-trainer-note,
+.split-workspace-tour .simple-tour-copy > .mini-check {
+  border-radius: 8px;
+}
+
+@media (max-width: 1180px) {
+  .split-workspace-tour .simple-tour-main {
+    grid-template-columns: 1fr;
+    padding: 0 0 18px;
+  }
+
+  .split-workspace-tour .lesson-workspace,
+  .split-workspace-tour .simple-tour-copy {
+    grid-column: 1;
+    min-height: auto;
+  }
+
+  .split-workspace-tour .simple-tour-copy > .try-card {
+    margin-top: 0;
+  }
+}
