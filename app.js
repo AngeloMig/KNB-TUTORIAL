@@ -13,6 +13,7 @@ const BEM_NAMING_DOCS_URL = "https://getbem.com/naming/";
 const SASS_STYLE_RULES_DOCS_URL = "https://sass-lang.com/documentation/style-rules/";
 const SASS_SELECTOR_DOCS_URL = "https://sass-lang.com/documentation/modules/selector/";
 const STORAGE_KEY = "knb-shopify-training-progress-v1";
+const ACTIVE_TRAINEE_KEY = "knb-shopify-active-trainee-v1";
 
 const tutorials = [
   {
@@ -383,6 +384,27 @@ const tutorials = [
     ],
   },
   {
+    tool: "dev",
+    title: "Deploy and Review Workflow",
+    description:
+      "Learn what happens after GitHub review: respond to requested changes, rerun local QA, preview the connected Shopify theme, wait for approval, and document the handoff. This prevents trainees from treating 'pushed to GitHub' as the finish line when review, fixes, and deployment checks still decide whether work is safe.",
+    lessons: 6,
+    time: "55m",
+    level: "Intermediate",
+    image:
+      "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80",
+    trainerNote:
+      "Make the trainee explain the review loop before any merge or publish action. Approval, QA, and handoff notes are part of the work.",
+    steps: [
+      "Open the review notes or pull request comments.",
+      "Make requested fixes on the same assigned branch.",
+      "Rerun theme check, browser QA, and mobile preview.",
+      "Push the follow-up commit and notify the reviewer.",
+      "Preview the connected unpublished Shopify theme after approval.",
+      "Document what changed, what was tested, and what still needs supervisor approval.",
+    ],
+  },
+  {
     tool: "code",
     title: "BEM Naming Basics",
     description:
@@ -654,6 +676,15 @@ const modulePractices = {
       "Fetch and pull before editing.",
       "Commit only the files related to the assigned task.",
       "Push and notify the supervisor for review.",
+    ],
+  },
+  "Deploy and Review Workflow": {
+    title: "Complete the review loop",
+    description: "Handle reviewer feedback, rerun checks, preview the connected theme, and document the handoff.",
+    tasks: [
+      "Read the review comments before editing anything.",
+      "Push follow-up fixes to the same branch.",
+      "Send the reviewer a summary of fixes, QA, and remaining approval needs.",
     ],
   },
   "BEM Naming Basics": {
@@ -2404,6 +2435,141 @@ const githubWorkflowSteps = [
   },
 ];
 
+const deployReviewSteps = [
+  {
+    title: "Read review notes first",
+    label: "Review notes",
+    description:
+      "After a branch is pushed, review comments explain what needs to change before the work can be approved. Reading every note before editing prevents partial fixes, repeated questions, and new commits that miss the reviewer's actual concern.",
+    imageTitle: "GitHub pull request review comments",
+    imageHint: "Screenshot should show: a pull request with reviewer comments, changed files, and the review status visible.",
+    nav: "Notes",
+    action: "Open GitHub pull request docs",
+    url: "https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/about-pull-request-reviews",
+    tryTasks: [
+      "Open the branch or pull request link from the supervisor.",
+      "Read every review comment before opening VS Code.",
+      "Write down which files need changes and which comments are questions only.",
+      "Ask the reviewer before changing anything you do not understand.",
+    ],
+    example: "Example: if the reviewer asks for a mobile spacing fix and a clearer class name, list both items before editing.",
+    mistake: "Do not fix only the first visible comment and ignore the rest of the review.",
+    question: "Review comments should be handled...",
+    answers: ["Before follow-up edits", "After publishing", "Only if they are easy"],
+    correct: "Before follow-up edits",
+  },
+  {
+    title: "Make fixes on the same branch",
+    label: "Fix branch",
+    description:
+      "Review fixes should usually stay on the same assigned branch so the reviewer can see the full history in one place. Creating a new unrelated branch for every small fix makes review harder and can hide the connection between the original feedback and the follow-up work.",
+    imageTitle: "GitHub Desktop on the reviewed branch",
+    imageHint: "Screenshot should show: GitHub Desktop with the same review branch selected and new follow-up changes visible.",
+    nav: "Fixes",
+    action: "Open GitHub Desktop branch docs",
+    url: "https://docs.github.com/en/desktop/making-changes-in-a-branch/managing-branches-in-github-desktop",
+    tryTasks: [
+      "Confirm GitHub Desktop is still on the reviewed branch.",
+      "Make only the requested fixes in VS Code.",
+      "Review changed files again before committing.",
+      "Write a follow-up commit message that names the review fix.",
+    ],
+    example: "Example commit: 'Fix mobile spacing in featured collection section'.",
+    mistake: "Do not switch to main or create a new branch unless the supervisor tells you to.",
+    question: "Review fixes usually go on...",
+    answers: ["The same review branch", "Main without review", "A random new repo"],
+    correct: "The same review branch",
+  },
+  {
+    title: "Rerun local QA",
+    label: "QA",
+    description:
+      "Every review fix needs another local check because even a small Liquid, SCSS, or spacing change can create a new problem. Theme check, browser preview, mobile preview, and the changed workflow should all be verified before asking for another review.",
+    imageTitle: "VS Code terminal and browser preview after fixes",
+    imageHint: "Screenshot should show: terminal checks passing and the Shopify preview open in a browser.",
+    nav: "QA",
+    action: "Open Shopify theme check docs",
+    url: "https://shopify.dev/docs/storefronts/themes/tools/theme-check",
+    tryTasks: [
+      "Run the project build or watcher if the theme requires it.",
+      "Run shopify theme check when available.",
+      "Open the Shopify preview and test the changed page.",
+      "Check desktop and mobile before pushing the follow-up commit.",
+    ],
+    example: "Example: after changing SCSS, confirm the compiled CSS updated and the mobile preview still fits.",
+    mistake: "Do not assume a reviewer fix is safe just because it is small.",
+    question: "After review fixes, you should...",
+    answers: ["Run QA again", "Skip testing", "Publish immediately"],
+    correct: "Run QA again",
+  },
+  {
+    title: "Push and notify the reviewer",
+    label: "Follow-up",
+    description:
+      "Once fixes are committed and pushed, the reviewer needs a concise update that says what changed, which checks passed, and whether anything still needs approval. This keeps review moving without making the supervisor search through the branch history.",
+    imageTitle: "Pushed follow-up commit and reviewer update message",
+    imageHint: "Screenshot should show: a pushed follow-up commit or a pull request comment summarizing fixes and tests.",
+    nav: "Notify",
+    action: "Open GitHub pull request docs",
+    url: "https://docs.github.com/en/pull-requests",
+    tryTasks: [
+      "Push the follow-up commit to GitHub.",
+      "Write a short reviewer update with the branch name.",
+      "List the requested fixes that were completed.",
+      "List the QA checks you ran.",
+    ],
+    example: "Example: 'Fixed mobile spacing and renamed the class. Ran theme check and tested homepage desktop/mobile preview.'",
+    mistake: "Do not push silently and expect the reviewer to notice immediately.",
+    question: "The reviewer update should include...",
+    answers: ["Fixes and QA", "Only an emoji", "The storefront password only"],
+    correct: "Fixes and QA",
+  },
+  {
+    title: "Preview before deploy",
+    label: "Preview",
+    description:
+      "A connected or deploy-ready Shopify theme should be previewed after approval and before publishing. The final preview catches branch connection mistakes, stale builds, missing assets, and mobile layout regressions before customers see them.",
+    imageTitle: "Shopify unpublished theme preview after GitHub approval",
+    imageHint: "Screenshot should show: Shopify Theme library with the unpublished connected theme preview open.",
+    nav: "Preview",
+    action: "Open Shopify theme preview docs",
+    url: "https://help.shopify.com/en/manual/online-store/themes/adding-themes",
+    tryTasks: [
+      "Confirm the connected theme points to the approved branch.",
+      "Open the unpublished theme preview.",
+      "Test the changed template or section directly.",
+      "Ask the supervisor before publish, merge, or deploy actions.",
+    ],
+    example: "Example: preview the exact product template changed by the branch before asking for deploy approval.",
+    mistake: "Do not treat GitHub approval as permission to publish unless the supervisor explicitly says so.",
+    question: "Before publishing, use...",
+    answers: ["An unpublished preview", "The billing page", "A random old screenshot"],
+    correct: "An unpublished preview",
+  },
+  {
+    title: "Document the handoff",
+    label: "Handoff",
+    description:
+      "A finished training task should leave a short handoff note: branch, files changed, QA performed, reviewer status, and anything not yet approved. This gives the next person enough context to continue safely if the trainee is unavailable.",
+    imageTitle: "Handoff note with branch, files, QA, and approval status",
+    imageHint: "Screenshot should show: a short handoff note in a pull request comment or team message.",
+    nav: "Handoff",
+    action: "Open GitHub docs",
+    url: "https://docs.github.com/en",
+    tryTasks: [
+      "Write the branch name.",
+      "List the files or theme areas changed.",
+      "List the QA checks completed.",
+      "State whether the work is approved, waiting for review, or waiting for deploy approval.",
+    ],
+    example: "Example handoff: 'Branch training/angelo-hero-copy. Changed sections/hero.liquid and hero.scss. Theme check passed. Waiting for publish approval.'",
+    mistake: "Do not leave the reviewer guessing what was changed or tested.",
+    question: "A handoff note should include...",
+    answers: ["Branch, changes, QA, status", "Only trainee name", "Only store URL"],
+    correct: "Branch, changes, QA, status",
+  },
+];
+
 const bemBasicSteps = [
   {
     title: "Understand the block",
@@ -3227,7 +3393,7 @@ const moduleTours = {
     steps: cliWorkflowSteps,
   },
   "GitHub Theme Preview Workflow": {
-    key: "cliWorkflow",
+    key: "githubPreview",
     kicker: "GitHub theme workflow",
     title: "Pull from GitHub, preview locally, push to GitHub.",
     intro: "Use GitHub as the Shopify theme repository. Shopify CLI is for previewing and checking local theme work.",
@@ -3297,6 +3463,16 @@ const moduleTours = {
       "The trainee understands fetch, pull, branch, review changes, commit, push, and supervisor review.",
     steps: githubWorkflowSteps,
   },
+  "Deploy and Review Workflow": {
+    key: "deployReview",
+    kicker: "Deploy review",
+    title: "Finish the review loop before deploy.",
+    intro: "Use this module after pushing to GitHub so the trainee understands feedback, QA, preview, approval, and handoff.",
+    completionTitle: "Deploy and review workflow is complete.",
+    completionText:
+      "The trainee understands how to handle review feedback, rerun QA, preview safely, and document the handoff before any deploy or publish action.",
+    steps: deployReviewSteps,
+  },
   "BEM Naming Basics": {
     key: "bemBasics",
     kicker: "Coding basics",
@@ -3359,6 +3535,7 @@ const overallProgressMetric = document.querySelector("#overallProgressMetric");
 const overallProgressBar = document.querySelector("#overallProgressBar");
 const resetProgressButton = document.querySelector("#resetProgressButton");
 const trainerModeToggle = document.querySelector("#trainerModeToggle");
+const traineeSelect = document.querySelector("#traineeSelect");
 const completionDashboardTitle = document.querySelector("#completionDashboardTitle");
 const nextRecommendedModule = document.querySelector("#nextRecommendedModule");
 const continueModuleButton = document.querySelector("#continueModuleButton");
@@ -3381,6 +3558,7 @@ const simpleTourDescription = document.querySelector("#simpleTourDescription");
 const simpleTourImage = document.querySelector("#simpleTourImage");
 const simpleTourImageTitle = document.querySelector("#simpleTourImageTitle");
 const simpleTourImageHint = document.querySelector("#simpleTourImageHint");
+const tourTip = document.querySelector("#tourTip");
 const imagePlaceholder = document.querySelector(".image-placeholder");
 const codeSamplePanel = document.querySelector("#codeSamplePanel");
 const codeSampleLanguage = document.querySelector("#codeSampleLanguage");
@@ -3397,6 +3575,7 @@ const revealPasswordButton = document.querySelector("#revealPasswordButton");
 const simpleTourAccessNote = document.querySelector("#simpleTourAccessNote");
 const simpleTourAction = document.querySelector("#simpleTourAction");
 const doneNextItem = document.querySelector("#doneNextItem");
+const tourGateStatus = document.querySelector("#tourGateStatus");
 const tryCardTitle = document.querySelector("#tryCardTitle");
 const tryChecklist = document.querySelector("#tryChecklist");
 const exampleNote = document.querySelector("#exampleNote");
@@ -3423,6 +3602,7 @@ const practiceTasks = document.querySelector("#practiceTasks");
 const trainingStoreLink = document.querySelector("#trainingStoreLink");
 const trainerNote = document.querySelector("#trainerNote");
 const templateButtons = document.querySelectorAll("[data-template]");
+const trackQuizGrid = document.querySelector("#trackQuizGrid");
 
 const detail = {
   image: document.querySelector("#detailImage"),
@@ -3570,12 +3750,70 @@ const videos = [
   },
 ];
 
+const roleTrackQuizzes = [
+  {
+    track: "Store Admin",
+    question: "Which areas should a beginner inspect only unless a supervisor approves changes?",
+    answers: ["Payments, billing, staff access, and domains", "Storefront homepage banners only", "Practice pages only"],
+    correct: "Payments, billing, staff access, and domains",
+  },
+  {
+    track: "Theme Editor",
+    question: "Before saving a theme customizer change, what must be checked?",
+    answers: ["Assigned section, desktop preview, mobile preview, and trainer approval", "Only the desktop preview", "Only the page title"],
+    correct: "Assigned section, desktop preview, mobile preview, and trainer approval",
+  },
+  {
+    track: "Product Manager",
+    question: "What status should practice products usually keep until approved?",
+    answers: ["Draft", "Active", "Archived"],
+    correct: "Draft",
+  },
+  {
+    track: "Launch QA",
+    question: "What is the goal of launch QA?",
+    answers: ["Confirm payments, shipping, taxes, checkout, domains, password, and notifications before launch", "Publish the first theme immediately", "Skip settings and test only colors"],
+    correct: "Confirm payments, shipping, taxes, checkout, domains, password, and notifications before launch",
+  },
+  {
+    track: "Theme Developer",
+    question: "In the GitHub-first workflow, what is Shopify CLI mainly used for?",
+    answers: ["Preview and checks", "Replacing GitHub history", "Changing store billing"],
+    correct: "Preview and checks",
+  },
+  {
+    track: "GitHub Trainee",
+    question: "After pushing a branch, what should happen before merge or deploy?",
+    answers: ["Supervisor review, requested fixes, QA, and approval", "Immediate publish", "Delete the branch without review"],
+    correct: "Supervisor review, requested fixes, QA, and approval",
+  },
+  {
+    track: "Frontend Coder",
+    question: "What makes BEM and SCSS review-ready?",
+    answers: ["Clear class names, shallow nesting, low specificity, and checked compiled CSS", "Long selector chains", "Random color-based class names"],
+    correct: "Clear class names, shallow nesting, low specificity, and checked compiled CSS",
+  },
+];
+
 let activeFilter = "all";
 let activeView = "beginner";
 let selectedTitle = tutorials[0].title;
 let activeTourStep = 0;
 let activeTourTitle = tutorials[0].title;
-const savedProgress = loadSavedProgress();
+let activeTrainee = loadActiveTrainee();
+let savedProgress = loadSavedProgress();
+
+function getTraineeStorageKey() {
+  return `${STORAGE_KEY}-${activeTrainee}`;
+}
+
+function loadActiveTrainee() {
+  if (typeof localStorage === "undefined") {
+    return "angelo";
+  }
+
+  return localStorage.getItem(ACTIVE_TRAINEE_KEY) || "angelo";
+}
 
 function loadSavedProgress() {
   if (typeof localStorage === "undefined") {
@@ -3583,7 +3821,9 @@ function loadSavedProgress() {
   }
 
   try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+    const storedProgress = localStorage.getItem(getTraineeStorageKey());
+    const legacyProgress = localStorage.getItem(STORAGE_KEY);
+    return JSON.parse(storedProgress || legacyProgress) || {};
   } catch {
     return {};
   }
@@ -3594,7 +3834,7 @@ function saveProgress() {
     return;
   }
 
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(savedProgress));
+  localStorage.setItem(getTraineeStorageKey(), JSON.stringify(savedProgress));
 }
 
 function resetSavedProgress() {
@@ -3603,7 +3843,7 @@ function resetSavedProgress() {
   });
 
   if (typeof localStorage !== "undefined") {
-    localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem(getTraineeStorageKey());
   }
 }
 
@@ -4219,11 +4459,24 @@ function getStepTrainerNote(step) {
   return step.trainerNote || `Trainer note: confirm the trainee can explain "${step.title}" before marking this step complete.`;
 }
 
+function getStepTip(step) {
+  if (step.title === "Home") {
+    return "Tip: You can always return to Home to check what's new.";
+  }
+
+  if (step.nav) {
+    return `Tip: Use ${step.nav} as your reference point before moving to the next step.`;
+  }
+
+  return "Tip: Complete the checklist and quick check before moving on.";
+}
+
 function isDeveloperTour(tour) {
   return (
     tour.key.startsWith("dev") ||
     tour.key.startsWith("cli") ||
     tour.key.startsWith("github") ||
+    tour.key.startsWith("deploy") ||
     tour.key.startsWith("bem") ||
     tour.key.startsWith("scss") ||
     tour.key === "projectFiles"
@@ -4580,6 +4833,47 @@ function renderVideos() {
   }
 }
 
+function renderTrackQuizzes() {
+  if (!trackQuizGrid) {
+    return;
+  }
+
+  trackQuizGrid.innerHTML = "";
+  roleTrackQuizzes.forEach((quiz) => {
+    const card = document.createElement("article");
+    card.className = "track-quiz-card";
+
+    const title = document.createElement("h3");
+    title.textContent = quiz.track;
+    const question = document.createElement("p");
+    question.textContent = quiz.question;
+    const answers = document.createElement("div");
+    answers.className = "track-quiz-options";
+    const feedback = document.createElement("span");
+    feedback.className = "track-quiz-feedback";
+    feedback.setAttribute("aria-live", "polite");
+
+    quiz.answers.forEach((answer) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.textContent = answer;
+      button.addEventListener("click", () => {
+        const isCorrect = answer === quiz.correct;
+        answers
+          .querySelectorAll("button")
+          .forEach((item) => item.classList.remove("is-correct", "is-wrong"));
+        button.classList.add(isCorrect ? "is-correct" : "is-wrong");
+        feedback.textContent = isCorrect ? "Passed." : `Review again: ${quiz.correct}.`;
+        feedback.className = `track-quiz-feedback ${isCorrect ? "is-correct" : "is-wrong"}`;
+      });
+      answers.appendChild(button);
+    });
+
+    card.append(title, question, answers, feedback);
+    trackQuizGrid.appendChild(card);
+  });
+}
+
 function renderTutorials() {
   const query = searchInput.value.trim().toLowerCase();
   const visibleTutorials = tutorials.filter((tutorial) => {
@@ -4692,18 +4986,21 @@ function renderSimpleTour() {
   const checkedTasks = state.checkedTasks[String(activeTourStep)] || [];
   const progress = (completedSteps.size / tour.steps.length) * 100;
   const checkedTaskCount = checkedTasks.length;
+  const stepReady = isStepReady(tour, activeTourStep);
 
+  dashboardTour.classList.remove("dashboard-tour-sandbox");
   simpleTourLayout.hidden = false;
   tourActions.hidden = false;
   tourCompletion.hidden = true;
   tourKicker.textContent = tour.kicker;
-  dashboardTourTitle.textContent = tour.title;
-  tourIntro.textContent = tour.intro;
-  simpleTourStepLabel.textContent = `Step ${activeTourStep + 1} of ${tour.steps.length}`;
+  dashboardTourTitle.textContent = activeTourTitle;
+  tourIntro.textContent = `Step ${activeTourStep + 1} of ${tour.steps.length} • ${tour.kicker}`;
+  simpleTourStepLabel.textContent = tour.kicker;
   simpleTourTitle.textContent = step.title;
   simpleTourDescription.textContent = step.description;
   simpleTourImageTitle.textContent = step.imageTitle;
   simpleTourImageHint.textContent = step.imageHint;
+  tourTip.textContent = getStepTip(step);
   const codeSample = getStepCodeSample(tour, step);
   if (imagePlaceholder) {
     imagePlaceholder.classList.toggle("has-code-sample", Boolean(codeSample));
@@ -4752,12 +5049,23 @@ function renderSimpleTour() {
       "Storefront uses this password. Dashboard links open Shopify admin and require a staff account.";
   }
   previousTourItem.disabled = activeTourStep === 0;
+  nextTourItem.disabled = !stepReady;
+  doneNextItem.disabled = !stepReady;
+  nextTourItem.title = stepReady ? "" : "Check every task and answer the quick check correctly first.";
+  doneNextItem.title = stepReady ? "" : "Check every task and answer the quick check correctly first.";
+  tourGateStatus.innerHTML = stepReady
+    ? '<i data-lucide="check"></i> Ready for next step'
+    : '<i data-lucide="lock"></i> Complete all items to continue';
   nextTourItem.innerHTML =
     activeTourStep === tour.steps.length - 1
       ? 'Finish <i data-lucide="check"></i>'
       : 'Next step <i data-lucide="arrow-right"></i>';
   simpleTourAction.href = step.url;
-  simpleTourAction.textContent = step.action;
+  simpleTourAction.textContent = "";
+  simpleTourAction.append(document.createTextNode(step.action));
+  const actionIcon = document.createElement("i");
+  actionIcon.dataset.lucide = "external-link";
+  simpleTourAction.appendChild(actionIcon);
   screenshotSlot.textContent = `${step.title} screenshot slot`;
   screenshotSlot.hidden = Boolean(codeSample) || hasStoredScreenshot(tour, activeTourStep);
   screenshotControls.hidden = Boolean(codeSample) || !hasStoredScreenshot(tour, activeTourStep);
@@ -4824,6 +5132,7 @@ function renderSimpleTour() {
       if (isCorrect) {
         updateStoredSet(tour.key, "passedChecks", activeTourStep);
         maybeCompleteStep(tour, activeTourStep);
+        renderSimpleTour();
       }
     });
   });
@@ -4918,6 +5227,19 @@ resetProgressButton.addEventListener("click", () => {
 
 trainerModeToggle.addEventListener("change", () => {
   document.body.classList.toggle("trainer-mode", trainerModeToggle.checked);
+});
+
+traineeSelect.addEventListener("change", () => {
+  activeTrainee = traineeSelect.value;
+  if (typeof localStorage !== "undefined") {
+    localStorage.setItem(ACTIVE_TRAINEE_KEY, activeTrainee);
+  }
+  savedProgress = loadSavedProgress();
+  activeTourStep = 0;
+  renderSimpleTour();
+  renderTutorials();
+  renderGames();
+  renderVideos();
 });
 
 revealPasswordButton.addEventListener("click", () => {
@@ -5051,11 +5373,13 @@ window.addEventListener("DOMContentLoaded", () => {
     lucide.createIcons();
   }
 
+  traineeSelect.value = activeTrainee;
   updateDetail(tutorials[0]);
   renderSimpleTour();
   renderTutorials();
   renderGames();
   renderVideos();
+  renderTrackQuizzes();
 
   const pathTrack = document.querySelector("#learningPathTrack");
   const pathPrev = document.querySelector("#pathCarouselPrev");

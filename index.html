@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#0f766e" />
     <title>KNB Web Solution Training Hub</title>
     <link rel="preconnect" href="https://images.unsplash.com" />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=10" />
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
     <script src="app.js" defer></script>
   </head>
@@ -59,6 +59,15 @@
           </div>
 
           <div class="progress-panel">
+            <label class="trainee-select-field">
+              <span>Active trainee</span>
+              <select id="traineeSelect">
+                <option value="angelo">Angelo</option>
+                <option value="noel">Noel</option>
+                <option value="grant">Grant</option>
+                <option value="new-trainee">New trainee</option>
+              </select>
+            </label>
             <div>
               <span class="metric" id="overallProgressMetric">0%</span>
               <span class="metric-label">overall module progress</span>
@@ -86,8 +95,8 @@
                 Start with admin navigation, then move into VS Code, npm, Git, and Shopify CLI theme work.
               </p>
               <div class="hero-metrics" aria-label="Training highlights">
-                <span><strong>19</strong> guided popups</span>
-                <span><strong>20</strong> modules</span>
+                <span><strong>20</strong> guided popups</span>
+                <span><strong>21</strong> modules</span>
                 <span><strong>Saved</strong> progress</span>
               </div>
               <div class="hero-actions">
@@ -149,7 +158,7 @@
                   <strong>Launch check</strong>
                   <small>Review before changes go live</small>
                 </div>
-                <div data-tour-keys="devSetup,cliInstall,cliWorkflow,projectFiles,buildTools,devTroubleshooting">
+                <div data-tour-keys="devSetup,cliInstall,cliWorkflow,githubPreview,projectFiles,buildTools,devTroubleshooting">
                   <span class="path-step">05</span>
                   <strong>VS Code and CLI</strong>
                   <small>Prepare local theme workflow</small>
@@ -159,8 +168,13 @@
                   <strong>GitHub workflow</strong>
                   <small>Sync, commit, push, review</small>
                 </div>
-                <div data-tour-keys="bemBasics,bemMedium,scssBasics,scssPro">
+                <div data-tour-keys="deployReview">
                   <span class="path-step">07</span>
+                  <strong>Deploy review</strong>
+                  <small>Fix feedback, QA, hand off</small>
+                </div>
+                <div data-tour-keys="bemBasics,bemMedium,scssBasics,scssPro">
+                  <span class="path-step">08</span>
                   <strong>BEM and SCSS</strong>
                   <small>Write maintainable CSS</small>
                 </div>
@@ -367,6 +381,11 @@
             <button type="button" data-template="GitHub Desktop SOP: ask supervisor for account, password or 2FA help, repository, and branch; sign in to GitHub Desktop; clone the assigned repo; pull before editing; commit only assigned changes; push; send the branch or PR link for review.">Copy checklist</button>
           </article>
           <article>
+            <h3>Deploy and review</h3>
+            <p>Respond to review, rerun checks, preview the connected theme, and wait for approval.</p>
+            <button type="button" data-template="Deploy Review SOP: read reviewer notes, make requested fixes on the same branch, rerun theme check and browser QA, push updates, confirm the connected unpublished theme preview, get supervisor approval, then document what was handed off.">Copy checklist</button>
+          </article>
+          <article>
             <h3>BEM and SCSS review</h3>
             <p>Check naming, nesting, modifiers, tokens, responsive states, and compiled CSS output.</p>
             <button type="button" data-template="BEM and SCSS SOP: identify the block, name elements with block__element, name modifiers with block--modifier or block__element--modifier, keep SCSS nesting shallow, use &amp;__element and &amp;--modifier carefully, check hover/focus states, use tokens where appropriate, and review compiled CSS before approval.">Copy checklist</button>
@@ -388,6 +407,14 @@
           <article><strong>GitHub Trainee</strong><span>Access Approval, Clone, Branch, Commit, Push, Review</span></article>
           <article><strong>Frontend Coder</strong><span>BEM Basics, Components, SCSS Ampersand, Pro Review</span></article>
         </div>
+      </section>
+
+      <section class="track-quiz-section" aria-label="Final quizzes by role track">
+        <div class="section-heading">
+          <p class="section-kicker">Final quizzes</p>
+          <h2>One final check per trainee track.</h2>
+        </div>
+        <div class="track-quiz-grid" id="trackQuizGrid"></div>
       </section>
 
       <section class="certificate-section" id="certificateSection" hidden>
@@ -418,7 +445,7 @@
       </section>
     </main>
 
-    <dialog class="tour-modal simple-tour-modal" id="dashboardTour" aria-labelledby="dashboardTourTitle">
+    <dialog class="tour-modal simple-tour-modal split-workspace-tour" id="dashboardTour" aria-labelledby="dashboardTourTitle">
       <div class="tour-modal-shell simple-tour-shell">
         <div class="tour-modal-header">
           <div>
@@ -490,6 +517,9 @@
               </div>
               <input id="screenshotUpload" type="file" accept="image/*" hidden />
             </div>
+            <p class="tour-tip" id="tourTip">
+              Tip: Use the lesson preview to confirm what the trainee should look for before moving on.
+            </p>
 
             <aside class="simple-tour-copy">
               <p class="section-kicker" id="simpleTourStepLabel">Step 1 of 12</p>
@@ -519,8 +549,12 @@
         <div class="tour-actions">
           <button class="secondary-button" type="button" id="previousTourItem">
             <i data-lucide="arrow-left"></i>
-            Previous
+            Back
           </button>
+          <span class="tour-gate-status" id="tourGateStatus">
+            <i data-lucide="lock"></i>
+            Complete all items to continue
+          </span>
           <button class="primary-button compact" type="button" id="nextTourItem">
             Next step
             <i data-lucide="arrow-right"></i>
