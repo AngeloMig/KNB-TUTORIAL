@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#0f766e" />
     <title>KNB Web Solution Training Hub</title>
     <link rel="preconnect" href="https://images.unsplash.com" />
-    <link rel="stylesheet" href="styles.css?v=12" />
+    <link rel="stylesheet" href="styles.css?v=15" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.min.css" />
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js" defer></script>
@@ -81,41 +81,55 @@
               <i data-lucide="rotate-ccw"></i>
               Reset trainee progress
             </button>
+            <div class="progress-transfer-actions" aria-label="Progress transfer">
+              <button type="button" id="copyProgressButton">
+                <i data-lucide="copy"></i>
+                Copy progress JSON
+              </button>
+              <button type="button" id="pasteProgressButton">
+                <i data-lucide="clipboard"></i>
+                Paste progress
+              </button>
+            </div>
             <label class="trainer-mode-toggle">
               <input id="trainerModeToggle" type="checkbox" />
-              <span>Trainer mode</span>
+              <span>
+                Trainer mode
+                <small>Unlocks trainer-only notes</small>
+              </span>
             </label>
           </div>
         </aside>
 
         <section class="content-panel">
-          <div class="hero-strip">
+          <div class="hero-strip continue-hero">
             <div>
-              <p class="section-kicker">Current track</p>
-              <h2>Shopify basics, then developer workflow.</h2>
-              <p>
-                Start with admin navigation, then move into VS Code, npm, Git, and Shopify CLI theme work.
+              <p class="section-kicker">Continue where you left off</p>
+              <h2 id="heroNextTitle">Dashboard Tour: What Each Menu Does</h2>
+              <p id="heroNextDescription">
+                Start with the next recommended guided module for this trainee.
               </p>
               <div class="hero-metrics" aria-label="Training highlights">
-                <span><strong id="heroPopupCount">0</strong> guided popups</span>
-                <span><strong id="heroModuleCount">0</strong> modules</span>
+                <span><strong id="heroPopupCount">0</strong> guided modules</span>
+                <span><strong id="heroModuleCount">0</strong> guided steps</span>
                 <span><strong>Saved</strong> progress</span>
               </div>
               <div class="hero-actions">
-                <a class="hero-primary-link" href="#tutorialGrid">
-                  <i data-lucide="layers"></i>
-                  View modules
-                </a>
+                <button class="hero-primary-link" type="button" id="heroContinueButton">
+                  <i data-lucide="play"></i>
+                  Continue module
+                </button>
                 <a class="hero-secondary-link" href="https://knb-tutorial.myshopify.com" target="_blank" rel="noreferrer">
                   <i data-lucide="external-link"></i>
                   Tutorial store
                 </a>
               </div>
             </div>
-            <img
-              src="https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?auto=format&amp;fit=crop&amp;w=900&amp;q=80"
-              alt="Ecommerce team reviewing an online store dashboard"
-            />
+            <div class="continue-hero-status" aria-label="Next module status">
+              <span id="heroNextStatus">Start here</span>
+              <strong id="heroNextProgress">0%</strong>
+              <small id="heroNextMeta">Step 1 ready</small>
+            </div>
           </div>
 
           <section class="completion-dashboard" aria-label="Training completion dashboard">
@@ -150,7 +164,7 @@
                   <strong>Store setup</strong>
                   <small>Check the foundation</small>
                 </div>
-                <div data-tour-keys="pages,themeCustomizer,products,navigation">
+                <div data-tour-keys="pages,themeCustomizer,homepageSections,products,navigation">
                   <span class="path-step">03</span>
                   <strong>Pages and theme</strong>
                   <small>Build safe practice edits</small>
@@ -160,12 +174,12 @@
                   <strong>Launch check</strong>
                   <small>Review before changes go live</small>
                 </div>
-                <div data-tour-keys="devSetup,cliInstall,cliWorkflow,githubPreview,projectFiles,buildTools,devTroubleshooting">
+                <div data-tour-keys="devSetup,cliInstall,cliWorkflow,githubPreview,projectFiles,buildTools,performanceVitals,seoStructuredData,devTroubleshooting">
                   <span class="path-step">05</span>
                   <strong>VS Code and CLI</strong>
                   <small>Prepare local theme workflow</small>
                 </div>
-                <div data-tour-keys="githubSetup,githubWorkflow">
+                <div data-tour-keys="githubThemeConnection,githubSetup,githubWorkflow">
                   <span class="path-step">06</span>
                   <strong>GitHub workflow</strong>
                   <small>Sync, commit, push, review</small>
@@ -175,7 +189,7 @@
                   <strong>Deploy review</strong>
                   <small>Fix feedback, QA, hand off</small>
                 </div>
-                <div data-tour-keys="bemBasics,bemMedium,scssBasics,scssPro">
+                <div data-tour-keys="bemBasics,bemMedium,scssBasics,liquidFundamentals,snippetRender,metafieldsMetaobjects,themeSettingsColors,cartDrawer,jsonTemplates,vanillaAjax,accessibilityThemes,scssPro">
                   <span class="path-step">08</span>
                   <strong>BEM and SCSS</strong>
                   <small>Write maintainable CSS</small>
@@ -191,6 +205,7 @@
             <div>
               <p class="section-kicker">Training modules</p>
               <h2 id="resultCount">0 modules</h2>
+              <p class="module-audit-summary" id="moduleAuditSummary">Checking module quality...</p>
             </div>
             <div class="view-tabs" role="tablist" aria-label="View mode">
               <button class="is-active" type="button" aria-selected="true" data-view="beginner">Beginner</button>
@@ -204,6 +219,17 @@
         <aside class="detail-panel" aria-label="Selected training module details">
           <div class="detail-image">
             <img id="detailImage" src="" alt="" />
+            <div class="detail-image-actions">
+              <button type="button" id="moduleImageUploadButton">
+                <i data-lucide="image-up"></i>
+                Replace image
+              </button>
+              <button type="button" id="moduleImageRemoveButton">
+                <i data-lucide="rotate-ccw"></i>
+                Reset
+              </button>
+            </div>
+            <input id="moduleImageUpload" type="file" accept="image/*" hidden />
           </div>
           <p class="tool-tag admin" id="detailTool">Admin</p>
           <h2 id="detailTitle">Dashboard Tour: What Each Menu Does</h2>
@@ -214,6 +240,10 @@
           <button class="primary-button detail-start-button" type="button" id="startModuleButton">
             <i data-lucide="play"></i>
             Start module
+          </button>
+          <button class="secondary-button print-module-button" type="button" id="printModuleButton">
+            <i data-lucide="printer"></i>
+            Print this module
           </button>
           <section class="practice-card compact-practice-card" aria-labelledby="practiceTitle">
             <p class="section-kicker">Before you start</p>
@@ -487,6 +517,13 @@
 
         <section class="simple-tour-layout">
           <nav class="simple-tour-nav" id="simpleTourNav" aria-label="Dashboard tour steps"></nav>
+          <div class="tour-section-tabs" role="tablist" aria-label="Tour panel tabs">
+            <button class="is-active" type="button" data-tour-panel="all">All</button>
+            <button type="button" data-tour-panel="lesson">Step</button>
+            <button type="button" data-tour-panel="preview">Code</button>
+            <button type="button" data-tour-panel="work">Try it</button>
+            <button type="button" data-tour-panel="trainer">Trainer</button>
+          </div>
 
           <article class="simple-tour-main" aria-live="polite">
             <section class="lesson-workspace" aria-label="Current lesson">
@@ -566,25 +603,41 @@
         </div>
 
         <section class="tour-completion" id="tourCompletion" hidden>
-          <div>
+          <div class="completion-main-panel">
             <p class="section-kicker">Tour complete</p>
             <h3 id="completionTitle">Dashboard navigation is done.</h3>
             <p id="completionText">
               The trainee has seen the main Shopify admin areas. Next, move into store setup or let them repeat any step.
             </p>
           </div>
-          <div class="completion-actions">
-            <button class="secondary-button" type="button" id="repeatTour">
-              <i data-lucide="rotate-ccw"></i>
-              Repeat tour
-            </button>
-            <button class="primary-button compact" type="button" id="closeCompletion">
-              Close
+          <aside class="completion-side-panel" aria-label="Completion summary">
+            <div class="completion-checkmark">
               <i data-lucide="check"></i>
-            </button>
+            </div>
+            <p class="section-kicker">Verified</p>
+            <h4>All required checks are complete.</h4>
+            <p>The trainee can repeat this tour or close and continue with the next module.</p>
+          </aside>
+          <div class="completion-actions">
+            <span class="tour-gate-status completion-status">
+              <i data-lucide="check"></i>
+              Module ready to continue
+            </span>
+            <div>
+              <button class="secondary-button" type="button" id="repeatTour">
+                <i data-lucide="rotate-ccw"></i>
+                Repeat tour
+              </button>
+              <button class="primary-button compact" type="button" id="closeCompletion">
+                Close
+                <i data-lucide="check"></i>
+              </button>
+            </div>
           </div>
         </section>
       </div>
     </dialog>
+
+    <section class="print-module-view" id="printModuleView" aria-hidden="true"></section>
   </body>
 </html>

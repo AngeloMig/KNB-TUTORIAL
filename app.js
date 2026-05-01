@@ -21,7 +21,7 @@ const tutorials = [
     title: "Dashboard Tour: What Each Menu Does",
     description:
       "Open the KNB tutorial store and learn every Shopify admin menu section by name before touching anything. Knowing where Orders, Products, Online Store, and Settings live prevents beginners from making changes in the wrong area during client work.",
-    lessons: 10,
+    lessons: 12,
     time: "35m",
     level: "Beginner",
     image:
@@ -112,7 +112,7 @@ const tutorials = [
       "Go to Products and click Add product.",
       "Set the title to 'Training Product - Your Name', write a short description, and upload one test image.",
       "Set a price, enable inventory tracking, and choose a SKU or leave blank for practice.",
-      "Add at least one variant option (e.g. Size: Small / Large) to see how variants work.",
+      "Add at least one variant option, such as Size: Small / Large, to see how variants work.",
       "Set status to Draft, save, then open Collections and add the product to a practice collection.",
       "Open the SEO section at the bottom of the product page and fill in the SEO title and meta description fields.",
       "Click the eye icon or View on storefront to preview how the product page looks to customers.",
@@ -143,7 +143,7 @@ const tutorials = [
     title: "Add Navigation Menu Links",
     description:
       "Make pages, collections, products, and policy pages visible to customers by adding them to the correct header or footer menu. Without a menu link, even a fully built page is invisible to customers — so understanding menu structure is essential before any store goes live.",
-    lessons: 4,
+    lessons: 5,
     time: "30m",
     level: "Intermediate",
     image:
@@ -172,12 +172,14 @@ const tutorials = [
       "Use this as a read-only review until the trainee can explain the risk of each launch setting.",
     steps: [
       "Open Settings > Payments and confirm the payment provider is active and test mode is off.",
-      "Open Settings > Shipping and delivery and check that rates are set correctly for all regions.",
-      "Open Settings > Taxes and duties and confirm the tax region and included/excluded tax rule is correct.",
-      "Open Settings > Checkout and review customer accounts, order notes, and tipping settings.",
-      "Open Settings > Notifications and confirm order confirmation email looks correct.",
+      "Open Settings > Shipping and delivery and check the shipping profiles, zones, and rates.",
+      "Open Settings > Taxes and duties and confirm which regions are configured.",
+      "Open Settings > Checkout and review customer account and checkout behavior settings.",
+      "Open Settings > Notifications and confirm the order confirmation email looks correct.",
       "Open Settings > Domains and confirm the correct custom domain is connected.",
+      "Open Online Store > Preferences and confirm password protection is ready for launch approval.",
       "Walk through the cart to checkout in the storefront preview and check for broken links or missing images before removing the password.",
+      "Complete trainer sign-off before changing any launch-critical setting.",
     ],
   },
   {
@@ -217,7 +219,8 @@ const tutorials = [
       "Confirm npm is available.",
       "Install Git 2.28 or higher.",
       "Install Shopify CLI with npm.",
-      "Run version checks before starting theme work.",
+      "Confirm Ruby is not required unless an older project specifically documents it.",
+      "Run final version checks before starting theme work.",
     ],
   },
   {
@@ -233,11 +236,13 @@ const tutorials = [
     trainerNote:
       "Teach command purpose before memorization. The trainee should know when a command reads from Shopify, writes to Shopify, or only previews locally.",
     steps: [
+      "Connect Shopify CLI to the correct store with the --store flag.",
       "Use shopify theme dev to preview local work.",
       "Use shopify theme pull before editing a remote theme.",
-      "Use shopify theme push only after review.",
       "Run shopify theme check before sharing or pushing.",
+      "Use shopify theme push only after review.",
       "Use theme list, info, and open for orientation.",
+      "Use shopify auth logout when the wrong account is active.",
     ],
   },
   {
@@ -299,6 +304,7 @@ const tutorials = [
       "Run npm install when the project has package.json.",
       "Use npm run scripts only when the project provides them.",
       "Preview with Shopify CLI from the correct theme folder.",
+      "Follow the safe edit workflow: pull, install, preview, edit, check, review, then push.",
     ],
   },
   {
@@ -361,6 +367,7 @@ const tutorials = [
       "Install GitHub Desktop.",
       "Sign in through the browser.",
       "Clone only the assigned repository.",
+      "Open the cloned repository in VS Code and confirm the assigned branch rule before editing.",
     ],
   },
   {
@@ -380,7 +387,9 @@ const tutorials = [
       "Create or switch to the assigned branch.",
       "Review changed files before committing.",
       "Write a clear commit message.",
-      "Push to GitHub and tell the supervisor for review.",
+      "Push to GitHub.",
+      "Ask the supervisor for review with the branch link and summary.",
+      "Stop and ask for help if GitHub Desktop shows conflicts or unexpected files.",
     ],
   },
   {
@@ -420,6 +429,7 @@ const tutorials = [
       "Identify the block as the standalone component.",
       "Name elements with block__element.",
       "Name variations with block--modifier or block__element--modifier.",
+      "Write HTML using base classes together with modifier classes.",
       "Avoid tag and ID selectors for component styling.",
       "Practice renaming messy classes into BEM.",
     ],
@@ -438,10 +448,11 @@ const tutorials = [
       "Watch for over-nesting names like card__body__title. Teach trainees to keep elements tied to the block, not chained elements.",
     steps: [
       "Build a product card naming map.",
-      "Add block and element modifiers.",
+      "Add block modifiers for whole-component variations.",
+      "Add element modifiers for single-part variations.",
       "Handle states like is-active carefully.",
-      "Avoid element-of-element class names.",
       "Split reusable pieces into new blocks.",
+      "Review common BEM mistakes before approval.",
     ],
   },
   {
@@ -457,10 +468,12 @@ const tutorials = [
     trainerNote:
       "Keep nesting shallow. The trainee should understand exactly what CSS is generated by &__element and &--modifier.",
     steps: [
+      "Understand what SCSS compiles into before editing theme styles.",
       "Create SCSS variables for colors, spacing, and radius.",
       "Nest elements with &__element.",
       "Nest modifiers with &--modifier.",
       "Use &:hover, &:focus-visible, and media queries clearly.",
+      "Keep nesting shallow and avoid mirroring the full HTML tree.",
       "Compile mentally from SCSS to CSS before writing more nesting.",
     ],
   },
@@ -493,6 +506,210 @@ const tutorials = [
   },
   {
     tool: "code",
+    title: "Liquid Fundamentals",
+    description:
+      "Learn the Liquid basics Shopify theme work depends on: objects, filters, tags, variables, if statements, for loops, and safe output. This fills the gap between admin training and dynamic section work so trainees understand what Liquid is doing before they edit real theme files.",
+    lessons: 6,
+    time: "1h 10m",
+    level: "Beginner",
+    image:
+      "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80",
+    trainerNote:
+      "Keep this practical. The trainee should read Liquid in existing files before writing new logic.",
+    steps: [
+      "Identify Liquid objects such as product, collection, section, and settings.",
+      "Use filters to format output, such as money, escape, default, and image_url.",
+      "Write if and unless conditions for optional content.",
+      "Loop through products, blocks, or links with for.",
+      "Use assign and capture only when they make the template easier to read.",
+      "Explain the difference between Liquid output and HTML markup.",
+    ],
+  },
+  {
+    tool: "code",
+    title: "Snippets and Render Patterns",
+    description:
+      "Use Shopify snippets and the render tag to reuse UI safely across templates, sections, and cards. This module teaches when to extract repeated markup, how to pass arguments, and why snippets should stay focused instead of becoming hidden global logic.",
+    lessons: 5,
+    time: "1h",
+    level: "Medium",
+    image:
+      "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=800&q=80",
+    trainerNote:
+      "Watch for over-extraction. Snippets should make repeated markup clearer, not hide important section logic.",
+    steps: [
+      "Identify repeated markup that is a good snippet candidate.",
+      "Create a focused snippet inside the snippets folder.",
+      "Render a snippet with named arguments.",
+      "Understand snippet versus section responsibilities.",
+      "Review a snippet for hidden dependencies and unclear variable names.",
+    ],
+  },
+  {
+    tool: "code",
+    title: "Metafields and Metaobjects",
+    description:
+      "Define Shopify metafields and metaobjects in the admin, connect them to products or content models, then render their values safely in Liquid. Clients often request custom product facts, badges, downloads, ingredients, dimensions, and reusable content that belong in metafields instead of hard-coded theme text.",
+    lessons: 6,
+    time: "1h 25m",
+    level: "Intermediate",
+    image:
+      "https://images.unsplash.com/photo-1556155092-490a1ba16284?auto=format&fit=crop&w=800&q=80",
+    trainerNote:
+      "This module crosses admin and code. Trainees should define fields in Shopify first, then render them with clear fallbacks.",
+    steps: [
+      "Find metafield definitions in Shopify admin settings.",
+      "Create or inspect a product metafield definition.",
+      "Fill a metafield value on a practice product.",
+      "Render product.metafields.custom values in Liquid.",
+      "Understand when a metaobject is better than many separate metafields.",
+      "Add fallbacks so blank metafields do not create broken storefront content.",
+    ],
+  },
+  {
+    tool: "dev",
+    title: "Performance and Core Web Vitals",
+    description:
+      "Improve Shopify theme performance with responsive images, lazy loading, deferred scripts, clean Liquid output, and Lighthouse review. Performance work is measurable: trainees should learn how one image, script, or render pattern can affect load time, layout stability, and client review scores.",
+    lessons: 6,
+    time: "1h 20m",
+    level: "Intermediate",
+    image:
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
+    trainerNote:
+      "Keep the trainee focused on concrete fixes: image sizing, lazy loading, script loading, and Lighthouse findings.",
+    steps: [
+      "Run Lighthouse or PageSpeed on a preview URL.",
+      "Identify oversized images and missing responsive widths.",
+      "Use image_url width and image_tag loading attributes correctly.",
+      "Defer non-critical scripts when the project allows it.",
+      "Check Cumulative Layout Shift causes such as missing image dimensions.",
+      "Summarize performance findings before making code changes.",
+    ],
+  },
+  {
+    tool: "code",
+    title: "Accessibility for Shopify Themes",
+    description:
+      "Build Shopify theme changes that work for keyboard users, screen readers, and customers with low vision. Accessibility is not a final launch checklist item; alt text, semantic landmarks, focus states, labels, contrast, and keyboard paths need to be considered while building each section.",
+    lessons: 6,
+    time: "1h 15m",
+    level: "Beginner-Intermediate",
+    image:
+      "https://images.unsplash.com/photo-1487014679447-9f8336841d58?auto=format&fit=crop&w=800&q=80",
+    trainerNote:
+      "Make accessibility visible in review: keyboard testing, focus states, labels, alt text, and contrast should all be checked.",
+    steps: [
+      "Write useful alt text and leave decorative images empty when appropriate.",
+      "Use semantic landmarks and headings in a logical order.",
+      "Add visible focus states with :focus-visible.",
+      "Check labels, names, and button text for clarity.",
+      "Test keyboard navigation through interactive elements.",
+      "Check color contrast before approving visual changes.",
+    ],
+  },
+  {
+    tool: "code",
+    title: "Theme Settings and Color Schemes",
+    description:
+      "Edit Shopify theme settings the right way by defining brand controls in config/settings_schema.json, using OS 2.0 color schemes, and exposing editable values in the customizer instead of hard-coding client colors into section files.",
+    lessons: 5,
+    time: "1h 10m",
+    level: "Intermediate",
+    image:
+      "https://images.unsplash.com/photo-1558655146-9f40138edfeb?auto=format&fit=crop&w=800&q=80",
+    trainerNote:
+      "Keep this focused on maintainable brand controls. Trainees should understand where global settings end and section settings begin.",
+    steps: [
+      "Open config/settings_schema.json and identify existing theme settings.",
+      "Understand how OS 2.0 color schemes are defined and selected.",
+      "Expose brand controls in the theme customizer with clear labels.",
+      "Render setting values safely in Liquid and CSS variables.",
+      "Review the customizer experience before committing color-setting changes.",
+    ],
+  },
+  {
+    tool: "code",
+    title: "Cart and Cart Drawer Customization",
+    description:
+      "Customize the cart drawer without breaking checkout flow. Learn cart-drawer.liquid, cart JSON endpoints, line item properties, cart refresh patterns, and free-shipping progress logic that appears in real Shopify client requests.",
+    lessons: 5,
+    time: "1h 25m",
+    level: "Intermediate",
+    image:
+      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80",
+    trainerNote:
+      "Cart changes affect revenue. Make the trainee test add, update, remove, properties, empty cart, and checkout handoff.",
+    steps: [
+      "Find the theme's cart drawer, cart items, and cart notification files.",
+      "Read cart.js or section refresh logic before editing behavior.",
+      "Render line item properties only when they should be visible.",
+      "Build or review a free-shipping progress bar using cart totals.",
+      "Test cart interactions across add, update, remove, and empty states.",
+    ],
+  },
+  {
+    tool: "code",
+    title: "JSON Templates and Sections Everywhere",
+    description:
+      "Understand Online Store 2.0 templates, section groups, and template JSON files. Modern Shopify themes use templates/*.json to compose pages from sections, replacing many old .liquid template edits with configurable layouts.",
+    lessons: 5,
+    time: "1h 5m",
+    level: "Medium",
+    image:
+      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80",
+    trainerNote:
+      "Make trainees inspect JSON templates before editing Liquid. Most layout changes start by understanding which sections the template loads.",
+    steps: [
+      "Open templates/*.json and identify sections and order.",
+      "Explain why OS 2.0 templates replaced many .liquid templates.",
+      "Identify header and footer section groups.",
+      "Add or reorder a practice section through the customizer when possible.",
+      "Review template JSON carefully before committing structural changes.",
+    ],
+  },
+  {
+    tool: "code",
+    title: "Vanilla JS for Shopify: AJAX Cart and Custom Elements",
+    description:
+      "Use modern JavaScript patterns common in Shopify themes: fetch('/cart/add.js'), event delegation, custom elements, and section refreshes without relying on jQuery. This is the pattern used by Dawn-style themes and many modern builds.",
+    lessons: 5,
+    time: "1h 40m",
+    level: "Hard",
+    image:
+      "https://images.unsplash.com/photo-1555066932-e78dd8fb77bb?auto=format&fit=crop&w=800&q=80",
+    trainerNote:
+      "Focus on reading existing theme JavaScript before writing. The trainee should avoid duplicate listeners and should understand how cart state updates.",
+    steps: [
+      "Find the existing theme JavaScript entry and cart-related classes.",
+      "Use fetch with Shopify cart endpoints and handle JSON responses.",
+      "Use event delegation for repeated product or cart controls.",
+      "Read and create custom elements with class extends HTMLElement.",
+      "Test loading order, duplicate listeners, error states, and no-JS fallback behavior.",
+    ],
+  },
+  {
+    tool: "dev",
+    title: "SEO and Structured Data for Shopify",
+    description:
+      "Prepare Shopify theme changes for launch by reviewing Product and Organization JSON-LD, open graph tags, canonical URLs, robots.txt.liquid, and sitemap expectations. SEO is easiest to protect while building, not after client launch review starts.",
+    lessons: 5,
+    time: "1h 15m",
+    level: "Intermediate",
+    image:
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
+    trainerNote:
+      "Keep this evidence-based. Trainees should inspect rendered source and structured data output, not just source Liquid.",
+    steps: [
+      "Inspect product JSON-LD and confirm required product fields render.",
+      "Review Organization or store-level structured data.",
+      "Check open graph tags, canonical URLs, and social preview content.",
+      "Understand robots.txt.liquid and Shopify sitemap behavior.",
+      "Validate rendered structured data before launch handoff.",
+    ],
+  },
+  {
+    tool: "code",
     title: "Pro SCSS: Architecture and Review Rules",
     description:
       "Apply professional SCSS structure using partials, design tokens, mixins, responsive helpers, and a code review checklist that catches naming, specificity, and compiled output problems. Senior developers review the compiled CSS output — not just the source SCSS — before approving work, because clean-looking SCSS can still produce bloated or fragile CSS.",
@@ -507,8 +724,11 @@ const tutorials = [
       "Organize SCSS into tokens, base, components, utilities, and pages.",
       "Use @use instead of old @import when the build supports it.",
       "Create mixins only for repeated real patterns.",
+      "Use design tokens for repeated brand and spacing values.",
       "Keep selector specificity low.",
       "Review compiled CSS output before approving work.",
+      "Use a repeatable BEM and SCSS review checklist.",
+      "Know when plain CSS is clearer than extra SCSS abstraction.",
     ],
   },
 ];
@@ -565,7 +785,7 @@ const modulePractices = {
     title: "Edit a homepage draft section",
     description: "Practice section editing. The trainer decides whether trainees can save changes.",
     tasks: [
-      "Open Online Store > Themes > Edit theme.",
+      "Open Online Store > Themes and click Customize on the assigned theme.",
       "Select Home page.",
       "Click a section and identify its blocks, image controls, text fields, and layout settings.",
     ],
@@ -721,6 +941,96 @@ const modulePractices = {
       "Create sections/knb-practice-feature.liquid in the assigned theme repo.",
       "Add editable heading, text, button, and feature blocks.",
       "Preview the section in the theme customizer before committing.",
+    ],
+  },
+  "Liquid Fundamentals": {
+    title: "Read Liquid before editing it",
+    description: "Practice objects, filters, conditions, loops, and variables in a safe theme file.",
+    tasks: [
+      "Open an existing product, collection, or section Liquid file.",
+      "Identify one object, one filter, one if statement, and one for loop.",
+      "Explain what HTML the Liquid will output before making changes.",
+    ],
+  },
+  "Snippets and Render Patterns": {
+    title: "Extract repeated markup safely",
+    description: "Use render with named arguments so repeated UI stays reusable and readable.",
+    tasks: [
+      "Find repeated card or button markup in a theme file.",
+      "Move the repeated markup into a focused snippet.",
+      "Render the snippet with named arguments and verify the output stays the same.",
+    ],
+  },
+  "Metafields and Metaobjects": {
+    title: "Connect custom data to theme code",
+    description: "Define Shopify custom data in admin, fill a practice value, and render it in Liquid with a fallback.",
+    tasks: [
+      "Inspect Settings > Custom data in the Shopify admin.",
+      "Find or create a practice product metafield definition.",
+      "Render product.metafields.custom data in a theme file only after confirming the namespace and key.",
+    ],
+  },
+  "Performance and Core Web Vitals": {
+    title: "Measure before optimizing",
+    description: "Use Lighthouse findings to guide image, script, and layout stability fixes.",
+    tasks: [
+      "Run Lighthouse on the preview URL.",
+      "Find one image, script, or layout shift issue.",
+      "Write the exact fix plan before changing code.",
+    ],
+  },
+  "Accessibility for Shopify Themes": {
+    title: "Review accessibility while building",
+    description: "Check alt text, semantics, focus states, keyboard navigation, labels, and contrast before approval.",
+    tasks: [
+      "Keyboard-tab through the section or page.",
+      "Check images, buttons, labels, and headings.",
+      "Fix one accessibility issue and explain how it improves the customer experience.",
+    ],
+  },
+  "Theme Settings and Color Schemes": {
+    title: "Expose brand controls safely",
+    description: "Practice theme settings and color schemes without hard-coding client brand values.",
+    tasks: [
+      "Open config/settings_schema.json and identify one existing brand control.",
+      "Find where a color scheme is selected in the theme editor.",
+      "Explain whether the requested change belongs in a global setting, section setting, or CSS token.",
+    ],
+  },
+  "Cart and Cart Drawer Customization": {
+    title: "Review cart behavior before editing",
+    description: "Trace cart drawer rendering, AJAX endpoints, line item properties, and empty states.",
+    tasks: [
+      "Find the cart drawer file and the JavaScript that updates it.",
+      "Add one practice product to cart and inspect the cart JSON response.",
+      "Test add, quantity change, remove, and empty cart states before approval.",
+    ],
+  },
+  "JSON Templates and Sections Everywhere": {
+    title: "Read template structure first",
+    description: "Use OS 2.0 JSON templates to understand which sections make up each storefront page.",
+    tasks: [
+      "Open one templates/*.json file and list its section keys.",
+      "Find the matching sections in the sections folder.",
+      "Explain how changing order or settings affects the customizer layout.",
+    ],
+  },
+  "Vanilla JS for Shopify: AJAX Cart and Custom Elements": {
+    title: "Use modern theme JavaScript",
+    description: "Practice fetch, event delegation, and custom elements in the same style as modern Shopify themes.",
+    tasks: [
+      "Find one custom element or cart class in the theme JavaScript.",
+      "Trace the add-to-cart request and response handling.",
+      "Explain how the code avoids duplicate listeners and stale cart UI.",
+    ],
+  },
+  "SEO and Structured Data for Shopify": {
+    title: "Validate SEO output before launch",
+    description: "Review rendered metadata, structured data, canonical URLs, robots, and sitemap behavior.",
+    tasks: [
+      "View the rendered source of a product page.",
+      "Find Product JSON-LD, open graph tags, and canonical URL output.",
+      "Validate one rendered URL with a structured data testing tool.",
     ],
   },
   "Pro SCSS: Architecture and Review Rules": {
@@ -1211,6 +1521,94 @@ const themeSteps = [
   },
 ];
 
+const homepageSectionSteps = [
+  {
+    title: "Open the homepage template",
+    label: "Home page",
+    description:
+      "Homepage work starts by opening the correct template in the theme customizer. Confirm Home page is selected before touching sections, because editing a different template can change product, collection, or page layouts by mistake.",
+    imageTitle: "Theme editor with Home page template selected",
+    imageHint: "Screenshot should show: Shopify theme editor open with the Home page template selected in the top template selector.",
+    nav: "Home page",
+    action: "Open Home page editor",
+    url: `${TRAINING_STORE_ADMIN_URL}/themes/current/editor`,
+    tryTasks: ["Open Online Store > Themes.", "Click Customize on the active theme.", "Use the template selector to choose Home page.", "Confirm the section list matches the homepage before editing."],
+    example: "Example: Home page usually includes hero, featured collection, image banner, rich text, and newsletter sections.",
+    mistake: "Do not edit a product or collection template when the task is homepage content.",
+    question: "Before homepage edits, confirm the selected template is...",
+    answers: ["Home page", "Checkout settings", "Default product only"],
+    correct: "Home page",
+  },
+  {
+    title: "Map the homepage sections",
+    label: "Sections",
+    description:
+      "Read the homepage from top to bottom in the sections panel. Mapping sections first helps you find the right content area without randomly clicking blocks in the preview.",
+    imageTitle: "Homepage sections list",
+    imageHint: "Screenshot should show: left sections panel with homepage sections such as Image banner, Featured collection, Rich text, and Newsletter.",
+    nav: "Sections",
+    action: "Open theme editor",
+    url: `${TRAINING_STORE_ADMIN_URL}/themes/current/editor`,
+    tryTasks: ["Read the left sections panel from top to bottom.", "Identify the hero or image banner section.", "Identify one product or collection section.", "Tell the trainer which section likely owns the assigned content."],
+    example: "Example: a homepage headline often lives in an Image banner or Hero section, not Theme settings.",
+    mistake: "Do not delete or drag sections while you are only trying to identify them.",
+    question: "Homepage section mapping helps you find...",
+    answers: ["The right content area", "Payment providers", "Staff invites"],
+    correct: "The right content area",
+  },
+  {
+    title: "Edit text and image fields safely",
+    label: "Fields",
+    description:
+      "Most homepage sections include editable headings, body text, buttons, images, links, and layout controls. Change only the assigned field and keep a note of the original content in case the trainer asks you to revert.",
+    imageTitle: "Homepage section settings fields",
+    imageHint: "Screenshot should show: a selected homepage section with heading, text, button label, link, and image fields visible.",
+    nav: "Fields",
+    action: "Open theme editor",
+    url: `${TRAINING_STORE_ADMIN_URL}/themes/current/editor`,
+    tryTasks: ["Click the assigned homepage section.", "Find heading, text, button, image, and link fields.", "Make only the assigned practice text change.", "Check that the preview updates in the expected section."],
+    example: "Example: change a button label from Shop now to View collection only if the trainer assigned that exact edit.",
+    mistake: "Do not change images, links, or layout controls just because you are already inside the section.",
+    question: "A safe homepage edit changes...",
+    answers: ["Only the assigned field", "Every visible setting", "Billing contact"],
+    correct: "Only the assigned field",
+  },
+  {
+    title: "Check desktop and mobile preview",
+    label: "Preview",
+    description:
+      "Homepage content can fit on desktop and break on mobile. Always check whether headings wrap cleanly, buttons remain visible, and images still make sense in mobile preview before saving.",
+    imageTitle: "Homepage desktop and mobile preview",
+    imageHint: "Screenshot should show: customizer preview mode toggles with desktop and mobile views checked.",
+    nav: "Preview",
+    action: "Open theme editor",
+    url: `${TRAINING_STORE_ADMIN_URL}/themes/current/editor`,
+    tryTasks: ["Use the desktop preview.", "Switch to mobile preview.", "Check heading wrapping, button visibility, and image crop.", "Write down any issue before asking to save."],
+    example: "Example: a long hero heading may need shorter wording so it does not push the button below the first screen on mobile.",
+    mistake: "Do not approve homepage copy after checking desktop only.",
+    question: "Homepage edits must be checked on...",
+    answers: ["Desktop and mobile", "Only desktop", "Only Shopify billing"],
+    correct: "Desktop and mobile",
+  },
+  {
+    title: "Save only after trainer approval",
+    label: "Approval",
+    description:
+      "The customizer Save button publishes homepage changes to the active storefront. During training, saving requires trainer approval, especially when the active theme is live.",
+    imageTitle: "Theme editor save button",
+    imageHint: "Screenshot should show: Save button in the theme editor with a note that saving affects the active storefront.",
+    nav: "Approval",
+    action: "Open theme editor",
+    url: `${TRAINING_STORE_ADMIN_URL}/themes/current/editor`,
+    tryTasks: ["Confirm exactly what changed.", "Show desktop and mobile preview to the trainer.", "Ask whether to save or exit without saving.", "If approved, click Save once and wait for confirmation."],
+    example: "Example: save only after the trainer confirms the heading, image crop, and button link are correct.",
+    mistake: "Do not click Save during exploration. Save is a live storefront action.",
+    question: "Homepage Save should happen...",
+    answers: ["Only after trainer approval", "After every click", "Before mobile preview"],
+    correct: "Only after trainer approval",
+  },
+];
+
 const productSteps = [
   {
     title: "Open Products",
@@ -1253,12 +1651,28 @@ const productSteps = [
     nav: "Details",
     action: "Add product",
     url: `${TRAINING_STORE_ADMIN_URL}/products/new`,
-    tryTasks: ["Find the Media section and click Add media to see the upload dialog — do not upload unless assigned.", "Find the Pricing section and enter a practice price (e.g. $25.00) in the Price field.", "Find the Inventory section and identify the SKU field and the Track quantity checkbox.", "Find the Variants section and add one option named 'Size' with values 'Small' and 'Large'."],
+    tryTasks: ["Find the Media section and click Add media to see the upload dialog — do not upload unless assigned.", "Find the Pricing section and enter a practice price (e.g. $25.00) in the Price field.", "Find the Inventory section and identify the SKU field and the Track quantity checkbox.", "Find the Variants section and note where product options are managed."],
     example: "Example: variants are used for options like size, color, or material. Each variant combination gets its own price and inventory quantity.",
     mistake: "Do not guess inventory or pricing for real products. An incorrect price entered and published will be charged to real customers at checkout.",
     question: "Variants are used for...",
     answers: ["Options like size/color", "Admin passwords", "Blog posts"],
     correct: "Options like size/color",
+  },
+  {
+    title: "Variants and options",
+    label: "Variants",
+    description: "Variants are separate purchasable versions of the same product, such as sizes, colors, materials, or bundles. Each variant can have its own SKU, price, image, and inventory count, so variants must be checked carefully before a product is published.",
+    imageTitle: "Product editor variants table with Size options",
+    imageHint: "Screenshot should show: the product editor Variants section with an option named Size and values such as Small and Large, plus the generated variant rows.",
+    nav: "Variants",
+    action: "Add product",
+    url: `${TRAINING_STORE_ADMIN_URL}/products/new`,
+    tryTasks: ["Open your practice product.", "Add one option named Size with values Small and Large.", "Check that Shopify creates separate variant rows.", "Confirm each variant can have its own price, SKU, and inventory fields."],
+    example: "Example: a T-shirt with Small and Large variants lets customers choose a size and lets the store track stock for each size separately.",
+    mistake: "Do not create separate products for simple size or color options unless the trainer says the store strategy requires it.",
+    question: "Variants are best for...",
+    answers: ["Product options like size", "Staff permissions", "Blog categories"],
+    correct: "Product options like size",
   },
   {
     title: "Collections",
@@ -1411,36 +1825,84 @@ const launchSteps = [
     correct: "Only with approval",
   },
   {
-    title: "Shipping, tax, checkout",
-    label: "Core settings",
-    description: "Shipping rates, tax settings, and checkout behaviour are three separate areas that each directly affect what a customer pays and whether their order can be completed. A wrong shipping rate overcharges customers; a missing tax rule creates compliance risk; a checkout setting like required customer accounts can prevent guest purchases entirely.",
-    imageTitle: "Shopify admin Settings page with Shipping and delivery, Taxes and duties, and Checkout highlighted",
-    imageHint: "Screenshot should show: the Settings left panel with Shipping and delivery, Taxes and duties, and Checkout all visible as clickable links, with the main panel showing whichever one is currently selected.",
-    nav: "Core",
-    action: "Open Settings",
-    url: `${TRAINING_STORE_ADMIN_URL}/settings`,
-    tryTasks: ["Open Settings > Shipping and delivery and read the shipping zones and rates listed.", "Open Settings > Taxes and duties and identify which tax region is configured.", "Open Settings > Checkout and find the Customer accounts setting — note whether it is required, optional, or disabled.", "Report what you found to the trainer before the session ends."],
-    example: "Example: wrong shipping rates or checkout rules can block orders or charge customers incorrectly. A flat rate of $0 for all orders means the store loses shipping revenue on every sale.",
-    mistake: "Do not guess or change shipping, tax, or checkout rules. Even a rate that looks obviously wrong should be confirmed with the trainer before editing.",
-    question: "Shipping and tax settings affect...",
-    answers: ["Checkout charges", "Theme sections", "Staff avatars"],
-    correct: "Checkout charges",
+    title: "Shipping and delivery",
+    label: "Shipping",
+    description: "Shipping and delivery controls the rates, shipping zones, local delivery, pickup options, and package rules customers see at checkout. A wrong rate can block checkout, overcharge customers, or make the store lose money on every order.",
+    imageTitle: "Settings > Shipping and delivery page showing shipping zones and rates",
+    imageHint: "Screenshot should show: the Shipping and delivery page with shipping profiles, zones, and rate rows visible.",
+    nav: "Shipping",
+    action: "Open Shipping",
+    url: `${TRAINING_STORE_ADMIN_URL}/settings/shipping`,
+    tryTasks: ["Open Settings > Shipping and delivery.", "Identify the active shipping profile.", "Read the shipping zones and rate names listed.", "Do not add, remove, or edit rates unless the trainer approves."],
+    example: "Example: a missing domestic shipping rate can stop customers in that region from checking out.",
+    mistake: "Do not guess shipping rates. Rates affect what customers pay immediately at checkout.",
+    question: "Shipping rates affect...",
+    answers: ["Checkout delivery charges", "Theme fonts", "Staff roles"],
+    correct: "Checkout delivery charges",
   },
   {
-    title: "Domains and password",
+    title: "Taxes and duties",
+    label: "Taxes",
+    description: "Taxes and duties settings determine how tax is calculated and displayed for orders. Tax setup depends on the store's region and business requirements, so trainees should inspect the setup and report what they see rather than changing it.",
+    imageTitle: "Settings > Taxes and duties page showing configured tax regions",
+    imageHint: "Screenshot should show: the Taxes and duties settings page with configured regions and tax collection status visible.",
+    nav: "Taxes",
+    action: "Open Taxes",
+    url: `${TRAINING_STORE_ADMIN_URL}/settings/taxes`,
+    tryTasks: ["Open Settings > Taxes and duties.", "Identify which tax regions are configured.", "Check whether tax is included in prices if that setting is visible.", "Report the current setup to the trainer before any change."],
+    example: "Example: changing tax inclusion can change how customers understand product prices and order totals.",
+    mistake: "Do not change tax regions or collection rules without owner or trainer approval.",
+    question: "Tax settings should be changed...",
+    answers: ["Only with approval", "Whenever a trainee notices them", "Before checking shipping"],
+    correct: "Only with approval",
+  },
+  {
+    title: "Checkout settings",
+    label: "Checkout",
+    description: "Checkout settings control customer account requirements, order notes, tipping, marketing consent, and other checkout behavior. These options directly affect whether customers can complete an order smoothly.",
+    imageTitle: "Settings > Checkout page showing customer accounts and checkout options",
+    imageHint: "Screenshot should show: the Checkout settings page with customer account settings and key checkout options visible.",
+    nav: "Checkout",
+    action: "Open Checkout",
+    url: `${TRAINING_STORE_ADMIN_URL}/settings/checkout`,
+    tryTasks: ["Open Settings > Checkout.", "Find the customer accounts setting and note whether accounts are required, optional, or disabled.", "Find order note or marketing consent settings if visible.", "Do not change checkout rules without trainer approval."],
+    example: "Example: requiring accounts can block guest checkout if the store strategy expects quick purchases.",
+    mistake: "Do not change checkout settings during orientation. Checkout changes affect every customer order.",
+    question: "Checkout settings affect...",
+    answers: ["How customers complete orders", "Only product images", "Only GitHub branches"],
+    correct: "How customers complete orders",
+  },
+  {
+    title: "Domains",
     label: "Domains",
-    description: "The Domains settings page is where the custom domain is connected and the storefront password protection is controlled. Removing the storefront password is the moment the store goes public — this is an irreversible action that should only happen with explicit approval from the store owner and after all launch checklist items are confirmed.",
-    imageTitle: "Settings > Domains page showing custom domain and storefront password toggle",
-    imageHint: "Screenshot should show: the Domains settings page with the primary domain shown (custom or myshopify.com), and the Online Store > Preferences link or section where the storefront password can be found and disabled.",
+    description: "Domains controls the public web address for the store. Before launch, confirm whether the store uses a custom domain or only the myshopify.com domain, and make sure the intended primary domain is clear.",
+    imageTitle: "Settings > Domains page showing primary domain",
+    imageHint: "Screenshot should show: the Domains settings page with the primary domain and any connected custom domains visible.",
     nav: "Domains",
     action: "Open Domains",
     url: `${TRAINING_STORE_ADMIN_URL}/settings/domains`,
-    tryTasks: ["Open Settings > Domains and read the primary domain shown at the top.", "Identify whether a custom domain is connected or if the store is still using the myshopify.com domain.", "Open Online Store > Preferences and find the Password protection section — read the current state.", "Do not click Remove password, Disable password, or Enable unless the trainer gives explicit approval."],
-    example: "Example: removing the password makes the store immediately public — even if it is 2am and products are not ready. This action does not ask for a second confirmation.",
-    mistake: "Do not launch the store by accident by clicking Remove password or Disable password without approval. There is no undo — the store goes live immediately.",
+    tryTasks: ["Open Settings > Domains.", "Read the primary domain shown at the top.", "Identify whether a custom domain is connected.", "Do not connect, disconnect, or change the primary domain without approval."],
+    example: "Example: the store may be ready in Shopify but not launch-ready if the correct custom domain is not connected.",
+    mistake: "Do not change the primary domain casually. Domain changes affect how customers reach the store.",
+    question: "Domains control...",
+    answers: ["The store web address", "Product variants", "Discount usage limits"],
+    correct: "The store web address",
+  },
+  {
+    title: "Storefront password",
+    label: "Password",
+    description: "Storefront password protection controls whether the public can view the storefront. Removing the password is the launch moment: customers can see the store immediately, even if content, products, or checkout are not ready.",
+    imageTitle: "Online Store > Preferences password protection section",
+    imageHint: "Screenshot should show: Online Store > Preferences with the Password protection section visible.",
+    nav: "Password",
+    action: "Open Preferences",
+    url: `${TRAINING_STORE_ADMIN_URL}/preferences`,
+    tryTasks: ["Open Online Store > Preferences.", "Find the Password protection section.", "Read whether the password is enabled or disabled.", "Do not remove or disable the password unless the trainer explicitly approves launch."],
+    example: "Example: removing the password makes the storefront public immediately.",
+    mistake: "Do not launch the store by accident by clicking Remove password or Disable password without approval.",
     question: "Removing the storefront password can...",
-    answers: ["Make store public", "Create products", "Invite staff"],
-    correct: "Make store public",
+    answers: ["Make the store public", "Create collections", "Install Shopify CLI"],
+    correct: "Make the store public",
   },
   {
     title: "Notifications review",
@@ -1786,6 +2248,94 @@ const cliWorkflowSteps = [
     question: "Use auth logout when...",
     answers: ["The wrong account is active", "A product has no image", "A page title is too long"],
     correct: "The wrong account is active",
+  },
+];
+
+const githubPreviewSteps = [
+  {
+    title: "Pull from GitHub first",
+    label: "Pull first",
+    description:
+      "GitHub is the source of truth for the team theme workflow. Before opening Shopify CLI, fetch and pull the latest code so your local preview starts from the same branch the reviewer will inspect.",
+    imageTitle: "GitHub Desktop showing Fetch origin and Pull origin before theme work",
+    imageHint: "Screenshot should show: GitHub Desktop with the assigned repository selected and Fetch origin or Pull origin visible.",
+    nav: "Pull first",
+    action: "Open GitHub Desktop docs",
+    url: "https://docs.github.com/en/desktop",
+    tryTasks: ["Open GitHub Desktop.", "Confirm the correct repository and branch are selected.", "Click Fetch origin, then Pull origin if updates are available.", "Do not start editing until the branch is up to date."],
+    example: "Example: pull the assigned branch before running Shopify preview so your local copy matches the reviewed GitHub code.",
+    mistake: "Do not use Shopify CLI pull as the default source of truth when the project is GitHub-first.",
+    question: "In this workflow, the source of truth is...",
+    answers: ["GitHub", "A random Shopify theme", "Downloads folder"],
+    correct: "GitHub",
+  },
+  {
+    title: "Work inside the cloned repo",
+    label: "Repo folder",
+    description:
+      "Shopify preview must run from the cloned GitHub repository folder, not from an exported theme ZIP, Desktop copy, or old download. The folder should contain the theme files and Git history.",
+    imageTitle: "VS Code opened to the cloned GitHub theme repository",
+    imageHint: "Screenshot should show: VS Code Explorer with theme folders and the Source Control panel showing the repository.",
+    nav: "Repo folder",
+    action: "Open VS Code docs",
+    url: "https://code.visualstudio.com/docs",
+    tryTasks: ["Open the repository from GitHub Desktop in VS Code.", "Confirm the Explorer shows theme folders such as sections, snippets, templates, config, and assets.", "Open Source Control and confirm Git is tracking the folder.", "Run pwd in the terminal and confirm the path is the repository folder."],
+    example: "Example: the terminal path should be inside the cloned repo, not a copied folder on Desktop.",
+    mistake: "Do not preview or edit a duplicate folder that is not connected to GitHub.",
+    question: "Theme work should happen inside...",
+    answers: ["The cloned GitHub repo", "Any copied folder", "Only Shopify admin"],
+    correct: "The cloned GitHub repo",
+  },
+  {
+    title: "Preview with Shopify CLI",
+    label: "Preview",
+    description:
+      "After syncing GitHub, use Shopify CLI to preview the local repository in the tutorial store. The CLI is for preview and checks; GitHub remains where changes are reviewed.",
+    imageTitle: "VS Code terminal showing shopify theme dev from the GitHub repo",
+    imageHint: "Screenshot should show: terminal running shopify theme dev --store knb-tutorial and a local preview URL.",
+    nav: "Preview",
+    action: "Open Shopify theme dev docs",
+    url: "https://shopify.dev/docs/api/shopify-cli/theme/theme-dev",
+    tryTasks: ["Run npm install if the project requires dependencies.", "Run shopify theme dev --store knb-tutorial from the repository folder.", "Open the preview URL.", "Confirm the preview shows the expected branch changes."],
+    example: "Example: Shopify CLI gives a preview link, but it does not replace GitHub review.",
+    mistake: "Do not treat a successful preview as approval to publish.",
+    question: "Shopify CLI is used here for...",
+    answers: ["Preview and checks", "Replacing GitHub review", "Changing billing"],
+    correct: "Preview and checks",
+  },
+  {
+    title: "Run theme checks before commit",
+    label: "Check",
+    description:
+      "Run Shopify theme check before committing so Liquid and theme warnings are caught before review. This keeps GitHub review focused on the assigned change instead of avoidable syntax issues.",
+    imageTitle: "VS Code terminal showing shopify theme check passing",
+    imageHint: "Screenshot should show: shopify theme check output with no errors or the warnings reviewed.",
+    nav: "Check",
+    action: "Open theme check docs",
+    url: "https://shopify.dev/docs/api/shopify-cli/theme/theme-check",
+    tryTasks: ["Run shopify theme check.", "Read every warning or error with its file and line number.", "Fix assigned issues or note why they are pre-existing.", "Re-run the check before committing."],
+    example: "Example: fix a Liquid syntax warning before the branch is pushed for supervisor review.",
+    mistake: "Do not push a branch with new theme check errors unless the reviewer explicitly accepted them.",
+    question: "Before committing theme code, run...",
+    answers: ["shopify theme check", "billing setup", "customer export"],
+    correct: "shopify theme check",
+  },
+  {
+    title: "Push to GitHub for review",
+    label: "Push review",
+    description:
+      "After preview and checks, commit the related files and push to GitHub. The reviewer should receive a concise summary of what changed, what was tested, and the preview status.",
+    imageTitle: "GitHub Desktop showing a pushed branch ready for review",
+    imageHint: "Screenshot should show: GitHub Desktop with a clear commit message and Push origin completed.",
+    nav: "Review",
+    action: "Open GitHub pull request docs",
+    url: "https://docs.github.com/en/pull-requests",
+    tryTasks: ["Review changed files in GitHub Desktop.", "Commit only files related to the assigned task.", "Push the branch to GitHub.", "Send the reviewer the branch, summary, preview result, and theme check status."],
+    example: "Example message: Pushed training/homepage-copy. Preview works and theme check has no new errors.",
+    mistake: "Do not push unrelated files or skip the reviewer summary.",
+    question: "After local preview and checks, send work to...",
+    answers: ["GitHub review", "Live publish", "Billing settings"],
+    correct: "GitHub review",
   },
 ];
 
@@ -3160,6 +3710,954 @@ const dynamicSectionSteps = [
   },
 ];
 
+const liquidFundamentalsSteps = [
+  {
+    title: "Understand Liquid objects",
+    label: "Objects",
+    description:
+      "Liquid objects expose Shopify data inside theme files. Product templates use product, collection pages use collection, sections use section, and global layout files can access objects like shop and routes.",
+    imageTitle: "Liquid object output",
+    imageHint: "Code sample: output product.title and section.settings.heading in a section file.",
+    nav: "Objects",
+    action: "Open Liquid objects docs",
+    url: "https://shopify.dev/docs/api/liquid/objects",
+    tryTasks: ["Open one product or section Liquid file.", "Find one object reference such as product.title or section.settings.heading.", "Explain where the object data comes from.", "Do not rename object variables unless you understand every reference."],
+    example: "Example: {{ product.title }} prints the current product title on a product template.",
+    mistake: "Do not invent object names. Liquid only knows objects provided by Shopify or variables assigned in the file.",
+    question: "product.title is a Liquid...",
+    answers: ["Object value", "CSS class", "Git branch"],
+    correct: "Object value",
+  },
+  {
+    title: "Format values with filters",
+    label: "Filters",
+    description:
+      "Filters transform Liquid output before it reaches the browser. Common filters format money, escape text, provide defaults, resize images, and join or split strings.",
+    imageTitle: "Liquid filters",
+    imageHint: "Code sample: money, escape, default, and image_url filters.",
+    nav: "Filters",
+    action: "Open Liquid filters docs",
+    url: "https://shopify.dev/docs/api/liquid/filters",
+    tryTasks: ["Find one filter using the pipe character.", "Identify what value enters the filter.", "Explain what the filter changes before output.", "Add a default filter only when blank content needs fallback text."],
+    example: "Example: {{ product.price | money }} formats a number as store currency.",
+    mistake: "Do not output user-controlled text without escaping when it may contain unsafe markup.",
+    question: "Filters are used to...",
+    answers: ["Transform output", "Create Git commits", "Install apps"],
+    correct: "Transform output",
+  },
+  {
+    title: "Control output with if statements",
+    label: "If",
+    description:
+      "Use if, unless, elsif, and else to show content only when the required data exists or a setting is enabled. This prevents empty headings, broken buttons, and blank wrappers.",
+    imageTitle: "Liquid condition",
+    imageHint: "Code sample: if section.settings.heading != blank.",
+    nav: "If",
+    action: "Open Liquid tags docs",
+    url: "https://shopify.dev/docs/api/liquid/tags",
+    tryTasks: ["Find one if statement in a section file.", "Identify the condition being checked.", "Add a blank check before outputting optional content.", "Verify the page still looks correct when the setting is blank."],
+    example: "{% if section.settings.heading != blank %} output the heading {% endif %}",
+    mistake: "Do not render empty buttons or headings when a setting is blank.",
+    question: "An if statement helps...",
+    answers: ["Show content conditionally", "Resize images automatically", "Push to GitHub"],
+    correct: "Show content conditionally",
+  },
+  {
+    title: "Loop through repeated content",
+    label: "For",
+    description:
+      "For loops render repeated data such as products in a collection, links in a menu, or blocks inside a section. Loops should stay readable and include empty states when no items exist.",
+    imageTitle: "Liquid for loop",
+    imageHint: "Code sample: loop through collection.products or section.blocks.",
+    nav: "For",
+    action: "Open Liquid iteration docs",
+    url: "https://shopify.dev/docs/api/liquid/tags/iteration-tags",
+    tryTasks: ["Find one for loop in a theme file.", "Identify the collection being looped through.", "Identify the variable name for each item.", "Add or describe an empty state if the loop has no items."],
+    example: "{% for product in collection.products %} renders each product in the collection.",
+    mistake: "Do not assume a loop always has items. Empty states prevent blank sections.",
+    question: "A for loop is used for...",
+    answers: ["Repeated content", "Billing setup", "Theme publishing"],
+    correct: "Repeated content",
+  },
+  {
+    title: "Use assign and capture carefully",
+    label: "Variables",
+    description:
+      "assign stores a simple Liquid value and capture stores rendered output. Use them to clarify repeated values, but avoid hiding important logic far away from where it is used.",
+    imageTitle: "Liquid variables",
+    imageHint: "Code sample: assign image_width = 900 and capture button_markup.",
+    nav: "Variables",
+    action: "Open variable tags docs",
+    url: "https://shopify.dev/docs/api/liquid/tags/variable-tags",
+    tryTasks: ["Find one assign or capture in the project.", "Explain what value it stores.", "Check where the variable is used later.", "Remove or avoid variables that make a small template harder to read."],
+    example: "{% assign card_heading = product.title | escape %}",
+    mistake: "Do not create variables for every line. Use them when they reduce repetition or clarify intent.",
+    question: "assign is mainly used to...",
+    answers: ["Store a value", "Create a section preset", "Install npm"],
+    correct: "Store a value",
+  },
+  {
+    title: "Read Liquid and HTML together",
+    label: "Output",
+    description:
+      "Liquid runs on Shopify's server and outputs HTML for the browser. Good theme developers can read both the source Liquid and the final HTML result before making changes.",
+    imageTitle: "Liquid to HTML output",
+    imageHint: "Code sample: Liquid source beside expected HTML output.",
+    nav: "Output",
+    action: "Open Liquid basics",
+    url: "https://shopify.dev/docs/api/liquid",
+    tryTasks: ["Choose one small Liquid block.", "Write what HTML you expect it to output.", "Preview the page and inspect the rendered HTML.", "Explain any difference between the Liquid source and browser output."],
+    example: "Example: Liquid tags disappear from the browser; customers only receive the rendered HTML.",
+    mistake: "Do not debug only the source file. Inspect the browser output too.",
+    question: "Customers receive...",
+    answers: ["Rendered HTML", "Raw Liquid tags", "Git commits"],
+    correct: "Rendered HTML",
+  },
+];
+
+const snippetRenderSteps = [
+  {
+    title: "Know when to create a snippet",
+    label: "Extract",
+    description:
+      "Snippets are reusable pieces of Liquid markup. Extract repeated UI when it appears in more than one place or when a template becomes hard to scan.",
+    imageTitle: "Repeated markup candidate",
+    imageHint: "Code sample: repeated product-card markup before extraction.",
+    nav: "Extract",
+    action: "Open snippets docs",
+    url: "https://shopify.dev/docs/storefronts/themes/architecture/snippets",
+    tryTasks: ["Find repeated card or button markup.", "Check whether the repeated block has the same responsibility in both places.", "Name a snippet after the UI it renders.", "Do not extract one-off markup just to make more files."],
+    example: "Example: product-card.liquid is a good snippet when product cards appear in collections and recommendations.",
+    mistake: "Do not hide page-specific logic inside a generic snippet.",
+    question: "Snippets are best for...",
+    answers: ["Reusable markup", "Store billing", "GitHub passwords"],
+    correct: "Reusable markup",
+  },
+  {
+    title: "Render snippets with arguments",
+    label: "Render",
+    description:
+      "Use render with named arguments so a snippet receives only the data it needs. This keeps dependencies explicit and easier to review.",
+    imageTitle: "Render with arguments",
+    imageHint: "Code sample: render 'product-card', product: product, show_vendor: true.",
+    nav: "Render",
+    action: "Open render tag docs",
+    url: "https://shopify.dev/docs/api/liquid/tags/render",
+    tryTasks: ["Open a file that renders a snippet.", "Identify every named argument passed to it.", "Open the snippet and find where each argument is used.", "Add a new argument only when the snippet needs that value."],
+    example: "{% render 'product-card', product: product, show_vendor: true %}",
+    mistake: "Do not rely on unclear global variables when a named argument would be explicit.",
+    question: "render arguments make data...",
+    answers: ["Explicit", "Invisible", "Uneditable"],
+    correct: "Explicit",
+  },
+  {
+    title: "Separate snippets from sections",
+    label: "Responsibility",
+    description:
+      "Sections own customizer settings and layout context. Snippets should render reusable pieces inside that context, not replace section structure or schema.",
+    imageTitle: "Section vs snippet",
+    imageHint: "Diagram or code sample: section renders product-card snippet.",
+    nav: "Roles",
+    action: "Open theme architecture docs",
+    url: "https://shopify.dev/docs/storefronts/themes/architecture",
+    tryTasks: ["Choose one section and one snippet.", "Identify what the section controls.", "Identify what the snippet renders.", "Explain why schema belongs in sections, not snippets."],
+    example: "Example: a featured collection section can render a product-card snippet for each product.",
+    mistake: "Do not put schema JSON inside a snippet.",
+    question: "Schema belongs in...",
+    answers: ["Sections", "Snippets", "CSS files"],
+    correct: "Sections",
+  },
+  {
+    title: "Reuse a card across templates",
+    label: "Reuse",
+    description:
+      "A well-designed snippet can render the same product card in collection grids, recommendation sections, and search results while allowing small options through arguments.",
+    imageTitle: "Reusable product card",
+    imageHint: "Code sample: same product-card snippet rendered from two templates.",
+    nav: "Reuse",
+    action: "Open snippets docs",
+    url: "https://shopify.dev/docs/storefronts/themes/architecture/snippets",
+    tryTasks: ["Find two places that render a similar card.", "List what is identical and what varies.", "Pass variation options as arguments.", "Preview both templates after the change."],
+    example: "Example: show_vendor can be true in search results and false in collection grids.",
+    mistake: "Do not fork duplicate snippets for tiny display differences.",
+    question: "Reusable snippets reduce...",
+    answers: ["Duplicate markup", "Product prices", "Theme access"],
+    correct: "Duplicate markup",
+  },
+  {
+    title: "Review snippet dependencies",
+    label: "Review",
+    description:
+      "Before approving a snippet, check that its inputs are clear, fallback behavior is safe, and it does not make assumptions that only work on one template.",
+    imageTitle: "Snippet review checklist",
+    imageHint: "Checklist: inputs, defaults, fallbacks, naming, no hidden globals.",
+    nav: "Review",
+    action: "Open Liquid render docs",
+    url: "https://shopify.dev/docs/api/liquid/tags/render",
+    tryTasks: ["List the snippet inputs.", "Check defaults for optional arguments.", "Preview every template that renders it.", "Explain one risk of hidden dependencies."],
+    example: "Example: default show_vendor to false so the card works even when the argument is not passed.",
+    mistake: "Do not approve snippets that only work because one template happens to define a variable.",
+    question: "Snippet review should check...",
+    answers: ["Inputs and fallbacks", "Only file name", "Only image size"],
+    correct: "Inputs and fallbacks",
+  },
+];
+
+const metafieldsMetaobjectsSteps = [
+  {
+    title: "Find custom data definitions",
+    label: "Definitions",
+    description:
+      "Metafield and metaobject definitions live in Shopify admin custom data settings. Definitions control the namespace, key, content type, and where the data can be used.",
+    imageTitle: "Shopify custom data settings",
+    imageHint: "Screenshot should show Settings > Custom data with product metafields and metaobjects.",
+    nav: "Definitions",
+    action: "Open custom data docs",
+    url: "https://help.shopify.com/en/manual/custom-data",
+    tryTasks: ["Open Settings > Custom data.", "Find product metafield definitions.", "Identify namespace, key, and type.", "Do not delete or rename definitions without approval."],
+    example: "Example: custom.fabric_care can store product care instructions.",
+    mistake: "Renaming a namespace or key can break theme code that renders that metafield.",
+    question: "A metafield definition controls...",
+    answers: ["Namespace and type", "Git branches", "Checkout password"],
+    correct: "Namespace and type",
+  },
+  {
+    title: "Fill a product metafield",
+    label: "Values",
+    description:
+      "After a definition exists, each product can hold its own metafield value. This is how custom facts, labels, downloadable files, or ingredients can vary per product.",
+    imageTitle: "Product metafield values",
+    imageHint: "Screenshot should show product admin with a custom metafield value filled in.",
+    nav: "Values",
+    action: "Open metafields docs",
+    url: "https://help.shopify.com/en/manual/custom-data/metafields",
+    tryTasks: ["Open a practice product.", "Find the Metafields area.", "Fill one assigned practice metafield.", "Save and note the exact namespace and key."],
+    example: "Example: product A can say Machine washable while product B says Dry clean only.",
+    mistake: "Do not hard-code per-product facts in a section when a metafield should own the data.",
+    question: "Metafield values can vary by...",
+    answers: ["Product", "Browser tab", "GitHub account"],
+    correct: "Product",
+  },
+  {
+    title: "Render metafields in Liquid",
+    label: "Render",
+    description:
+      "Theme code reads metafields using the namespace and key. Always confirm the metafield exists and use fallbacks so blank values do not create empty UI.",
+    imageTitle: "Render product metafield",
+    imageHint: "Code sample: product.metafields.custom.fabric_care.value.",
+    nav: "Render",
+    action: "Open Liquid metafield docs",
+    url: "https://shopify.dev/docs/api/liquid/objects/metafield",
+    tryTasks: ["Open the assigned product template or section.", "Render a practice metafield value.", "Add a blank check before output.", "Preview a product with and without the value."],
+    example: "{{ product.metafields.custom.fabric_care.value }} renders the custom product field.",
+    mistake: "Do not assume every product has the metafield value filled in.",
+    question: "Product metafields render from...",
+    answers: ["product.metafields", "shop.routes", "cart.items"],
+    correct: "product.metafields",
+  },
+  {
+    title: "Know when to use metaobjects",
+    label: "Metaobjects",
+    description:
+      "Metaobjects are reusable structured content entries. Use them when the same structured record, such as designer profile, material guide, or store location, needs to be reused across products or pages.",
+    imageTitle: "Metaobject entries",
+    imageHint: "Screenshot should show a metaobject definition and one entry with multiple fields.",
+    nav: "Metaobjects",
+    action: "Open metaobjects docs",
+    url: "https://help.shopify.com/en/manual/custom-data/metaobjects",
+    tryTasks: ["Open Metaobjects in custom data.", "Find or inspect one metaobject definition.", "Identify the fields inside one entry.", "Explain why a metaobject is better than repeated plain text."],
+    example: "Example: a Material Guide metaobject can be referenced by many products.",
+    mistake: "Do not create many unrelated metafields when one reusable structured object fits better.",
+    question: "Metaobjects are best for...",
+    answers: ["Reusable structured content", "One-off CSS", "NPM scripts"],
+    correct: "Reusable structured content",
+  },
+  {
+    title: "Expose custom data in theme settings",
+    label: "Connect",
+    description:
+      "Theme settings can reference products, pages, files, and other Shopify resources. Custom data is strongest when the admin data model and theme controls work together.",
+    imageTitle: "Custom data and theme editor",
+    imageHint: "Screenshot should show theme editor setting connected to dynamic source.",
+    nav: "Connect",
+    action: "Open dynamic sources docs",
+    url: "https://help.shopify.com/en/manual/online-store/themes/theme-structure/extend/settings",
+    tryTasks: ["Open the theme editor for a product template.", "Find a setting that can use a dynamic source.", "Connect a metafield where appropriate.", "Preview the product and confirm the value appears."],
+    example: "Example: connect a product subtitle metafield to a heading setting in the editor.",
+    mistake: "Do not duplicate the same content in both metafields and hard-coded section text.",
+    question: "Dynamic sources help connect...",
+    answers: ["Admin data to theme settings", "Git to npm", "Discounts to taxes"],
+    correct: "Admin data to theme settings",
+  },
+  {
+    title: "Add safe fallbacks",
+    label: "Fallbacks",
+    description:
+      "Custom data is often optional. Theme code should handle blank metafields, missing metaobject entries, and incomplete fields without broken layout.",
+    imageTitle: "Metafield fallback",
+    imageHint: "Code sample: if metafield != blank, else fallback copy.",
+    nav: "Fallbacks",
+    action: "Open Liquid basics",
+    url: "https://shopify.dev/docs/api/liquid",
+    tryTasks: ["Find one metafield render.", "Add a blank check or default filter.", "Preview a product missing the value.", "Confirm the section does not leave awkward empty space."],
+    example: "Example: hide the Material guide row if the product has no material metafield.",
+    mistake: "Do not output labels like Care: when the value after the label is blank.",
+    question: "Fallbacks prevent...",
+    answers: ["Broken empty UI", "Git conflicts", "CLI login"],
+    correct: "Broken empty UI",
+  },
+];
+
+const performanceVitalsSteps = [
+  {
+    title: "Run a Lighthouse baseline",
+    label: "Baseline",
+    description:
+      "Before optimizing, measure the current page. Lighthouse and PageSpeed reports help identify image, script, layout shift, and accessibility issues that matter most.",
+    imageTitle: "Lighthouse report",
+    imageHint: "Screenshot should show Lighthouse score categories and top opportunities.",
+    nav: "Baseline",
+    action: "Open PageSpeed Insights",
+    url: "https://pagespeed.web.dev/",
+    tryTasks: ["Open the preview URL.", "Run Lighthouse or PageSpeed.", "Record performance, accessibility, and best practices scores.", "List the top three opportunities before changing code."],
+    example: "Example: Largest Contentful Paint often points to a hero image or slow render-blocking resource.",
+    mistake: "Do not optimize randomly without a baseline score and named issue.",
+    question: "Performance work should start with...",
+    answers: ["Measurement", "Guessing", "Publishing"],
+    correct: "Measurement",
+  },
+  {
+    title: "Size Shopify images correctly",
+    label: "Images",
+    description:
+      "Oversized images are one of the most common Shopify performance problems. Use image_url widths and responsive image output so browsers do not download larger files than needed.",
+    imageTitle: "Responsive image Liquid",
+    imageHint: "Code sample: image_url width and image_tag widths/loading.",
+    nav: "Images",
+    action: "Open image_url docs",
+    url: "https://shopify.dev/docs/api/liquid/filters/image_url",
+    tryTasks: ["Find one large theme image.", "Check the rendered image dimensions.", "Use image_url width to request a sensible size.", "Preview the page and confirm the image is still sharp."],
+    example: "{{ image | image_url: width: 900 | image_tag: loading: 'lazy' }}",
+    mistake: "Do not load a 3000px image into a 400px card.",
+    question: "image_url width helps control...",
+    answers: ["Downloaded image size", "Git status", "Product inventory"],
+    correct: "Downloaded image size",
+  },
+  {
+    title: "Use lazy loading carefully",
+    label: "Lazy",
+    description:
+      "Lazy loading helps below-the-fold images, but important hero or LCP images may need eager loading or higher priority. Use the right loading behavior for the image's role.",
+    imageTitle: "Image loading attributes",
+    imageHint: "Code sample: loading lazy for grid images and eager for hero image.",
+    nav: "Lazy",
+    action: "Open image_tag docs",
+    url: "https://shopify.dev/docs/api/liquid/filters/image_tag",
+    tryTasks: ["Identify the likely LCP image.", "Check whether it is lazy loaded.", "Lazy load below-the-fold images.", "Avoid lazy loading the main visible hero image unless the project pattern requires it."],
+    example: "Example: product grid thumbnails can usually be lazy loaded.",
+    mistake: "Do not lazy load the first visible hero image if it hurts LCP.",
+    question: "Lazy loading is best for...",
+    answers: ["Below-the-fold images", "All scripts", "Git commits"],
+    correct: "Below-the-fold images",
+  },
+  {
+    title: "Defer non-critical scripts",
+    label: "Scripts",
+    description:
+      "Scripts can delay rendering and interaction. Defer non-critical JavaScript when safe, and avoid loading duplicate libraries or app scripts that are no longer needed.",
+    imageTitle: "Script loading review",
+    imageHint: "Code sample: script tag with defer and notes about app scripts.",
+    nav: "Scripts",
+    action: "Open web vitals docs",
+    url: "https://web.dev/vitals/",
+    tryTasks: ["Open the theme layout file.", "List scripts loaded on every page.", "Identify which scripts are critical.", "Ask before removing or deferring third-party app scripts."],
+    example: '<script src="{{ "theme.js" | asset_url }}" defer></script>',
+    mistake: "Do not remove app scripts without confirming what feature they power.",
+    question: "defer can help scripts avoid...",
+    answers: ["Blocking render", "Creating products", "Changing taxes"],
+    correct: "Blocking render",
+  },
+  {
+    title: "Prevent layout shift",
+    label: "CLS",
+    description:
+      "Cumulative Layout Shift happens when content moves after the page starts rendering. Missing image dimensions, late-loading banners, and injected app blocks are common causes.",
+    imageTitle: "Layout shift causes",
+    imageHint: "Screenshot should show DevTools or Lighthouse CLS diagnostics.",
+    nav: "CLS",
+    action: "Open CLS docs",
+    url: "https://web.dev/articles/cls",
+    tryTasks: ["Find any Lighthouse CLS warning.", "Check images for width and height output.", "Reserve space for banners or media.", "Retest after one fix."],
+    example: "Example: outputting image width and height helps the browser reserve space.",
+    mistake: "Do not add late-loading announcement bars without reserving layout space.",
+    question: "CLS measures...",
+    answers: ["Unexpected layout movement", "Image file type", "Theme branch name"],
+    correct: "Unexpected layout movement",
+  },
+  {
+    title: "Summarize performance fixes",
+    label: "Report",
+    description:
+      "Performance review should end with a clear summary: baseline score, issue found, fix applied, retest result, and any remaining risks.",
+    imageTitle: "Performance review summary",
+    imageHint: "Checklist with baseline, fix, retest, remaining risk.",
+    nav: "Report",
+    action: "Open Lighthouse docs",
+    url: "https://developer.chrome.com/docs/lighthouse/overview",
+    tryTasks: ["Write the baseline score.", "Write the exact issue fixed.", "Run the test again.", "Send the trainer before/after notes."],
+    example: "Example: reduced product card image width from 2000px to 600px and improved LCP on collection page.",
+    mistake: "Do not claim performance improved without a retest or screenshot.",
+    question: "A performance handoff needs...",
+    answers: ["Before and after results", "Only opinions", "Only screenshots"],
+    correct: "Before and after results",
+  },
+];
+
+const accessibilityThemeSteps = [
+  {
+    title: "Write useful alt text",
+    label: "Alt text",
+    description:
+      "Alt text describes meaningful images for screen reader users. Decorative images should have empty alt text so they do not add noise.",
+    imageTitle: "Image alt review",
+    imageHint: "Code sample: meaningful product image alt and decorative image alt blank.",
+    nav: "Alt",
+    action: "Open alt text guidance",
+    url: "https://www.w3.org/WAI/tutorials/images/",
+    tryTasks: ["Find one meaningful image.", "Check its alt text.", "Find one decorative image.", "Explain whether the alt should be descriptive or empty."],
+    example: "Example: alt='Black leather tote bag with gold hardware' is better than alt='image'.",
+    mistake: "Do not stuff SEO keywords into alt text.",
+    question: "Decorative images should often use...",
+    answers: ["Empty alt text", "Long keywords", "No image tag"],
+    correct: "Empty alt text",
+  },
+  {
+    title: "Use semantic landmarks and headings",
+    label: "Semantics",
+    description:
+      "Semantic HTML helps assistive technology understand page structure. Use header, main, nav, footer, section, and headings in a logical order.",
+    imageTitle: "Semantic layout",
+    imageHint: "Code sample: header, main, section, h2 hierarchy.",
+    nav: "Semantics",
+    action: "Open HTML semantics guidance",
+    url: "https://developer.mozilla.org/en-US/docs/Glossary/Semantics",
+    tryTasks: ["Inspect one section's heading level.", "Check whether page structure skips levels awkwardly.", "Identify landmark elements around the content.", "Fix or note one semantic issue."],
+    example: "Example: a product card title can be an h3 when the section heading is h2.",
+    mistake: "Do not use headings only because they look big. Headings describe structure.",
+    question: "Semantic HTML helps screen readers understand...",
+    answers: ["Page structure", "Git history", "Discount rules"],
+    correct: "Page structure",
+  },
+  {
+    title: "Keep focus states visible",
+    label: "Focus",
+    description:
+      "Keyboard users need visible focus states to know where they are on the page. Use :focus-visible for links, buttons, inputs, and custom controls.",
+    imageTitle: "Focus-visible CSS",
+    imageHint: "Code sample: .button:focus-visible outline.",
+    nav: "Focus",
+    action: "Open focus-visible docs",
+    url: "https://developer.mozilla.org/en-US/docs/Web/CSS/:focus-visible",
+    tryTasks: ["Tab through one page section.", "Identify every interactive element.", "Check whether focus is visible.", "Add or improve one focus-visible style."],
+    example: ".button:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }",
+    mistake: "Do not remove outlines without replacing them with an equally visible focus style.",
+    question: ":focus-visible supports...",
+    answers: ["Keyboard navigation", "Image compression", "Shopify billing"],
+    correct: "Keyboard navigation",
+  },
+  {
+    title: "Label buttons and inputs clearly",
+    label: "Labels",
+    description:
+      "Buttons and form controls need accessible names. Icon-only buttons need aria-labels, and inputs need labels that describe what information is required.",
+    imageTitle: "Accessible labels",
+    imageHint: "Code sample: icon button aria-label and input label.",
+    nav: "Labels",
+    action: "Open accessible name docs",
+    url: "https://www.w3.org/WAI/ARIA/apg/practices/names-and-descriptions/",
+    tryTasks: ["Find one icon-only button.", "Check whether it has an accessible label.", "Find one input and its label.", "Fix unclear button text or missing labels."],
+    example: '<button aria-label="Open cart">...</button>',
+    mistake: "Do not rely on icons alone to communicate button purpose.",
+    question: "Icon-only buttons need...",
+    answers: ["Accessible labels", "More colors", "Product tags"],
+    correct: "Accessible labels",
+  },
+  {
+    title: "Test keyboard navigation",
+    label: "Keyboard",
+    description:
+      "A customer should be able to reach and operate links, buttons, menus, forms, and modals with a keyboard. Keyboard testing catches issues that mouse-only review misses.",
+    imageTitle: "Keyboard test path",
+    imageHint: "Checklist: tab order, focus visible, escape closes modal, enter/space activates.",
+    nav: "Keyboard",
+    action: "Open keyboard accessibility guidance",
+    url: "https://www.w3.org/WAI/fundamentals/accessibility-principles/",
+    tryTasks: ["Use Tab from the top of the page.", "Confirm focus order is logical.", "Use Enter or Space on controls.", "Check that Escape closes modals or menus when expected."],
+    example: "Example: the navigation menu should open, move focus logically, and close without a mouse.",
+    mistake: "Do not approve a menu that only works on hover.",
+    question: "Keyboard testing checks...",
+    answers: ["Non-mouse access", "Image size only", "Git commits"],
+    correct: "Non-mouse access",
+  },
+  {
+    title: "Check color contrast",
+    label: "Contrast",
+    description:
+      "Text and important UI controls need enough contrast to be readable. Check contrast for buttons, badges, links, sale prices, and text placed over images.",
+    imageTitle: "Color contrast review",
+    imageHint: "Screenshot should show contrast checker and button text over background.",
+    nav: "Contrast",
+    action: "Open WCAG contrast guidance",
+    url: "https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html",
+    tryTasks: ["Pick one button or text-over-image area.", "Check foreground and background contrast.", "Adjust color or background if it fails.", "Retest and document the result."],
+    example: "Example: pale gray text on white usually fails contrast for body copy.",
+    mistake: "Do not choose brand colors without checking readability.",
+    question: "Contrast affects...",
+    answers: ["Readability", "NPM install", "Store currency"],
+    correct: "Readability",
+  },
+];
+
+const themeSettingsColorSteps = [
+  {
+    title: "Find global theme settings",
+    label: "Schema",
+    description:
+      "Global theme controls usually live in config/settings_schema.json. This file defines what merchants can edit from Theme settings, including colors, typography, layout, and brand controls.",
+    imageTitle: "settings_schema.json in VS Code",
+    imageHint: "Screenshot should show config/settings_schema.json open with a color or brand setting highlighted.",
+    nav: "Schema",
+    action: "Open theme settings docs",
+    url: "https://shopify.dev/docs/storefronts/themes/architecture/settings",
+    tryTasks: ["Open config/settings_schema.json.", "Find one setting group for colors or branding.", "Identify the setting id and label.", "Do not rename existing ids unless the trainer approves the migration risk."],
+    example: "Example: a color setting id such as brand_primary can be read by theme.settings.brand_primary.",
+    mistake: "Do not hard-code client brand colors in random CSS if the color should be editable.",
+    question: "Global theme controls usually live in...",
+    answers: ["config/settings_schema.json", "templates/cart.json", "package-lock.json"],
+    correct: "config/settings_schema.json",
+  },
+  {
+    title: "Understand OS 2.0 color schemes",
+    label: "Schemes",
+    description:
+      "Color schemes let merchants select coordinated foreground, background, button, and accent colors across sections. They are better than many one-off color fields when sections need consistent brand styling.",
+    imageTitle: "Theme editor color scheme selector",
+    imageHint: "Screenshot should show a Shopify theme editor color scheme dropdown or color scheme settings.",
+    nav: "Schemes",
+    action: "Open color scheme docs",
+    url: "https://help.shopify.com/en/manual/online-store/themes/theme-structure/color-scheme",
+    tryTasks: ["Open the theme editor.", "Find a section with a color scheme selector.", "Switch schemes in preview only.", "Explain which colors changed together."],
+    example: "Example: a dark scheme can update background, text, and button colors together.",
+    mistake: "Do not create separate color settings for every section when a shared scheme should handle it.",
+    question: "Color schemes are best for...",
+    answers: ["Coordinated editable colors", "Order refunds", "Git branch names"],
+    correct: "Coordinated editable colors",
+  },
+  {
+    title: "Expose section controls clearly",
+    label: "Controls",
+    description:
+      "Section settings should have clear labels and defaults so a merchant understands what each control changes. A good setting is editable without needing a developer beside the merchant.",
+    imageTitle: "Section schema controls",
+    imageHint: "Code sample: section schema with text, color_scheme, and range settings.",
+    nav: "Controls",
+    action: "Open section schema docs",
+    url: "https://shopify.dev/docs/storefronts/themes/architecture/sections/section-schema",
+    tryTasks: ["Open one section schema.", "Find a label, id, type, and default value.", "Check whether the label is understandable.", "Add a new setting only if it has a real merchant purpose."],
+    example: "Example: label a setting Button color scheme, not Color 2.",
+    mistake: "Do not expose confusing controls that only developers understand.",
+    question: "A useful setting needs a clear...",
+    answers: ["Label and purpose", "Commit hash", "Discount code"],
+    correct: "Label and purpose",
+  },
+  {
+    title: "Render settings safely",
+    label: "Render",
+    description:
+      "Theme settings become useful only when Liquid and CSS read them safely. Use settings in markup, CSS variables, or class names with fallbacks and escaping where appropriate.",
+    imageTitle: "CSS variable from setting",
+    imageHint: "Code sample: style variable set from section.settings.accent_color and used in CSS.",
+    nav: "Render",
+    action: "Open Liquid settings docs",
+    url: "https://shopify.dev/docs/api/liquid/objects/settings",
+    tryTasks: ["Find where a setting value is rendered.", "Check whether blank values are handled.", "Use a CSS variable when repeated styles need the same value.", "Preview the change in the customizer."],
+    example: "Example: --section-accent: {{ section.settings.accent_color }};",
+    mistake: "Do not output raw setting text into HTML without escaping when it can contain merchant text.",
+    question: "Settings are rendered in themes with...",
+    answers: ["Liquid", "Shopify billing", "robots.txt only"],
+    correct: "Liquid",
+  },
+  {
+    title: "Review the customizer experience",
+    label: "Review",
+    description:
+      "Before committing, test the setting like a merchant. Change it, save only if assigned, preview mobile and desktop, and confirm the setting name explains what changed.",
+    imageTitle: "Customizer QA for brand setting",
+    imageHint: "Screenshot should show a color control changed in the theme editor and the preview responding.",
+    nav: "Review",
+    action: "Open theme editor docs",
+    url: "https://help.shopify.com/en/manual/online-store/themes/customizing-themes/edit",
+    tryTasks: ["Change the practice setting in preview.", "Check desktop and mobile preview.", "Confirm defaults still look correct.", "Document the setting name and expected merchant use."],
+    example: "Example: changing Accent color updates badges and buttons without touching code again.",
+    mistake: "Do not commit settings that work in code but feel confusing in the editor.",
+    question: "Before approval, test settings in...",
+    answers: ["The theme customizer", "Only GitHub", "Only Terminal"],
+    correct: "The theme customizer",
+  },
+];
+
+const cartDrawerSteps = [
+  {
+    title: "Find the cart drawer files",
+    label: "Files",
+    description:
+      "Cart drawers are usually split across Liquid snippets, sections, and JavaScript. Start by locating the files that render cart items, totals, empty state, and drawer open or close behavior.",
+    imageTitle: "Cart drawer files in VS Code",
+    imageHint: "Screenshot should show cart-drawer.liquid, cart-items.liquid, or cart.js files in the VS Code Explorer.",
+    nav: "Files",
+    action: "Open cart docs",
+    url: "https://shopify.dev/docs/storefronts/themes/architecture/templates/cart",
+    tryTasks: ["Search the theme for cart-drawer.", "Find where cart items are rendered.", "Find the JavaScript that updates the drawer.", "List every file you may need before editing."],
+    example: "Example: Dawn-style themes often split cart drawer markup, cart items, and cart JavaScript.",
+    mistake: "Do not edit a cart file before tracing how the drawer refreshes.",
+    question: "Cart drawer work starts by finding...",
+    answers: ["Liquid and JS files", "Only product images", "Only discounts"],
+    correct: "Liquid and JS files",
+  },
+  {
+    title: "Read cart AJAX endpoints",
+    label: "AJAX",
+    description:
+      "Shopify exposes cart endpoints such as /cart.js, /cart/add.js, /cart/change.js, and /cart/update.js. Theme JavaScript uses these endpoints to update cart state without a full page reload.",
+    imageTitle: "Cart AJAX response",
+    imageHint: "Screenshot should show DevTools Network with /cart.js or /cart/add.js selected.",
+    nav: "AJAX",
+    action: "Open AJAX cart docs",
+    url: "https://shopify.dev/docs/api/ajax/reference/cart",
+    tryTasks: ["Add a practice item to cart.", "Open DevTools Network.", "Find the cart request and response.", "Identify item count, total price, and item key in the JSON."],
+    example: "Example: /cart.js returns current item_count and total_price.",
+    mistake: "Do not assume the DOM is the source of truth when the cart JSON says something else.",
+    question: "/cart.js returns...",
+    answers: ["Current cart JSON", "Theme settings", "GitHub comments"],
+    correct: "Current cart JSON",
+  },
+  {
+    title: "Render line item properties carefully",
+    label: "Properties",
+    description:
+      "Line item properties store custom details such as engraving, gift notes, or bundle choices. Some properties are customer-facing and some are internal, so review visibility before rendering them.",
+    imageTitle: "Line item properties",
+    imageHint: "Code sample: line_item.properties loop with hidden underscore properties skipped.",
+    nav: "Properties",
+    action: "Open line item property docs",
+    url: "https://shopify.dev/docs/api/liquid/objects/line_item#line_item-properties",
+    tryTasks: ["Find a line item properties loop.", "Identify hidden properties that start with underscore.", "Render only approved customer-facing values.", "Preview a cart item with and without properties."],
+    example: "Example: show Gift note, but skip _bundle_id if it is internal.",
+    mistake: "Do not expose internal properties to customers in the cart drawer.",
+    question: "Hidden internal properties often start with...",
+    answers: ["Underscore", "Dollar sign", "Emoji"],
+    correct: "Underscore",
+  },
+  {
+    title: "Build a free-shipping progress bar",
+    label: "Progress",
+    description:
+      "A free-shipping bar compares cart total to a threshold, shows remaining spend, and handles complete, empty, and currency formatting states.",
+    imageTitle: "Cart free-shipping progress",
+    imageHint: "Screenshot should show a cart drawer with a progress bar and remaining amount message.",
+    nav: "Progress",
+    action: "Open money filter docs",
+    url: "https://shopify.dev/docs/api/liquid/filters/money",
+    tryTasks: ["Find the shipping threshold requirement.", "Calculate remaining amount from cart.total_price.", "Clamp progress between 0 and 100 percent.", "Check empty cart and completed threshold states."],
+    example: "Example: Spend $12.00 more to unlock free shipping.",
+    mistake: "Do not show negative remaining amounts after the threshold is reached.",
+    question: "A shipping progress bar compares cart total to...",
+    answers: ["A threshold", "A branch name", "A product handle only"],
+    correct: "A threshold",
+  },
+  {
+    title: "Test cart behavior end to end",
+    label: "QA",
+    description:
+      "Cart work needs more testing than simple content changes. Test add, update, remove, empty cart, line item properties, drawer close, keyboard access, and checkout handoff.",
+    imageTitle: "Cart QA checklist",
+    imageHint: "Checklist showing add, quantity, remove, empty, properties, checkout, keyboard.",
+    nav: "QA",
+    action: "Open cart docs",
+    url: "https://shopify.dev/docs/api/ajax/reference/cart",
+    tryTasks: ["Add one product to cart.", "Increase and decrease quantity.", "Remove the item.", "Confirm the drawer and cart count stay synchronized."],
+    example: "Example: after remove, item count, subtotal, and empty cart message should all update together.",
+    mistake: "Do not approve cart changes after testing only the happy path.",
+    question: "Cart QA must include...",
+    answers: ["Add, update, remove, and empty states", "Only desktop screenshot", "Only CSS color"],
+    correct: "Add, update, remove, and empty states",
+  },
+];
+
+const jsonTemplatesSteps = [
+  {
+    title: "Read template JSON structure",
+    label: "Templates",
+    description:
+      "Online Store 2.0 templates use JSON to list which sections appear on a page and in what order. Reading the template file tells you the layout before you edit any section code.",
+    imageTitle: "templates product JSON",
+    imageHint: "Screenshot should show templates/product.json with sections and order keys highlighted.",
+    nav: "Templates",
+    action: "Open JSON templates docs",
+    url: "https://shopify.dev/docs/storefronts/themes/architecture/templates/json-templates",
+    tryTasks: ["Open one templates/*.json file.", "Find the sections object.", "Find the order array.", "Match one section key to its type."],
+    example: "Example: product.json can load main-product, related-products, and recently-viewed sections.",
+    mistake: "Do not edit a section before confirming which template actually uses it.",
+    question: "The order array controls...",
+    answers: ["Section order", "Staff access", "NPM scripts"],
+    correct: "Section order",
+  },
+  {
+    title: "Understand OS 2.0 section composition",
+    label: "OS 2.0",
+    description:
+      "Older themes often used fixed .liquid templates. OS 2.0 templates let merchants compose pages from sections, making many layout changes configurable through the customizer.",
+    imageTitle: "Theme editor sections list",
+    imageHint: "Screenshot should show a template in the theme editor with multiple sections listed.",
+    nav: "OS 2.0",
+    action: "Open theme architecture docs",
+    url: "https://shopify.dev/docs/storefronts/themes/architecture",
+    tryTasks: ["Open the same template in the theme editor.", "Compare the editor section list to the JSON order.", "Move a practice section only in preview.", "Explain why this is safer than hard-coding layout in Liquid."],
+    example: "Example: a collection template can add a banner section without editing collection.liquid.",
+    mistake: "Do not create a hard-coded template change when the customizer should own section order.",
+    question: "OS 2.0 templates are composed from...",
+    answers: ["Sections", "Only CSS files", "Discount rules"],
+    correct: "Sections",
+  },
+  {
+    title: "Use section groups",
+    label: "Groups",
+    description:
+      "Section groups organize global areas such as header and footer. They let merchants manage shared layout areas that appear across multiple templates.",
+    imageTitle: "Header section group",
+    imageHint: "Screenshot should show a section group JSON file or theme editor header group.",
+    nav: "Groups",
+    action: "Open section groups docs",
+    url: "https://shopify.dev/docs/storefronts/themes/architecture/section-groups",
+    tryTasks: ["Find section group files if the theme uses them.", "Identify header and footer groups.", "Explain why global groups are not page-only templates.", "Avoid editing global areas without checking impact."],
+    example: "Example: changing the header group can affect every storefront page.",
+    mistake: "Do not treat header and footer changes as one-page-only changes.",
+    question: "Header and footer groups affect...",
+    answers: ["Many pages", "Only one product", "Only GitHub"],
+    correct: "Many pages",
+  },
+  {
+    title: "Add sections through the customizer",
+    label: "Add",
+    description:
+      "When possible, add or reorder sections through the Shopify customizer so the generated JSON stays valid and merchant-editable.",
+    imageTitle: "Add section in theme editor",
+    imageHint: "Screenshot should show the Add section control and a selected practice section.",
+    nav: "Add",
+    action: "Open customization docs",
+    url: "https://help.shopify.com/en/manual/online-store/themes/customizing-themes/edit",
+    tryTasks: ["Open a practice template in the editor.", "Use Add section if assigned.", "Check that the new section appears in template JSON.", "Preview without publishing unless approved."],
+    example: "Example: add a practice FAQ section through the editor, then review the new JSON entry.",
+    mistake: "Do not hand-edit JSON syntax when the customizer can safely create the entry.",
+    question: "Adding sections through the editor helps keep JSON...",
+    answers: ["Valid and editable", "Hidden from merchants", "Unrelated to preview"],
+    correct: "Valid and editable",
+  },
+  {
+    title: "Review template changes safely",
+    label: "Review",
+    description:
+      "Template JSON changes can affect entire page types. Review section keys, type names, settings, disabled states, and order before committing.",
+    imageTitle: "Template JSON review",
+    imageHint: "Code review screenshot showing sections, settings, and order changes.",
+    nav: "Review",
+    action: "Open JSON templates docs",
+    url: "https://shopify.dev/docs/storefronts/themes/architecture/templates/json-templates",
+    tryTasks: ["Run a JSON syntax check if available.", "Confirm every section type exists.", "Preview affected templates.", "Summarize exactly which page type changed."],
+    example: "Example: product.json changed, so test at least one product page.",
+    mistake: "Do not approve template JSON without previewing the affected page type.",
+    question: "Template changes should be previewed on...",
+    answers: ["Affected page types", "Only the homepage", "Only GitHub settings"],
+    correct: "Affected page types",
+  },
+];
+
+const vanillaAjaxSteps = [
+  {
+    title: "Find the theme JavaScript entry",
+    label: "Entry",
+    description:
+      "Modern Shopify themes usually have a main JavaScript file plus component-specific custom elements. Read the existing structure before adding behavior.",
+    imageTitle: "Theme JavaScript files",
+    imageHint: "Screenshot should show assets/global.js, cart.js, product-form.js, or similar files in VS Code.",
+    nav: "Entry",
+    action: "Open Dawn repository",
+    url: "https://github.com/Shopify/dawn",
+    tryTasks: ["Open the assets folder.", "Find the main JavaScript file.", "Find one cart or product-form script.", "Identify whether the theme uses custom elements."],
+    example: "Example: product-form.js may own add-to-cart submission while cart-drawer.js owns drawer refresh.",
+    mistake: "Do not paste a separate jQuery cart script into a modern vanilla JS theme.",
+    question: "Before adding JS, read the existing...",
+    answers: ["Theme pattern", "Billing settings", "Robots file only"],
+    correct: "Theme pattern",
+  },
+  {
+    title: "Use fetch with cart endpoints",
+    label: "Fetch",
+    description:
+      "Use fetch to send form data to Shopify cart endpoints and handle JSON responses. Always handle errors so customers are not stuck with silent failures.",
+    imageTitle: "fetch cart add request",
+    imageHint: "Code sample: fetch('/cart/add.js', { method: 'POST', body: formData }).",
+    nav: "Fetch",
+    action: "Open AJAX cart docs",
+    url: "https://shopify.dev/docs/api/ajax/reference/cart",
+    tryTasks: ["Find the add-to-cart submit handler.", "Identify the endpoint it calls.", "Check how it handles success and errors.", "Confirm loading state resets after the request."],
+    example: "Example: POST /cart/add.js with product form data, then refresh the cart drawer.",
+    mistake: "Do not ignore failed requests or leave the add button permanently loading.",
+    question: "fetch('/cart/add.js') is used to...",
+    answers: ["Add items to cart", "Create metafields", "Publish a theme"],
+    correct: "Add items to cart",
+  },
+  {
+    title: "Use event delegation",
+    label: "Delegate",
+    description:
+      "Event delegation attaches one listener to a stable parent and checks events from child controls. It is useful for repeated product cards or cart rows that can be re-rendered.",
+    imageTitle: "Event delegation diagram",
+    imageHint: "Code sample: document.addEventListener('click', event => event.target.closest('[data-cart-remove]')).",
+    nav: "Delegate",
+    action: "Open event delegation guide",
+    url: "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/Event_bubbling",
+    tryTasks: ["Find repeated controls in a cart or product grid.", "Check whether listeners are attached once or per item.", "Use closest() to identify the clicked control.", "Avoid duplicate listeners after HTML refreshes."],
+    example: "Example: one cart drawer listener can handle every remove button.",
+    mistake: "Do not bind a new listener every time the drawer re-renders.",
+    question: "Event delegation helps avoid...",
+    answers: ["Duplicate listeners", "Alt text", "Sitemap redirects"],
+    correct: "Duplicate listeners",
+  },
+  {
+    title: "Read custom elements",
+    label: "Elements",
+    description:
+      "Custom elements let a theme package behavior with markup. A class extends HTMLElement, connects with connectedCallback, and is registered with customElements.define.",
+    imageTitle: "Custom element class",
+    imageHint: "Code sample: class CartDrawer extends HTMLElement and customElements.define('cart-drawer', CartDrawer).",
+    nav: "Elements",
+    action: "Open custom elements docs",
+    url: "https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements",
+    tryTasks: ["Find one class that extends HTMLElement.", "Find connectedCallback.", "Find customElements.define.", "Explain which HTML tag this JavaScript powers."],
+    example: "Example: <cart-drawer> can own open, close, and refresh behavior.",
+    mistake: "Do not define the same custom element twice.",
+    question: "Custom elements are registered with...",
+    answers: ["customElements.define", "settings_schema.json", "robots.txt"],
+    correct: "customElements.define",
+  },
+  {
+    title: "Test modern JS behavior",
+    label: "QA",
+    description:
+      "JavaScript changes need browser testing. Check loading order, repeat interactions, network failures, refreshed HTML, keyboard access, and the fallback behavior when JavaScript fails.",
+    imageTitle: "JavaScript cart QA",
+    imageHint: "DevTools screenshot showing console, network request, and cart drawer update.",
+    nav: "QA",
+    action: "Open Fetch docs",
+    url: "https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API",
+    tryTasks: ["Open DevTools Console and Network.", "Test the interaction three times.", "Check for duplicate requests.", "Confirm the UI recovers from one failed request."],
+    example: "Example: clicking Add to cart twice should not create duplicate event handlers.",
+    mistake: "Do not approve JS if the console shows errors after repeated use.",
+    question: "JS cart QA should check for...",
+    answers: ["Console errors and duplicate requests", "Only color contrast", "Only image cropping"],
+    correct: "Console errors and duplicate requests",
+  },
+];
+
+const seoStructuredDataSteps = [
+  {
+    title: "Inspect Product JSON-LD",
+    label: "Product",
+    description:
+      "Product structured data helps search engines understand product name, image, price, availability, brand, and offers. Inspect the rendered output, not only the Liquid source.",
+    imageTitle: "Product JSON-LD in rendered source",
+    imageHint: "Screenshot should show a script type application/ld+json block on a product page.",
+    nav: "Product",
+    action: "Open structured data docs",
+    url: "https://developers.google.com/search/docs/appearance/structured-data/product",
+    tryTasks: ["Open a product page.", "View rendered source or inspect the DOM.", "Find Product JSON-LD.", "Confirm name, image, price, and availability are populated."],
+    example: "Example: Product JSON-LD should use current product price and availability, not stale hard-coded values.",
+    mistake: "Do not validate only the Liquid file; check the rendered JSON that search engines see.",
+    question: "Product JSON-LD describes...",
+    answers: ["Product data for search engines", "Cart drawer CSS", "Git commits"],
+    correct: "Product data for search engines",
+  },
+  {
+    title: "Review Organization data",
+    label: "Organization",
+    description:
+      "Organization or store-level structured data can describe the business name, logo, URL, and social links. Keep it accurate and avoid duplicate conflicting blocks.",
+    imageTitle: "Organization structured data",
+    imageHint: "Code sample or rendered source showing Organization JSON-LD.",
+    nav: "Organization",
+    action: "Open Organization docs",
+    url: "https://developers.google.com/search/docs/appearance/structured-data/organization",
+    tryTasks: ["Search rendered source for Organization.", "Check business name, URL, and logo.", "Look for duplicate Organization blocks.", "Document missing business fields for the trainer."],
+    example: "Example: Organization logo should point to the active brand logo asset.",
+    mistake: "Do not leave placeholder business names in structured data.",
+    question: "Organization structured data should match...",
+    answers: ["The real store brand", "Random demo content", "NPM version"],
+    correct: "The real store brand",
+  },
+  {
+    title: "Check social and canonical tags",
+    label: "Metadata",
+    description:
+      "Open graph tags control social previews, and canonical URLs help avoid duplicate URL confusion. Review title, description, image, URL, and canonical output.",
+    imageTitle: "Page metadata source",
+    imageHint: "Screenshot should show og:title, og:image, og:url, and canonical link in page source.",
+    nav: "Metadata",
+    action: "Open canonical docs",
+    url: "https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls",
+    tryTasks: ["View page source.", "Find og:title, og:description, og:image, and canonical.", "Check whether values match the page.", "Confirm no obvious duplicate canonical issue."],
+    example: "Example: a product page canonical should point to the intended product URL.",
+    mistake: "Do not copy metadata from one template into another without checking dynamic values.",
+    question: "Canonical URLs help search engines handle...",
+    answers: ["Duplicate URLs", "Cart totals", "Theme passwords"],
+    correct: "Duplicate URLs",
+  },
+  {
+    title: "Understand robots and sitemap",
+    label: "Crawl",
+    description:
+      "Shopify generates sitemap behavior and supports robots.txt.liquid customization. Most stores should not block important product, collection, or page URLs accidentally.",
+    imageTitle: "robots and sitemap URLs",
+    imageHint: "Browser screenshot showing /robots.txt and /sitemap.xml for a Shopify store.",
+    nav: "Crawl",
+    action: "Open robots docs",
+    url: "https://help.shopify.com/en/manual/promoting-marketing/seo/editing-robots-txt",
+    tryTasks: ["Open /robots.txt on a practice store.", "Open /sitemap.xml.", "Identify one URL type included in the sitemap.", "Do not block paths without launch approval."],
+    example: "Example: blocking /products would hide product pages from search engines.",
+    mistake: "Do not edit robots.txt.liquid casually; crawl rules affect discoverability.",
+    question: "robots.txt controls...",
+    answers: ["Crawler access rules", "Product prices", "Cart JSON"],
+    correct: "Crawler access rules",
+  },
+  {
+    title: "Validate before handoff",
+    label: "Validate",
+    description:
+      "SEO review should end with validation evidence: rendered source, structured data test, social preview check, canonical check, and any remaining content gaps.",
+    imageTitle: "SEO validation checklist",
+    imageHint: "Checklist showing structured data test, rendered source, canonical, OG image, sitemap.",
+    nav: "Validate",
+    action: "Open Rich Results Test",
+    url: "https://search.google.com/test/rich-results",
+    tryTasks: ["Run one product URL through a structured data test.", "Capture errors or warnings.", "Check the social preview image if available.", "Send the trainer a launch-ready SEO summary."],
+    example: "Example: Product structured data validates, but brand logo is missing from Organization data.",
+    mistake: "Do not claim SEO is complete without testing rendered output.",
+    question: "SEO handoff should include...",
+    answers: ["Validation evidence", "Only opinions", "Only CSS screenshots"],
+    correct: "Validation evidence",
+  },
+];
+
 const scssProSteps = [
   {
     title: "Use a clear SCSS architecture",
@@ -3332,6 +4830,16 @@ const moduleTours = {
       "The trainee can open the editor, find core controls, check mobile, and avoid saving unapproved changes.",
     steps: themeSteps,
   },
+  "Edit Homepage Sections": {
+    key: "homepageSections",
+    kicker: "Homepage sections",
+    title: "Edit homepage content with approval.",
+    intro: "Open the homepage template, map the sections, edit only assigned fields, check responsive preview, and save only after trainer approval.",
+    completionTitle: "Homepage section practice is done.",
+    completionText:
+      "The trainee can find homepage sections, identify editable fields, preview desktop and mobile, and avoid unapproved live saves.",
+    steps: homepageSectionSteps,
+  },
   "Add Products and Collections": {
     key: "products",
     kicker: "Products module",
@@ -3400,7 +4908,7 @@ const moduleTours = {
     completionTitle: "GitHub theme preview workflow is complete.",
     completionText:
       "The trainee understands that GitHub is the source of truth, while Shopify CLI is used for preview and checks.",
-    steps: cliWorkflowSteps,
+    steps: githubPreviewSteps,
   },
   "Connect Shopify Theme to GitHub": {
     key: "githubThemeConnection",
@@ -3514,6 +5022,106 @@ const moduleTours = {
       "The trainee can create a section file, add schema, render settings and blocks, use presets, and test the section safely.",
     steps: dynamicSectionSteps,
   },
+  "Liquid Fundamentals": {
+    key: "liquidFundamentals",
+    kicker: "Liquid basics",
+    title: "Read Liquid before building sections.",
+    intro: "Learn objects, filters, conditions, loops, variables, and rendered HTML output before editing theme logic.",
+    completionTitle: "Liquid fundamentals are complete.",
+    completionText:
+      "The trainee can read common Liquid patterns and explain how Shopify data becomes storefront HTML.",
+    steps: liquidFundamentalsSteps,
+  },
+  "Snippets and Render Patterns": {
+    key: "snippetRender",
+    kicker: "Snippet patterns",
+    title: "Reuse theme markup safely.",
+    intro: "Use snippets, render arguments, and focused responsibilities to keep repeated UI maintainable.",
+    completionTitle: "Snippet render practice is complete.",
+    completionText:
+      "The trainee can identify reusable markup, render snippets with arguments, and review snippet dependencies.",
+    steps: snippetRenderSteps,
+  },
+  "Metafields and Metaobjects": {
+    key: "metafieldsMetaobjects",
+    kicker: "Custom data",
+    title: "Connect Shopify custom data to theme code.",
+    intro: "Define metafields and metaobjects in admin, fill values, render them in Liquid, and add safe fallbacks.",
+    completionTitle: "Metafields and metaobjects practice is complete.",
+    completionText:
+      "The trainee can connect custom data definitions, product values, Liquid output, dynamic sources, and fallback logic.",
+    steps: metafieldsMetaobjectsSteps,
+  },
+  "Performance and Core Web Vitals": {
+    key: "performanceVitals",
+    kicker: "Performance",
+    title: "Measure and improve theme speed.",
+    intro: "Use Lighthouse findings to guide image, script, lazy loading, and layout stability fixes.",
+    completionTitle: "Performance review practice is complete.",
+    completionText:
+      "The trainee can measure a page, identify key performance risks, apply focused fixes, and report before/after results.",
+    steps: performanceVitalsSteps,
+  },
+  "Accessibility for Shopify Themes": {
+    key: "accessibilityThemes",
+    kicker: "Accessibility",
+    title: "Build theme changes customers can use.",
+    intro: "Check alt text, semantics, focus states, labels, keyboard navigation, and contrast before approval.",
+    completionTitle: "Accessibility review practice is complete.",
+    completionText:
+      "The trainee can review Shopify theme changes for common accessibility issues before launch.",
+    steps: accessibilityThemeSteps,
+  },
+  "Theme Settings and Color Schemes": {
+    key: "themeSettingsColors",
+    kicker: "Theme settings",
+    title: "Make brand controls editable.",
+    intro: "Use settings_schema.json, color schemes, section controls, and Liquid output so clients can manage brand styling safely.",
+    completionTitle: "Theme settings practice is complete.",
+    completionText:
+      "The trainee can find theme settings, understand color schemes, expose clear controls, and review the customizer experience.",
+    steps: themeSettingsColorSteps,
+  },
+  "Cart and Cart Drawer Customization": {
+    key: "cartDrawer",
+    kicker: "Cart drawer",
+    title: "Customize cart behavior without breaking checkout.",
+    intro: "Trace cart drawer Liquid, AJAX endpoints, line item properties, progress messaging, and full cart QA.",
+    completionTitle: "Cart drawer practice is complete.",
+    completionText:
+      "The trainee can inspect cart files, read AJAX cart responses, render properties safely, and test cart states end to end.",
+    steps: cartDrawerSteps,
+  },
+  "JSON Templates and Sections Everywhere": {
+    key: "jsonTemplates",
+    kicker: "OS 2.0 templates",
+    title: "Read Shopify page structure from JSON.",
+    intro: "Understand templates/*.json, section order, section groups, customizer additions, and template review.",
+    completionTitle: "JSON template practice is complete.",
+    completionText:
+      "The trainee can explain OS 2.0 template composition and review page structure changes safely.",
+    steps: jsonTemplatesSteps,
+  },
+  "Vanilla JS for Shopify: AJAX Cart and Custom Elements": {
+    key: "vanillaAjax",
+    kicker: "Vanilla JS",
+    title: "Use modern Shopify JavaScript patterns.",
+    intro: "Work with fetch, cart endpoints, event delegation, custom elements, and browser QA without adding jQuery.",
+    completionTitle: "Vanilla JS practice is complete.",
+    completionText:
+      "The trainee can trace modern theme JavaScript, update cart behavior, avoid duplicate listeners, and test interaction states.",
+    steps: vanillaAjaxSteps,
+  },
+  "SEO and Structured Data for Shopify": {
+    key: "seoStructuredData",
+    kicker: "SEO launch checks",
+    title: "Validate the metadata customers never see.",
+    intro: "Review Product and Organization JSON-LD, open graph tags, canonicals, robots, sitemap, and validation evidence.",
+    completionTitle: "SEO structured data practice is complete.",
+    completionText:
+      "The trainee can inspect rendered SEO output, validate structured data, and summarize launch risks clearly.",
+    steps: seoStructuredDataSteps,
+  },
   "Pro SCSS: Architecture and Review Rules": {
     key: "scssPro",
     kicker: "Pro SCSS",
@@ -3529,13 +5137,22 @@ const moduleTours = {
 const grid = document.querySelector("#tutorialGrid");
 const searchInput = document.querySelector("#searchInput");
 const resultCount = document.querySelector("#resultCount");
+const moduleAuditSummary = document.querySelector("#moduleAuditSummary");
 const filterButtons = document.querySelectorAll(".filter-chip");
 const viewButtons = document.querySelectorAll(".view-tabs button");
 const overallProgressMetric = document.querySelector("#overallProgressMetric");
 const overallProgressBar = document.querySelector("#overallProgressBar");
 const resetProgressButton = document.querySelector("#resetProgressButton");
+const copyProgressButton = document.querySelector("#copyProgressButton");
+const pasteProgressButton = document.querySelector("#pasteProgressButton");
 const trainerModeToggle = document.querySelector("#trainerModeToggle");
 const traineeSelect = document.querySelector("#traineeSelect");
+const heroNextTitle = document.querySelector("#heroNextTitle");
+const heroNextDescription = document.querySelector("#heroNextDescription");
+const heroNextStatus = document.querySelector("#heroNextStatus");
+const heroNextProgress = document.querySelector("#heroNextProgress");
+const heroNextMeta = document.querySelector("#heroNextMeta");
+const heroContinueButton = document.querySelector("#heroContinueButton");
 const completionDashboardTitle = document.querySelector("#completionDashboardTitle");
 const nextRecommendedModule = document.querySelector("#nextRecommendedModule");
 const continueModuleButton = document.querySelector("#continueModuleButton");
@@ -3596,6 +5213,7 @@ const completionTitle = document.querySelector("#completionTitle");
 const completionText = document.querySelector("#completionText");
 const repeatTour = document.querySelector("#repeatTour");
 const closeCompletion = document.querySelector("#closeCompletion");
+const tourSectionTabs = document.querySelectorAll(".tour-section-tabs button");
 const practiceTitle = document.querySelector("#practiceTitle");
 const practiceDescription = document.querySelector("#practiceDescription");
 const practiceTasks = document.querySelector("#practiceTasks");
@@ -3614,6 +5232,11 @@ const detail = {
   level: document.querySelector("#detailLevel"),
   steps: document.querySelector("#detailSteps"),
 };
+const moduleImageUploadButton = document.querySelector("#moduleImageUploadButton");
+const moduleImageRemoveButton = document.querySelector("#moduleImageRemoveButton");
+const moduleImageUpload = document.querySelector("#moduleImageUpload");
+const printModuleButton = document.querySelector("#printModuleButton");
+const printModuleView = document.querySelector("#printModuleView");
 
 const gamesGrid = document.querySelector("#gamesGrid");
 const videosGrid = document.querySelector("#videosGrid");
@@ -3802,6 +5425,7 @@ let activeTourStep = 0;
 let activeTourTitle = tutorials[0].title;
 let activeTrainee = loadActiveTrainee();
 let savedProgress = loadSavedProgress();
+let activeTourPanel = "all";
 
 function getTraineeStorageKey() {
   return `${STORAGE_KEY}-${activeTrainee}`;
@@ -3835,6 +5459,87 @@ function saveProgress() {
   }
 
   localStorage.setItem(getTraineeStorageKey(), JSON.stringify(savedProgress));
+}
+
+function getModuleImages() {
+  savedProgress.moduleImages ||= {};
+  return savedProgress.moduleImages;
+}
+
+function getModuleImage(tutorial) {
+  return getModuleImages()[tutorial.title] || tutorial.image;
+}
+
+function getProgressExportPayload() {
+  return {
+    version: 1,
+    exportedAt: new Date().toISOString(),
+    trainee: activeTrainee,
+    progress: savedProgress,
+  };
+}
+
+async function copyProgressJson() {
+  const payload = JSON.stringify(getProgressExportPayload(), null, 2);
+
+  try {
+    await navigator.clipboard.writeText(payload);
+    copyProgressButton.innerHTML = '<i data-lucide="check"></i> Copied';
+  } catch {
+    window.prompt("Copy this progress JSON:", payload);
+    copyProgressButton.innerHTML = '<i data-lucide="check"></i> Ready';
+  }
+
+  if (window.lucide) {
+    lucide.createIcons({ nodes: [copyProgressButton] });
+  }
+
+  setTimeout(() => {
+    copyProgressButton.innerHTML = '<i data-lucide="copy"></i> Copy progress JSON';
+    if (window.lucide) {
+      lucide.createIcons({ nodes: [copyProgressButton] });
+    }
+  }, 1400);
+}
+
+function importProgressJson() {
+  const pasted = window.prompt("Paste trainee progress JSON:");
+
+  if (!pasted) {
+    return;
+  }
+
+  try {
+    const parsed = JSON.parse(pasted);
+    const nextProgress = parsed.progress && typeof parsed.progress === "object" ? parsed.progress : parsed;
+
+    if (!nextProgress || Array.isArray(nextProgress) || typeof nextProgress !== "object") {
+      throw new Error("Invalid progress data.");
+    }
+
+    savedProgress = nextProgress;
+    saveProgress();
+    activeTourStep = 0;
+    renderSimpleTour();
+    renderTutorials();
+    renderGames();
+    renderVideos();
+    pasteProgressButton.innerHTML = '<i data-lucide="check"></i> Imported';
+  } catch {
+    window.alert("That progress JSON could not be imported. Check that the full copied JSON was pasted.");
+    pasteProgressButton.innerHTML = '<i data-lucide="triangle-alert"></i> Import failed';
+  }
+
+  if (window.lucide) {
+    lucide.createIcons({ nodes: [pasteProgressButton] });
+  }
+
+  setTimeout(() => {
+    pasteProgressButton.innerHTML = '<i data-lucide="clipboard"></i> Paste progress';
+    if (window.lucide) {
+      lucide.createIcons({ nodes: [pasteProgressButton] });
+    }
+  }, 1600);
 }
 
 function resetSavedProgress() {
@@ -3931,9 +5636,284 @@ function slugify(value) {
     .replace(/^-|-$/g, "");
 }
 
+function getStableHash(value) {
+  return value.split("").reduce((hash, character) => {
+    return (hash * 31 + character.charCodeAt(0)) >>> 0;
+  }, 7);
+}
+
+function getShuffledAnswers(tourKey, stepIndex, answers) {
+  const shuffledAnswers = [...answers];
+  let seed = getStableHash(`${tourKey}-${stepIndex}-${answers.join("|")}`);
+
+  for (let index = shuffledAnswers.length - 1; index > 0; index -= 1) {
+    seed = (seed * 1664525 + 1013904223) >>> 0;
+    const swapIndex = seed % (index + 1);
+    [shuffledAnswers[index], shuffledAnswers[swapIndex]] = [
+      shuffledAnswers[swapIndex],
+      shuffledAnswers[index],
+    ];
+  }
+
+  return shuffledAnswers;
+}
+
 function getStepCodeSample(tour, step) {
   const key = tour.key || "";
   const title = `${step.title} ${step.label || ""}`.toLowerCase();
+
+  if (key === "liquidFundamentals") {
+    if (title.includes("filter")) {
+      return {
+        language: "Liquid",
+        title: "Liquid filters",
+        code: `<p>{{ product.title | escape }}</p>
+<p>{{ product.price | money }}</p>
+{{ product.featured_image | image_url: width: 800 | image_tag: loading: 'lazy' }}`,
+        caption: "Filters transform values before the browser receives the rendered HTML.",
+        why: "Formatting and escaping output correctly prevents broken UI and unsafe markup.",
+      };
+    }
+    if (title.includes("if")) {
+      return {
+        language: "Liquid",
+        title: "Conditional output",
+        code: `{% if section.settings.heading != blank %}
+  <h2>{{ section.settings.heading | escape }}</h2>
+{% else %}
+  <h2>Featured products</h2>
+{% endif %}`,
+        caption: "Conditions prevent blank settings from rendering broken or empty markup.",
+        why: "Optional customizer fields need safe fallbacks.",
+      };
+    }
+    if (title.includes("loop") || title.includes("for")) {
+      return {
+        language: "Liquid",
+        title: "Loop through products",
+        code: `{% for product in collection.products %}
+  <article class="product-card">
+    <h3>{{ product.title | escape }}</h3>
+  </article>
+{% else %}
+  <p>No products found.</p>
+{% endfor %}`,
+        caption: "Loops render repeated Shopify data and should include empty states.",
+        why: "A collection, menu, or block list can be empty in real stores.",
+      };
+    }
+    return {
+      language: "Liquid",
+      title: "Liquid object output",
+      code: `<h1>{{ product.title | escape }}</h1>
+<p>{{ product.vendor | escape }}</p>
+<p>{{ section.settings.heading | default: 'Featured' }}</p>`,
+      caption: "Objects expose Shopify data inside Liquid templates and sections.",
+      why: "Reading objects correctly is the foundation for every theme code change.",
+    };
+  }
+
+  if (key === "snippetRender") {
+    return {
+      language: "Liquid",
+      title: "Render a reusable snippet",
+      code: `{% render 'product-card',
+  product: product,
+  show_vendor: true,
+  show_quick_add: section.settings.enable_quick_add
+%}`,
+      caption: "render passes named arguments into a focused reusable snippet.",
+      why: "Explicit arguments make snippets easier to reuse and review.",
+    };
+  }
+
+  if (key === "metafieldsMetaobjects") {
+    return {
+      language: "Liquid",
+      title: "Render a product metafield",
+      code: `{% assign fabric_care = product.metafields.custom.fabric_care.value %}
+
+{% if fabric_care != blank %}
+  <div class="product-care">
+    <h2>Fabric care</h2>
+    <p>{{ fabric_care | escape }}</p>
+  </div>
+{% endif %}`,
+      caption: "Metafields add custom Shopify data that theme code can render safely.",
+      why: "Blank checks prevent incomplete custom data from creating broken storefront content.",
+    };
+  }
+
+  if (key === "performanceVitals") {
+    return {
+      language: "Liquid",
+      title: "Responsive Shopify image",
+      code: `{{ section.settings.image
+  | image_url: width: 1200
+  | image_tag:
+    widths: '360, 540, 720, 900, 1200',
+    sizes: '(min-width: 990px) 50vw, 100vw',
+    loading: 'lazy'
+}}`,
+      caption: "Use Shopify image filters to avoid sending oversized media to the browser.",
+      why: "Image sizing, loading behavior, and layout dimensions directly affect Core Web Vitals.",
+    };
+  }
+
+  if (key === "accessibilityThemes") {
+    if (title.includes("focus")) {
+      return {
+        language: "CSS",
+        title: "Visible focus state",
+        code: `.button:focus-visible,
+.product-card__link:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}`,
+        caption: "Keyboard users need a visible indication of the focused element.",
+        why: "Removing outlines without a replacement makes navigation difficult or impossible.",
+      };
+    }
+    return {
+      language: "HTML",
+      title: "Accessible image and button",
+      code: `<img src="tote.jpg" alt="Black leather tote bag with gold hardware">
+
+<button type="button" aria-label="Open cart">
+  <span aria-hidden="true">Cart icon</span>
+</button>`,
+      caption: "Accessible names and useful alt text make theme UI understandable beyond visuals.",
+      why: "Screen reader and keyboard users need the same information and controls as mouse users.",
+    };
+  }
+
+  if (key === "themeSettingsColors") {
+    return {
+      language: "JSON",
+      title: "Theme setting and color scheme",
+      code: `{
+  "name": "theme_info",
+  "settings": [
+    {
+      "type": "color",
+      "id": "brand_primary",
+      "label": "Brand primary color",
+      "default": "#006f5f"
+    }
+  ]
+}`,
+      caption: "Global settings belong in config/settings_schema.json when merchants should control them across the theme.",
+      why: "Editable brand controls prevent repeated hard-coded color changes across section files.",
+    };
+  }
+
+  if (key === "cartDrawer") {
+    if (title.includes("property")) {
+      return {
+        language: "Liquid",
+        title: "Render visible line item properties",
+        code: `{% for property in item.properties %}
+  {% assign first_character = property.first | slice: 0 %}
+  {% if property.last != blank and first_character != '_' %}
+    <p>{{ property.first }}: {{ property.last }}</p>
+  {% endif %}
+{% endfor %}`,
+        caption: "Skip hidden internal properties while showing approved customer-facing details.",
+        why: "Cart UI can expose private bundle or app metadata if properties are rendered blindly.",
+      };
+    }
+    return {
+      language: "JavaScript",
+      title: "Read current cart JSON",
+      code: `async function getCart() {
+  const response = await fetch('/cart.js');
+  if (!response.ok) throw new Error('Cart request failed');
+  return response.json();
+}`,
+      caption: "Use cart endpoints as the source of truth when updating drawer UI.",
+      why: "The drawer, count bubble, subtotal, and empty state all need to match real cart state.",
+    };
+  }
+
+  if (key === "jsonTemplates") {
+    return {
+      language: "JSON",
+      title: "OS 2.0 template structure",
+      code: `{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {}
+    },
+    "related": {
+      "type": "related-products"
+    }
+  },
+  "order": ["main", "related"]
+}`,
+      caption: "Template JSON controls which sections appear and the order they render.",
+      why: "Many page layout changes start by understanding the template structure, not by editing Liquid.",
+    };
+  }
+
+  if (key === "vanillaAjax") {
+    if (title.includes("element")) {
+      return {
+        language: "JavaScript",
+        title: "Custom element pattern",
+        code: `class CartDrawer extends HTMLElement {
+  connectedCallback() {
+    this.addEventListener('click', this.onClick.bind(this));
+  }
+
+  onClick(event) {
+    if (event.target.closest('[data-cart-close]')) this.close();
+  }
+}
+
+customElements.define('cart-drawer', CartDrawer);`,
+        caption: "Custom elements attach behavior to a specific theme component.",
+        why: "This keeps cart drawer behavior near the markup it controls and matches modern Shopify theme patterns.",
+      };
+    }
+    return {
+      language: "JavaScript",
+      title: "Add to cart with fetch",
+      code: `async function addToCart(form) {
+  const response = await fetch('/cart/add.js', {
+    method: 'POST',
+    body: new FormData(form),
+  });
+
+  if (!response.ok) throw new Error('Add to cart failed');
+  return response.json();
+}`,
+      caption: "Use vanilla fetch with Shopify cart endpoints instead of adding jQuery.",
+      why: "Modern themes need predictable loading, error handling, and refresh behavior.",
+    };
+  }
+
+  if (key === "seoStructuredData") {
+    return {
+      language: "Liquid",
+      title: "Product JSON-LD",
+      code: `<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": {{ product.title | json }},
+  "image": {{ product.featured_image | image_url: width: 1200 | json }},
+  "offers": {
+    "@type": "Offer",
+    "price": {{ product.selected_or_first_available_variant.price | money_without_currency | json }},
+    "availability": "https://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}"
+  }
+}
+</script>`,
+      caption: "Structured data should use rendered Shopify product values, not stale placeholder content.",
+      why: "Search engines read rendered metadata, so launch checks need to validate the final output.",
+    };
+  }
 
   if (key.startsWith("bem")) {
     if (title.includes("element")) {
@@ -4294,7 +6274,7 @@ git push`,
     };
   }
 
-  if (["cliInstall", "cliWorkflow", "projectFiles", "buildTools", "devTroubleshooting", "githubThemeConnection"].includes(key)) {
+  if (["cliInstall", "cliWorkflow", "githubPreview", "projectFiles", "buildTools", "devTroubleshooting", "githubThemeConnection"].includes(key)) {
     if (title.includes("gulp") || title.includes("two terminal") || title.includes("watch")) {
       return {
         language: "Terminal",
@@ -4418,6 +6398,19 @@ function getCodeSampleGuidance(sample) {
   };
 }
 
+function getModuleAudit() {
+  const guidedModules = tutorials.filter((tutorial) => moduleTours[tutorial.title]).length;
+  const practiceModules = tutorials.filter((tutorial) => modulePractices[tutorial.title]).length;
+  const modulesWithImages = tutorials.filter((tutorial) => Boolean(getModuleImage(tutorial))).length;
+
+  return {
+    guidedModules,
+    practiceModules,
+    modulesWithImages,
+    totalModules: tutorials.length,
+  };
+}
+
 function getCommentPrefix(language) {
   return language === "HTML" ? "<!--" : language === "Terminal" || language === "Git" ? "#" : "/*";
 }
@@ -4479,6 +6472,17 @@ function isDeveloperTour(tour) {
     tour.key.startsWith("deploy") ||
     tour.key.startsWith("bem") ||
     tour.key.startsWith("scss") ||
+    tour.key.startsWith("liquid") ||
+    tour.key.startsWith("snippet") ||
+    tour.key.startsWith("metafields") ||
+    tour.key.startsWith("performance") ||
+    tour.key.startsWith("accessibility") ||
+    tour.key.startsWith("themeSettings") ||
+    tour.key.startsWith("cartDrawer") ||
+    tour.key.startsWith("jsonTemplates") ||
+    tour.key.startsWith("vanillaAjax") ||
+    tour.key.startsWith("seoStructuredData") ||
+    tour.key === "dynamicSection" ||
     tour.key === "projectFiles"
   );
 }
@@ -4505,6 +6509,16 @@ function getModuleStatus(tutorial) {
   }
 
   return tutorial.tool === "admin" ? "Start here" : "Not started";
+}
+
+function getModuleCompletionPercent(tutorial) {
+  const tour = moduleTours[tutorial.title];
+
+  if (!tour) {
+    return 0;
+  }
+
+  return Math.round((getCompletedSet(tour.key).size / tour.steps.length) * 100);
 }
 
 function getStatusClass(status) {
@@ -4623,6 +6637,9 @@ function renderCompletionDashboard() {
     ? Math.round((counts.completed / guidedTutorials.length) * 100)
     : 0;
   const nextModule = getNextGuidedModule();
+  const nextPercent = nextModule ? getModuleCompletionPercent(nextModule) : 100;
+  const nextTour = nextModule ? moduleTours[nextModule.title] : null;
+  const nextStep = nextTour ? getFirstIncompleteStepIndex(nextTour) + 1 : 0;
 
   overallProgressMetric.textContent = `${percent}%`;
   overallProgressBar.style.width = `${percent}%`;
@@ -4630,6 +6647,31 @@ function renderCompletionDashboard() {
   nextRecommendedModule.textContent = nextModule
     ? `Next recommended: ${nextModule.title}.`
     : "All guided beginner modules are complete.";
+  if (heroNextTitle) {
+    heroNextTitle.textContent = nextModule ? nextModule.title : "All guided modules complete";
+  }
+  if (heroNextDescription) {
+    heroNextDescription.textContent = nextModule
+      ? nextModule.description
+      : "The trainee has completed every guided module in the current path.";
+  }
+  if (heroNextStatus) {
+    heroNextStatus.textContent = nextModule ? getModuleStatus(nextModule) : "Complete";
+  }
+  if (heroNextProgress) {
+    heroNextProgress.textContent = `${nextPercent}%`;
+  }
+  if (heroNextMeta) {
+    heroNextMeta.textContent = nextTour
+      ? `Step ${nextStep} of ${nextTour.steps.length} ready`
+      : "Ready for final review";
+  }
+  if (heroContinueButton) {
+    heroContinueButton.disabled = !nextModule;
+    heroContinueButton.innerHTML = nextModule
+      ? '<i data-lucide="play"></i> Continue module'
+      : '<i data-lucide="check"></i> Complete';
+  }
   continueModuleButton.disabled = !nextModule;
   continueModuleButton.innerHTML = nextModule
     ? '<i data-lucide="play"></i> Continue'
@@ -4889,13 +6931,29 @@ function renderTutorials() {
   resultCount.textContent = `${visibleTutorials.length} ${
     visibleTutorials.length === 1 ? "module" : "modules"
   }${activeView === "sop" ? " in SOP view" : ""}`;
+  if (moduleAuditSummary) {
+    const audit = getModuleAudit();
+    const missingGuides = audit.totalModules - audit.guidedModules;
+    const missingPractice = audit.totalModules - audit.practiceModules;
+    const auditParts = [
+      `${audit.guidedModules}/${audit.totalModules} guided`,
+      `${audit.practiceModules}/${audit.totalModules} practice-ready`,
+      `${audit.modulesWithImages}/${audit.totalModules} with images`,
+    ];
+    if (missingGuides || missingPractice) {
+      auditParts.push(`${missingGuides + missingPractice} items to finish`);
+    } else {
+      auditParts.push("all core module data aligned");
+    }
+    moduleAuditSummary.textContent = auditParts.join(" · ");
+  }
 
   if (!visibleTutorials.length) {
     grid.innerHTML = `
       <div class="empty-state">
         <i data-lucide="search-x"></i>
-        <h3>No modules found</h3>
-        <p>Try clearing the search or choosing a different topic filter.</p>
+        <h3>No modules match</h3>
+        <p>Try Dashboard, Setup, BEM, SCSS, GitHub, CLI, or clear the active filters.</p>
         <button type="button" id="clearSearchButton">Clear search</button>
       </div>
     `;
@@ -4916,24 +6974,46 @@ function renderTutorials() {
 
   visibleTutorials.forEach((tutorial) => {
     const status = getModuleStatus(tutorial);
+    const completionPercent = getModuleCompletionPercent(tutorial);
+    const hasGuidedTour = Boolean(moduleTours[tutorial.title]);
     const card = document.createElement("button");
-    card.className = `tutorial-card ${selectedTitle === tutorial.title ? "is-selected" : ""}`;
+    card.className = `tutorial-card ${hasGuidedTour ? "is-guided" : "is-unguided"} ${
+      selectedTitle === tutorial.title ? "is-selected" : ""
+    }`;
     card.type = "button";
     card.innerHTML = `
-      <span class="card-top">
-        <span class="tool-tag ${tutorial.tool}">
-          <i data-lucide="${getToolIcon(tutorial.tool)}"></i>
-          ${formatTool(tutorial.tool)}
+      <span class="card-image">
+        <img src="${getModuleImage(tutorial)}" alt="${tutorial.title} preview" />
+        <span class="card-progress-dot" aria-hidden="true"></span>
+      </span>
+      <span class="module-card-body">
+        <span class="card-top">
+          <span class="tool-tag ${tutorial.tool}">
+            <i data-lucide="${getToolIcon(tutorial.tool)}"></i>
+            ${formatTool(tutorial.tool)}
+          </span>
+          <span class="module-status ${getStatusClass(status)}">${status}</span>
         </span>
-        <span class="module-status ${getStatusClass(status)}">${status}</span>
-      </span>
-      <span>
-        <h3>${tutorial.title}</h3>
-      </span>
-      <span class="card-meta">
-        <span>${tutorial.lessons} lessons</span>
-        <span>${tutorial.time}</span>
-        <span>${tutorial.level}</span>
+        <span class="module-card-copy">
+          <h3>${tutorial.title}</h3>
+          <p>${tutorial.description}</p>
+        </span>
+        <span class="module-card-footer">
+          <span class="module-guide-row">
+            <span class="module-guide-badge ${hasGuidedTour ? "is-ready" : "needs-guide"}">
+              <i data-lucide="${hasGuidedTour ? "route" : "triangle-alert"}"></i>
+              ${hasGuidedTour ? "Guided popup ready" : "Needs guided popup"}
+            </span>
+          </span>
+          <span class="card-meta">
+            <span>${tutorial.lessons} lessons</span>
+            <span>${tutorial.time}</span>
+            <span>${tutorial.level}</span>
+          </span>
+          <span class="module-card-progress" aria-label="${completionPercent}% complete">
+            <span style="width: ${completionPercent}%"></span>
+          </span>
+        </span>
       </span>
     `;
 
@@ -4953,10 +7033,27 @@ function renderTutorials() {
   }
 }
 
+function openNextGuidedModule() {
+  const nextModule = getNextGuidedModule();
+
+  if (!nextModule) {
+    return;
+  }
+
+  const tour = moduleTours[nextModule.title];
+  selectedTitle = nextModule.title;
+  activeTourTitle = nextModule.title;
+  activeTourStep = getFirstIncompleteStepIndex(tour);
+  updateDetail(nextModule);
+  renderTutorials();
+  renderSimpleTour();
+  dashboardTour.showModal();
+}
+
 function updateDetail(tutorial) {
   const practice = modulePractices[tutorial.title];
 
-  detail.image.src = tutorial.image;
+  detail.image.src = getModuleImage(tutorial);
   detail.image.alt = `${tutorial.title} preview`;
   detail.tool.textContent = formatTool(tutorial.tool);
   detail.tool.className = `tool-tag ${tutorial.tool}`;
@@ -4971,10 +7068,59 @@ function updateDetail(tutorial) {
   practiceTasks.innerHTML = practice.tasks.map((task) => `<li>${task}</li>`).join("");
   trainingStoreLink.href = TRAINING_STORE_URL;
   trainerNote.textContent = tutorial.trainerNote;
+  moduleImageRemoveButton.hidden = !getModuleImages()[tutorial.title];
 
   if (!moduleTours[tutorial.title] && dashboardTour.open) {
     dashboardTour.close();
   }
+}
+
+function setActiveTourPanel(panel) {
+  activeTourPanel = panel;
+  dashboardTour.dataset.activePanel = panel;
+  tourSectionTabs.forEach((button) => {
+    const isActive = button.dataset.tourPanel === panel;
+    button.classList.toggle("is-active", isActive);
+    button.setAttribute("aria-selected", String(isActive));
+  });
+}
+
+function buildPrintModuleHtml(tutorial) {
+  const tour = moduleTours[tutorial.title];
+  const steps = tour?.steps || [];
+
+  return `
+    <div class="print-module-header">
+      <p>KNB Web Solution Training SOP</p>
+      <h1>${tutorial.title}</h1>
+      <span>${tutorial.lessons} lessons • ${tutorial.time} • ${tutorial.level}</span>
+    </div>
+    <p class="print-module-description">${tutorial.description}</p>
+    <section>
+      <h2>Trainer Note</h2>
+      <p>${tutorial.trainerNote}</p>
+    </section>
+    <section>
+      <h2>Steps and Checks</h2>
+      ${steps
+        .map(
+          (step, index) => `
+            <article class="print-step">
+              <h3>${index + 1}. ${step.title}</h3>
+              <p>${step.description}</p>
+              <h4>Try Tasks</h4>
+              <ul>${step.tryTasks.map((task) => `<li>${task}</li>`).join("")}</ul>
+              <h4>Quick Check</h4>
+              <p>${step.question}</p>
+              <p><strong>Correct answer:</strong> ${step.correct}</p>
+              <h4>Trainer Guidance</h4>
+              <p>${getStepTrainerNote(step)}</p>
+            </article>
+          `,
+        )
+        .join("")}
+    </section>
+  `;
 }
 
 function renderSimpleTour() {
@@ -4989,6 +7135,7 @@ function renderSimpleTour() {
   const stepReady = isStepReady(tour, activeTourStep);
 
   dashboardTour.classList.remove("dashboard-tour-sandbox");
+  setActiveTourPanel(activeTourPanel);
   simpleTourLayout.hidden = false;
   tourActions.hidden = false;
   tourCompletion.hidden = true;
@@ -5015,8 +7162,9 @@ function renderSimpleTour() {
         HTML: "xml",
         CSS: "css",
         SCSS: "scss",
-        Liquid: "django",
+        Liquid: "xml",
         JSON: "json",
+        JavaScript: "javascript",
         Terminal: "bash",
         Git: "bash",
       }[codeSample.language] || "plaintext";
@@ -5104,7 +7252,7 @@ function renderSimpleTour() {
     ? "Correct. This check is complete."
     : "";
   miniFeedback.className = `mini-feedback ${passedChecks.has(activeTourStep) ? "is-correct" : ""}`;
-  miniAnswers.innerHTML = step.answers
+  miniAnswers.innerHTML = getShuffledAnswers(tour.key, activeTourStep, step.answers)
     .map(
       (answer) => `
         <button class="${passedChecks.has(activeTourStep) && answer === step.correct ? "is-correct" : ""}" type="button" data-answer="${answer}">
@@ -5243,6 +7391,10 @@ trainerModeToggle.addEventListener("change", () => {
   document.body.classList.toggle("trainer-mode", trainerModeToggle.checked);
 });
 
+copyProgressButton?.addEventListener("click", copyProgressJson);
+
+pasteProgressButton?.addEventListener("click", importProgressJson);
+
 traineeSelect.addEventListener("change", () => {
   activeTrainee = traineeSelect.value;
   if (typeof localStorage !== "undefined") {
@@ -5297,6 +7449,59 @@ screenshotUpload.addEventListener("change", () => {
   reader.readAsDataURL(file);
 });
 
+moduleImageUploadButton?.addEventListener("click", () => {
+  moduleImageUpload.click();
+});
+
+moduleImageRemoveButton?.addEventListener("click", () => {
+  const tutorial = tutorials.find((item) => item.title === selectedTitle);
+
+  if (!tutorial) {
+    return;
+  }
+
+  delete getModuleImages()[tutorial.title];
+  saveProgress();
+  updateDetail(tutorial);
+  renderTutorials();
+});
+
+moduleImageUpload?.addEventListener("change", () => {
+  const file = moduleImageUpload.files?.[0];
+  const tutorial = tutorials.find((item) => item.title === selectedTitle);
+
+  if (!file || !tutorial) {
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.addEventListener("load", () => {
+    getModuleImages()[tutorial.title] = reader.result;
+    saveProgress();
+    moduleImageUpload.value = "";
+    updateDetail(tutorial);
+    renderTutorials();
+  });
+  reader.readAsDataURL(file);
+});
+
+printModuleButton?.addEventListener("click", () => {
+  const tutorial = tutorials.find((item) => item.title === selectedTitle);
+
+  if (!tutorial || !printModuleView) {
+    return;
+  }
+
+  printModuleView.innerHTML = buildPrintModuleHtml(tutorial);
+  window.print();
+});
+
+tourSectionTabs.forEach((button) => {
+  button.addEventListener("click", () => {
+    setActiveTourPanel(button.dataset.tourPanel);
+  });
+});
+
 templateButtons.forEach((button) => {
   button.addEventListener("click", async () => {
     await navigator.clipboard.writeText(button.dataset.template);
@@ -5307,22 +7512,9 @@ templateButtons.forEach((button) => {
   });
 });
 
-continueModuleButton.addEventListener("click", () => {
-  const nextModule = getNextGuidedModule();
+continueModuleButton.addEventListener("click", openNextGuidedModule);
 
-  if (!nextModule) {
-    return;
-  }
-
-  const tour = moduleTours[nextModule.title];
-  selectedTitle = nextModule.title;
-  activeTourTitle = nextModule.title;
-  activeTourStep = getFirstIncompleteStepIndex(tour);
-  updateDetail(nextModule);
-  renderTutorials();
-  renderSimpleTour();
-  dashboardTour.showModal();
-});
+heroContinueButton?.addEventListener("click", openNextGuidedModule);
 
 previousTourItem.addEventListener("click", () => {
   activeTourStep = Math.max(0, activeTourStep - 1);
@@ -5398,13 +7590,13 @@ window.addEventListener("DOMContentLoaded", () => {
 
   const heroModuleCount = document.querySelector("#heroModuleCount");
   const heroPopupCount = document.querySelector("#heroPopupCount");
-  if (heroModuleCount) heroModuleCount.textContent = tutorials.length;
-  if (heroPopupCount) {
-    const popupTotal = Object.values(moduleTours).reduce(
+  if (heroPopupCount) heroPopupCount.textContent = Object.keys(moduleTours).length;
+  if (heroModuleCount) {
+    const stepTotal = Object.values(moduleTours).reduce(
       (sum, tour) => sum + (tour.steps ? tour.steps.length : 0),
       0,
     );
-    heroPopupCount.textContent = popupTotal;
+    heroModuleCount.textContent = stepTotal;
   }
 
   traineeSelect.value = activeTrainee;
